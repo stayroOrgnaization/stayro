@@ -1,8 +1,75 @@
+import { useState } from "react";
 import "../../Styles/globals.css";
 import Image from "next/image";
 import SignUpPic from "../../../public/SignUpPic.svg";
 
 const SignUp = () => {
+  // form field state
+  const [formData, setFormData] = useState({
+    countryCode: "+966",
+    phone: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
+
+  // Handle input change
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  // Handle form submission
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    // Optional: Validate form fields (e.g., check if passwords match)
+    if (formData.password !== formData.confirmPassword) {
+      alert("Passwords do not match");
+      return;
+    }
+
+    // Prepare data to send to the API
+    const dataToSend = {
+      country_code: formData.countryCode,
+      phone: formData.phone,
+      email: formData.email,
+      password: formData.password,
+    };
+
+    try {
+      // Send POST request to the backend
+      const response = await fetch(
+        "https://api.stayro.com/ar/auth/api/register/",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(dataToSend),
+        }
+      );
+
+      // Check for successful response
+      if (response.ok) {
+        const responseData = await response.json();
+        console.log("User registered successfully:", responseData);
+        // Redirect or show a success message here
+      } else {
+        // Handle errors
+        const errorData = await response.json();
+        console.error("Error registering user:", errorData);
+        alert("Registration failed: " + errorData.message);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      alert("An error occurred during registration");
+    }
+  };
+
   return (
     <div className="flex justify-center bg-FFFFFF ">
       <div className="login side w-[50%] h-full ">
