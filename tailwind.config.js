@@ -20,6 +20,9 @@ module.exports = {
       height: {
         'n-h': '99px', // Custom height 99px
       },
+      fontFamily: {
+        tajawal: ["Tajawal"],
+      },
     },
   },
   plugins: [ require('tailwind-scrollbar-hide'),],
