@@ -1,14 +1,21 @@
+// import { ThemeProvider } from 'next-themes';
 import "./globals.css";
 import Head from "next/head";
+import {Tajawal} from "next/font/google";
 
 export const metadata = {
   title: "styro",
   description: "styro frontend",
 };
 
+
+const tajawal = Tajawal({  weight: '400',
+subsets: ['arabic'],
+variable: '--font-Tajawal'});
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+
       <Head>
         {/* Add the Google Fonts link here */}
         <link
@@ -16,7 +23,10 @@ export default function RootLayout({ children }) {
           rel="stylesheet"
         />
       </Head>
-      <body>{children}</body>
+      <body className={tajawal.className}>
+        {children}
+</body>
+
     </html>
   );
 }
