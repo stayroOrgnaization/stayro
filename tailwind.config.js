@@ -13,6 +13,8 @@ module.exports = {
         foreground: "var(--foreground)",
         stayro: '#FF5B2D',
         dbg: '#1A1A1A',
+        fcolor:'#F5F5F5',
+        
         
       },
       height: {
@@ -20,5 +22,5 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [ require('tailwind-scrollbar-hide'),],
 };

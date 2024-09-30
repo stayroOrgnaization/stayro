@@ -1,18 +1,26 @@
-import Navbar from './components/Navbar'; // Import the Navbar component
-import Footer from './components/Footer'; // Import the Footer component
+// src/app/page.js
+import {Tajawal} from 'next/font/google' // Import localFont from next/font/local
+import Navbar from './components/Navbar.jsx';
+import Footer from './components/Footer.jsx';
+
+// Load the font from the 'public/fonts' directory
+const tajawal = Tajawal({ // Adjust the path as needed
+  subsets: ['arabic'],
+  weight: ['400', '700'],
+  preload: false,
+});
 
 export default function Home() {
   return (
-    <div className="grid grid-rows-[auto_1fr_auto] items-center justify-items-center min-h-screen  gap-16 sm: font-[family-name:var(--font-geist-sans)]">
-      <header className="w-full">
-        <Navbar /> {/* Add the Navbar here */}
-      </header>
+    <div>
+     <Navbar/>
 
-      <main className="items-center">
+      <main className='overflow-y-scroll scrollbar-hide '>
         <p>stayro</p>
       </main>
 
-      <Footer /> {/* Footer at the bottom */}
+      
+    <Footer/>
     </div>
   );
 }
