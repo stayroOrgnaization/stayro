@@ -3,6 +3,7 @@ import "../../Styles/globals.css";
 import Image from "next/image";
 import SignUpPic from "../../../public/SignUpPic.svg";
 import Navbar from "../../../src/app/components/Navbar";
+import Footer from "@/app/components/Footer";
 
 const SignUp = () => {
   // form field state
@@ -124,16 +125,13 @@ const SignUp = () => {
             onSubmit={handleSubmit}
             className="border border-slate-200 rounded-lg w-[517px] h-auto mx-10 mt-40"
           >
-            <div className=" font-tajawal text-center text-lg font-bold text-black mx-2 mt-3">
+            <div className=" text-center text-lg font-bold text-black mx-2 mt-3">
               تسجيل الدخول{" "}
             </div>
             <div className="flex flex-col items-end">
               <div className="telephone input flex flex-col mt-8">
-                <label className=" font-tajawal text-right mx-2">
-                  {" "}
-                  رقم الهاتف
-                </label>
-                <div className=" space-x-1 mx-6">
+                <label className=" text-right mx-2"> رقم الهاتف</label>
+                <div className="flex justify-end space-x-2">
                   <select
                     name="countryCode"
                     className=" bg-[#F5F5F5] border rounded-lg h-10 mt-3 w-[88px] h-[48px] text-gray-700"
@@ -147,7 +145,7 @@ const SignUp = () => {
                     placeholder="ادخل رقم هاتفك"
                     required
                     type="tel"
-                    className=" border bg-[#F5F5F5] text-gray-700 rounded-lg mt-3 w-[375px] h-[48px]"
+                    className="text-right border bg-[#F5F5F5] text-gray-700 rounded-lg mt-3 w-[375px] h-[48px]"
                   />
                 </div>
                 {/* {phoneError && (
@@ -167,7 +165,7 @@ const SignUp = () => {
                   value={formData.email}
                   onChange={handleInputChange}
                   placeholder="أدخل البريد الالكتروني الخاص بك"
-                  className="border bg-[#F5F5F5] text-gray-700 rounded-lg mt-3 mx-6 w-[469px] h-[48px] "
+                  className=" text-right border bg-[#F5F5F5] text-gray-700 rounded-lg mt-3 mx-6 w-[469px] h-[48px] "
                 />
               </div>
 
@@ -183,7 +181,7 @@ const SignUp = () => {
                   onChange={handleInputChange}
                   placeholder="أدخل كلمة المرور"
                   required
-                  className="border bg-[#F5F5F5] text-gray-700 rounded-lg mt-3 mx-6 w-[469px] h-[48px]"
+                  className=" text-right border bg-[#F5F5F5] text-gray-700 rounded-lg mt-3 mx-6 w-[469px] h-[48px]"
                 />
               </div>
 
@@ -199,7 +197,7 @@ const SignUp = () => {
                   onChange={handleInputChange}
                   required
                   placeholder="أعد كتابة كلمة المرور"
-                  className=" border bg-[#F5F5F5] text-gray-700 rounded-lg mt-3 mx-6 w-[469px] h-[48px]"
+                  className="text-right border bg-[#F5F5F5] text-gray-700 rounded-lg mt-3 mx-6 w-[469px] h-[48px]"
                 />
               </div>
 
@@ -238,6 +236,7 @@ const SignUp = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </>
   );
 };

@@ -22,7 +22,7 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="grid grid-rows-[auto_1fr_auto] items-center justify-items-center min-h-screen gap-16 my-8 mx-[75px]">
+    <nav className="grid grid-rows-[auto_1fr_auto] items-center justify-items-center mx-[75px]">
       <div className="container flex justify-between items-center py-2 px-3 ">
         <div className="flex row w-auto">
           <UserImage apiEndpoint={apiEndpoint} token={token} />
