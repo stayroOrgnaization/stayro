@@ -4,17 +4,17 @@ import ThemeToggle from "./ThemeToggle";
 import SearchButton from "./SearchButton";
 import LoginButton from "./LoginButton";
 import Logo from "./Logo";
-import UserImage from './UserImage';
+import UserImage from "./UserImage";
 
 export default function Navbar() {
-  const apiEndpoint = '/api/user'; // Adjust to your actual API endpoint
-  const token = 'your-auth-token'; // Replace with the actual token retrieval logic
+  const apiEndpoint = "/api/user"; // Adjust to your actual API endpoint
+  const token = "your-auth-token"; // Replace with the actual token retrieval logic
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
-  const [activeLink, setActiveLink] = useState('الرئيسية');
+  const [activeLink, setActiveLink] = useState("الرئيسية");
 
   // Function to handle click event and set the active link
   const handleLinkClick = (linkName) => {
@@ -23,66 +23,65 @@ export default function Navbar() {
 
   return (
     <nav className="grid grid-rows-[auto_1fr_auto] items-center justify-items-center min-h-screen gap-16 my-8 mx-[75px]">
-
       <div className="container flex justify-between items-center py-2 px-3 ">
         <div className="flex row w-auto">
-        <UserImage apiEndpoint={apiEndpoint} token={token} />
-          <SearchButton/>
-        <ThemeToggle />
+          <UserImage apiEndpoint={apiEndpoint} token={token} />
+          <SearchButton />
+          <ThemeToggle />
         </div>
-      
+
         {/* Logo */}
         <div className="text-stayro "> </div>
 
         {/* Desktop Menu */}
         <div className="hidden md:flex  custom-font pr-24">
-        <a
-        href="#"
-        onClick={() => handleLinkClick('المحادثات')}
-        className={`mr-8 py-1 no-underline tracking-wide transition text-sm duration-700 ease-in-out ${
-          activeLink === 'المحادثات'
-            ? 'border-b-2 border-fcolor text-fcolor -translate-y-[4px]'
-            : 'border-b-2 border-transparent opacity-50'
-        }`}
-      >
-        المحادثات
-      </a>
-      <a
-        href="#"
-        onClick={() => handleLinkClick('الحجوزات')}
-        className={`mr-8 py-1 no-underline tracking-wide transition text-sm duration-700 ease-in-out ${
-          activeLink === 'الحجوزات'
-            ? 'border-b-2 border-fcolor  text-fcolor -translate-y-[4px]'
-            : 'border-b-2 border-transparent opacity-50'
-        }`}
-      >
-        الحجوزات
-      </a>
-      <a
-        href="#"
-        onClick={() => handleLinkClick('المساكن')}
-        className={`mr-8 py-1 no-underline tracking-wide transition text-sm duration-700 ease-in-out ${
-          activeLink === 'المساكن'
-            ? 'border-b-2 border-fcolor  text-fcolor -translate-y-[4px]'
-            : 'border-b-2 border-transparent opacity-50'
-        }`}
-      >
-        المساكن
-      </a>
-      <a
-        href="#"
-        onClick={() => handleLinkClick('الرئيسية')}
-        className={`mr-8 py-1 no-underline tracking-wide transition text-sm duration-700 ease-in-out ${
-          activeLink === 'الرئيسية'
-            ? 'border-b-2 border-fcolor  text-fcolor -translate-y-[4px]'
-            : 'border-b-2 border-transparent opacity-50'
-        }`}
-      >
-        الرئيسية
-      </a>
+          <a
+            href="#"
+            onClick={() => handleLinkClick("المحادثات")}
+            className={`mr-8 py-1 no-underline tracking-wide transition text-sm duration-700 ease-in-out ${
+              activeLink === "المحادثات"
+                ? "border-b-2 border-fcolor text-fcolor -translate-y-[4px]"
+                : "border-b-2 border-transparent opacity-50"
+            }`}
+          >
+            المحادثات
+          </a>
+          <a
+            href="#"
+            onClick={() => handleLinkClick("الحجوزات")}
+            className={`mr-8 py-1 no-underline tracking-wide transition text-sm duration-700 ease-in-out ${
+              activeLink === "الحجوزات"
+                ? "border-b-2 border-fcolor  text-fcolor -translate-y-[4px]"
+                : "border-b-2 border-transparent opacity-50"
+            }`}
+          >
+            الحجوزات
+          </a>
+          <a
+            href="#"
+            onClick={() => handleLinkClick("المساكن")}
+            className={`mr-8 py-1 no-underline tracking-wide transition text-sm duration-700 ease-in-out ${
+              activeLink === "المساكن"
+                ? "border-b-2 border-fcolor  text-fcolor -translate-y-[4px]"
+                : "border-b-2 border-transparent opacity-50"
+            }`}
+          >
+            المساكن
+          </a>
+          <a
+            href="#"
+            onClick={() => handleLinkClick("الرئيسية")}
+            className={`mr-8 py-1 no-underline tracking-wide transition text-sm duration-700 ease-in-out ${
+              activeLink === "الرئيسية"
+                ? "border-b-2 border-fcolor  text-fcolor -translate-y-[4px]"
+                : "border-b-2 border-transparent opacity-50"
+            }`}
+          >
+            الرئيسية
+          </a>
         </div>
         <div className="text-stayro text-xl font-bold ">
-          <Logo dir='ltr' />
+          <Logo dir="ltr" />
         </div>
         {/* Hamburger Icon */}
         <div className="md:hidden">
