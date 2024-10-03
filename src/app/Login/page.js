@@ -1,9 +1,11 @@
+"use client";
 import { useState, useEffect } from "react";
-import "../../Styles/globals.css";
+import "../Styles/globals.css";
 import Image from "next/image";
-import Calendar from "../../../public/CalendarPic.svg";
+import Calendar from "../../../public/CalendarPic.png";
 import Navbar from "@/app/components/Navbar";
 import Footer from "@/app/components/Footer";
+import Link from "next/link";
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -73,13 +75,13 @@ const Login = () => {
   return (
     <>
       <Navbar />
-      <div className="flex justify-center bg-FFFFFF ">
-        <div className="login side mx-10 mt-40  w-[65%] h-full ">
-          <form className="border border-slate-200 rounded-lg w-[50%] h-[100%]">
+      <div className="flex justify-center bg-dbg mt-12">
+        <div className="login side  mx-10 mt-20  w-[65%] h-full md:flex-col ">
+          <form className="border  ml-32 border-[#303030] rounded-[20px] w-[50%] h-[100%]">
             {/* {errorMessage && (
             <p className="text-red-500 text-center mt-2">{errorMessage}</p>
           )} */}
-            <div className="text-center text-lg font-bold text-white mx-2 mt-3">
+            <div className="text-center text-lg font-bold text-gray-100 mx-2 mt-3">
               تسجيل الدخول{" "}
             </div>
             <div className="telephone input flex flex-col mt-8">
@@ -87,16 +89,16 @@ const Login = () => {
               <div className="flex justify-end space-x-2 mx-2">
                 <select
                   name="countryCode"
-                  className=" bg-[#F5F5F5] border rounded-lg h-10 mt-3 w-[88px] h-[48px] text-gray-700"
+                  className="bg-[#757575] opacity-5  border-[#303030] rounded-[12px]  h-10 mt-3  h-[48px] text-gray-100!"
                 >
-                  <option value="+966"> (KSA)</option>
+                  <option className="text-gray-100" value="+966"> (KSA)</option>
                 </select>
                 <input
                   type="tel"
                   name="phone"
                   value={formData.phone}
                   onChange={handleInputChange}
-                  className="text-right border bg-[#F5F5F5] text-gray-700 rounded-lg mt-3 w-[375px] h-[48px]"
+                  className="text-right border bg-[#757575] opacity-5 text-gray-100 rounded-[12px] mt-3 w-[340px] h-[48px]"
                 />
               </div>
             </div>
@@ -107,7 +109,7 @@ const Login = () => {
                 name="password"
                 value={formData.password}
                 onChange={handleInputChange}
-                className="text-right border bg-[#F5F5F5] text-gray-700 rounded-lg mt-3 mx-2 w-[428px] h-[48px]"
+                className="text-right border bg-[#757575] opacity-5 text-gray-100 rounded-[12px] mt-3 mx-2 w-[295px] h-[48px]"
                 required
               />
             </div>
@@ -117,21 +119,22 @@ const Login = () => {
             <div className="flex justify-center">
               <button
                 type="submit"
-                className="w-[90%] border bg-orange-600 rounded mx-2 mt-4 w-[469px] h-10"
+                className="w-[90%] border-[#303030] bg-stayro rounded-[12px] mx-2 mt-4 w-[469px] h-10"
               >
                 تسجيل الدخول
               </button>
             </div>
 
             <div className="mt-4 mx-2 mb-4 flex justify-end space-x-2 ">
-              <p>تسجيل جديد</p>
+              <Link href='/SignUp'>تسجيل جديد</Link>
               <p>هل لديك حساب جديد؟ </p>
             </div>
           </form>
         </div>
-        <div className="pic side mt-20 mx-20 ">
+        <div class="h-[100vh] w-[1px] bg-gray-500"></div>
+        <div className="pic side mt-20 mx-36 ">
           <div>
-            <h3 className="font-bold text-4xl text-white text-center ">
+            <h3 className="font-bold text-4xl text-gray-100 text-center ">
               {" "}
               احجز براحة، اختر ستيرو
             </h3>
@@ -140,6 +143,7 @@ const Login = () => {
               اكتشف تجربة مميزة للحجوزات
             </p>
           </div>
+          
           <div className="mt-20 ">
             <Image
               src={Calendar}
@@ -151,7 +155,6 @@ const Login = () => {
           </div>
         </div>
       </div>
-      <Footer />
     </>
   );
 };

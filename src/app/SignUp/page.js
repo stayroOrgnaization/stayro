@@ -1,9 +1,11 @@
+'use client';
 import { useEffect, useState } from "react";
-import "../../Styles/globals.css";
+import "../Styles/globals.css";
 import Image from "next/image";
-import SignUpPic from "../../../public/SignUpPic.svg";
-import Navbar from "../../../src/app/components/Navbar";
+import SignUpPic from "../../../public/SignUpPic.png";
 import Footer from "@/app/components/Footer";
+import Navbar from "../components/Navbar";
+import Link from "next/link";
 
 const SignUp = () => {
   // form field state
@@ -111,7 +113,7 @@ const SignUp = () => {
 
   return (
     <>
-      <Navbar />
+    <Navbar />
       <div className="flex justify-center bg-FFFFFF mt-0 ">
         <div className="login side w-[65%] h-full ">
           <div className="">
@@ -123,20 +125,20 @@ const SignUp = () => {
           </div>
           <form
             onSubmit={handleSubmit}
-            className="border border-slate-200 rounded-lg w-[517px] h-auto mx-10 mt-40"
+            className="border border-[#303030] rounded-[20px] w-[570px] h-auto mx-10 my-12 py-2 px-8"
           >
-            <div className=" text-center text-lg font-bold text-black mx-2 mt-3">
+            <div className=" text-center text-lg font-bold text-gray-100 mx-2 mt-3">
               تسجيل الدخول{" "}
             </div>
             <div className="flex flex-col items-end">
-              <div className="telephone input flex flex-col mt-8">
+              <div className="telephone input flex flex-col mt-8 mr-6">
                 <label className=" text-right mx-2"> رقم الهاتف</label>
-                <div className="flex justify-end space-x-2">
+                <div className="flex justify-center align-center space-x-2">
                   <select
                     name="countryCode"
-                    className=" bg-[#F5F5F5] border rounded-lg h-10 mt-3 w-[88px] h-[48px] text-gray-700"
+                    className=" bg-[#757575] opacity-5  border-[#303030] rounded-[12px] h-10 mt-3 w-[88px] h-[48px] text-gray-100"
                   >
-                    <option value="+966">+966 (KSA)</option>
+                    <option className="text-gray-100" value="+966">+966 (KSA)</option>
                   </select>
                   <input
                     name="phone"
@@ -145,7 +147,7 @@ const SignUp = () => {
                     placeholder="ادخل رقم هاتفك"
                     required
                     type="tel"
-                    className="text-right border bg-[#F5F5F5] text-gray-700 rounded-lg mt-3 w-[375px] h-[48px]"
+                    className="text-right border bg-[#757575] opacity-5 text-gray-100 rounded-[12px] mt-3 w-[375px] h-[48px]"
                   />
                 </div>
                 {/* {phoneError && (
@@ -154,7 +156,7 @@ const SignUp = () => {
               </div>
 
               <div className="flex flex-col mt-8 ">
-                <label className="font-tajawal text-right mx-2">
+                <label className=" text-right mx-2">
                   {" "}
                   البريد الالكتروني
                 </label>
@@ -165,12 +167,12 @@ const SignUp = () => {
                   value={formData.email}
                   onChange={handleInputChange}
                   placeholder="أدخل البريد الالكتروني الخاص بك"
-                  className=" text-right border bg-[#F5F5F5] text-gray-700 rounded-lg mt-3 mx-6 w-[469px] h-[48px] "
+                  className=" text-right border bg-[#757575] opacity-5 text-gray-100 rounded-[12px] mt-3 mx-6 w-[469px] h-[48px] "
                 />
               </div>
 
               <div className="password input flex flex-col mt-5">
-                <label className="font-tajawal text-right mx-2">
+                <label className=" text-right mx-2">
                   {" "}
                   كلمة المرور
                 </label>
@@ -181,12 +183,12 @@ const SignUp = () => {
                   onChange={handleInputChange}
                   placeholder="أدخل كلمة المرور"
                   required
-                  className=" text-right border bg-[#F5F5F5] text-gray-700 rounded-lg mt-3 mx-6 w-[469px] h-[48px]"
+                  className=" text-right border bg-[#757575] opacity-5 text-text-gray-100 rounded-[12px] mt-3 mx-6 w-[469px] h-[48px]"
                 />
               </div>
 
               <div className="password input flex flex-col mt-5">
-                <label className=" font-tajawal text-right mx-2">
+                <label className="  text-right mx-2">
                   {" "}
                   أعد كلمة المرور
                 </label>
@@ -197,31 +199,32 @@ const SignUp = () => {
                   onChange={handleInputChange}
                   required
                   placeholder="أعد كتابة كلمة المرور"
-                  className="text-right border bg-[#F5F5F5] text-gray-700 rounded-lg mt-3 mx-6 w-[469px] h-[48px]"
+                  className="text-right border bg-[#757575] opacity-5 text-text-gray-100 rounded-[12px] mt-3 mx-6 w-[469px] h-[48px]"
                 />
               </div>
 
               <button
                 type="submit"
-                className=" border bg-orange-600 rounded-lg  mt-8 mx-6 w-[469px] h-[65px]"
+                className=" border bg-orange-600 rounded-[12px]  mt-8 mx-6 w-[469px] h-[65px]"
               >
                 تسجيل الدخول
               </button>
             </div>
 
             <div className="mt-4 mx-2 mb-4 flex justify-end space-x-2 ">
-              <p className="font-tajawal">تسجيل الدخول </p>
-              <p className="font-tajawal">هل لديك حساب ؟ </p>
+              <Link href="/Login">تسجيل الدخول </Link>
+              <p className="">هل لديك حساب ؟ </p>
             </div>
           </form>
         </div>
+        <div class="h-[100vh] w-[1px] bg-gray-500"></div>
         <div className="pic side mt-20 mx-20 ">
           <div>
-            <h3 className="font-bold text-4xl text-black text-center font-tajawal">
+            <h3 className="font-bold text-4xl text-gray-100 text-center ">
               {" "}
               احجز براحة، اختر ستيرو
             </h3>
-            <p className="font-normal text-lg text-gray-400 text-center mt-5 font-tajawal">
+            <p className="font-normal text-lg text-gray-100 text-center mt-5 ">
               {" "}
               اكتشف تجربة مميزة للحجوزات
             </p>
@@ -236,7 +239,6 @@ const SignUp = () => {
           </div>
         </div>
       </div>
-      <Footer />
     </>
   );
 };

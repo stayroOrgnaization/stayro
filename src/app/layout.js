@@ -1,5 +1,5 @@
 // import { ThemeProvider } from 'next-themes';
-import "./globals.css";
+import "./Styles/globals.css";
 import Head from "next/head";
 import {Tajawal} from "next/font/google";
 

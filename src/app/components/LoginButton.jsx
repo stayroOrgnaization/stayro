@@ -1,11 +1,18 @@
-"use client";
+'use client'; // Necessary for using client-side hooks like useRouter
 import React from "react";
+import { useRouter } from 'next/navigation'; // Import useRouter from next/navigation
 
-const LoginButton = ({ onClick }) => {
+const LoginButton = () => {
+  const router = useRouter(); // Initialize useRouter hook
+
+  const handleLoginClick = () => {
+    router.push('/Login'); // Navigate to the login page
+  };
+
   return (
     <button
-      onClick={onClick}
-      className="flex items-center justify-center px-4 py-1 mr-2 bg-stayro text-fcolor rounded-md shadow-md hover:bg-opacity-90 transition duration-300"
+      onClick={handleLoginClick} // Call the function when the button is clicked
+      className="w-[171px] h-[54px] flex items-center justify-center px-4 py-1 mr-2 bg-stayro text-gray-100 rounded-[20px] shadow-md hover:bg-opacity-90 transition duration-300"
     >
       {/* Arrow Icon */}
       <span className="mr-2">
@@ -16,20 +23,20 @@ const LoginButton = ({ onClick }) => {
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <g clip-path="url(#clip0_5009_14303)">
+          <g clipPath="url(#clip0_5009_14303)">
             <path
               d="M6.69922 2.12305L1.76371 7.05855L6.69922 11.9941"
               stroke="white"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             />
             <path
               d="M1.76568 7.0586L12.2656 7.05859"
               stroke="white"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             />
           </g>
           <defs>
@@ -45,7 +52,7 @@ const LoginButton = ({ onClick }) => {
         </svg>
       </span>
       {/* Text */}
-      <span className="pt-1 text-sm">تسجيل الدخول</span>
+      <span className="pt-1 text-sm flex no-wrap row font-bold">تسجيل الدخول</span>
     </button>
   );
 };

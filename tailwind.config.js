@@ -17,6 +17,9 @@ module.exports = {
         
         
       },
+      opacity: {
+        '5': '0.05', // 5% opacity
+      },
       height: {
         'n-h': '99px', // Custom height 99px
       },
