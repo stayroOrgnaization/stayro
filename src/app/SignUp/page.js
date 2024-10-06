@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import { useEffect, useState } from "react";
 import "../Styles/globals.css";
 import Image from "next/image";
@@ -113,16 +113,16 @@ const SignUp = () => {
 
   return (
     <>
-    <Navbar />
+      <Navbar />
       <div className="flex justify-center bg-FFFFFF mt-0 ">
         <div className="login side w-[65%] h-full ">
-          <div className="">
+          {/* <div className="">
             {passwordError && (
               <p className="text-red-600 text-sm ">
                 كلمتا المرور غير متطابقتين
               </p>
             )}{" "}
-          </div>
+          </div> */}
           <form
             onSubmit={handleSubmit}
             className="border border-[#303030] rounded-[20px] w-[570px] h-auto mx-10 my-12 py-2 px-8"
@@ -138,7 +138,9 @@ const SignUp = () => {
                     name="countryCode"
                     className=" bg-[#757575] opacity-5  border-[#303030] rounded-[12px] h-10 mt-3 w-[88px] h-[48px] text-gray-100"
                   >
-                    <option className="text-gray-100" value="+966">+966 (KSA)</option>
+                    <option className="text-gray-100" value="+966">
+                      +966 (KSA)
+                    </option>
                   </select>
                   <input
                     name="phone"
@@ -156,10 +158,7 @@ const SignUp = () => {
               </div>
 
               <div className="flex flex-col mt-8 ">
-                <label className=" text-right mx-2">
-                  {" "}
-                  البريد الالكتروني
-                </label>
+                <label className=" text-right mx-2"> البريد الالكتروني</label>
 
                 <input
                   type="email"
@@ -172,10 +171,7 @@ const SignUp = () => {
               </div>
 
               <div className="password input flex flex-col mt-5">
-                <label className=" text-right mx-2">
-                  {" "}
-                  كلمة المرور
-                </label>
+                <label className=" text-right mx-2"> كلمة المرور</label>
                 <input
                   type="password"
                   name="password"
@@ -188,10 +184,7 @@ const SignUp = () => {
               </div>
 
               <div className="password input flex flex-col mt-5">
-                <label className="  text-right mx-2">
-                  {" "}
-                  أعد كلمة المرور
-                </label>
+                <label className="  text-right mx-2"> أعد كلمة المرور</label>
                 <input
                   type="password"
                   name="confirmPassword"
@@ -199,7 +192,7 @@ const SignUp = () => {
                   onChange={handleInputChange}
                   required
                   placeholder="أعد كتابة كلمة المرور"
-                  className="text-right border bg-[#757575] opacity-5 text-text-gray-100 rounded-[12px] mt-3 mx-6 w-[469px] h-[48px]"
+                  className="text-right border bg-[#757575] opacity-5 text-gray-100 rounded-[12px] mt-3 mx-6 w-[469px] h-[48px]"
                 />
               </div>
 
@@ -217,7 +210,7 @@ const SignUp = () => {
             </div>
           </form>
         </div>
-        <div class="h-[100vh] w-[1px] bg-gray-500"></div>
+        <div class="h-[100vh] w-[0.5px] bg-[#303030]"></div>
         <div className="pic side mt-20 mx-20 ">
           <div>
             <h3 className="font-bold text-4xl text-gray-100 text-center ">
@@ -239,6 +232,7 @@ const SignUp = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </>
   );
 };

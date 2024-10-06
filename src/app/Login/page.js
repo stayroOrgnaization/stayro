@@ -91,7 +91,10 @@ const Login = () => {
                   name="countryCode"
                   className="bg-[#757575] opacity-5  border-[#303030] rounded-[12px]  h-10 mt-3  h-[48px] text-gray-100!"
                 >
-                  <option className="text-gray-100" value="+966"> (KSA)</option>
+                  <option className="text-gray-100" value="+966">
+                    {" "}
+                    (KSA)
+                  </option>
                 </select>
                 <input
                   type="tel"
@@ -102,14 +105,14 @@ const Login = () => {
                 />
               </div>
             </div>
-            <div className="password input flex flex-col mt-5">
+            <div className="password input flex flex-col items-end mt-5">
               <label className="text-right mx-2"> كلمة السر</label>
               <input
                 type="password"
                 name="password"
                 value={formData.password}
                 onChange={handleInputChange}
-                className="text-right border bg-[#757575] opacity-5 text-gray-100 rounded-[12px] mt-3 mx-2 w-[295px] h-[48px]"
+                className="text-right border bg-[#757575] opacity-5 text-gray-100 rounded-[12px] mt-3 mx-2 w-[390px] h-[48px]"
                 required
               />
             </div>
@@ -119,19 +122,19 @@ const Login = () => {
             <div className="flex justify-center">
               <button
                 type="submit"
-                className="w-[90%] border-[#303030] bg-stayro rounded-[12px] mx-2 mt-4 w-[469px] h-10"
+                className="w-[90%] border-[#303030] bg-stayro rounded-[12px] mx-2 mt-4 w-[469px] h-12"
               >
                 تسجيل الدخول
               </button>
             </div>
 
             <div className="mt-4 mx-2 mb-4 flex justify-end space-x-2 ">
-              <Link href='/SignUp'>تسجيل جديد</Link>
+              <Link href="/SignUp">تسجيل جديد</Link>
               <p>هل لديك حساب جديد؟ </p>
             </div>
           </form>
         </div>
-        <div class="h-[100vh] w-[1px] bg-gray-500"></div>
+        <div class="h-[100vh] w-[0.5px] bg-[#303030]"></div>
         <div className="pic side mt-20 mx-36 ">
           <div>
             <h3 className="font-bold text-4xl text-gray-100 text-center ">
@@ -143,7 +146,7 @@ const Login = () => {
               اكتشف تجربة مميزة للحجوزات
             </p>
           </div>
-          
+
           <div className="mt-20 ">
             <Image
               src={Calendar}
@@ -155,6 +158,7 @@ const Login = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </>
   );
 };
