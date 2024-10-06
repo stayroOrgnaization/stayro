@@ -7,7 +7,7 @@ import LockPic from "../../../public/lockPic.svg";
 import { useRef } from "react";
 import { useState, useEffect } from "react";
 
-const verify = () => {
+const setPassword = () => {
   // for the code verification focus and move
   const inputRefs = useRef([]);
 
@@ -46,7 +46,7 @@ const verify = () => {
       <Navbar />
       <div className="flex justify-center bg-FFFFFF mt-0 ">
         <div className="loginVerify-side w-[40%] h-full mt-20 mx-40 ">
-          <form className="border border-[#303030] rounded-[20px] w-[450px] h-[450px] mx-10 my-12 py-2 px-8 flex justify-center items-center">
+          <form className="border border-[#303030] rounded-[20px] w-[450px] h-[470px] mx-10 my-12 py-2 px-8 flex justify-center items-center">
             <div>
               <div className="flex justify-center mt-4">
                 <Image
@@ -57,9 +57,9 @@ const verify = () => {
                 ></Image>
               </div>
 
-              <h2 className=" text-2xl font-bold mt-2">رمز التحقق</h2>
+              <h2 className=" text-2xl font-bold mt-2"> استعادة كلمة المرور</h2>
               <p className="mt-2 text-[#A2A2A2]">
-                فضلا أدخل رمز التحقق المرسل على
+                أدخل رمز التحقق المرسل على رقم الهاتف التالي
               </p>
               <div className="space-x-4">
                 {[...Array(4)].map((_, idx) => (
@@ -85,10 +85,11 @@ const verify = () => {
               <p className="text-[#FF5B2D]">إعادة إرسال رمز التحقق</p>
               <button
                 type="submit"
-                className=" border bg-orange-600 rounded-[12px]  mt-8 mx-6 w-[400px] h-[59px]"
+                className=" border bg-orange-600 rounded-[12px]  mt-8 mx-6 w-[350px] h-[59px]"
               >
                 التالي
               </button>
+              <p className="mt-6">هل تراجعت؟ تسجيل الدخول</p>
             </div>
           </form>
         </div>
@@ -121,4 +122,4 @@ const verify = () => {
   );
 };
 
-export default verify;
+export default setPassword;
