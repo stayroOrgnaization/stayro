@@ -15,6 +15,7 @@ const Login = () => {
     email: "",
     role: "customer",
   });
+  // set error message
 
 
   const [errorMessage, setErrorMessage] = useState("");
@@ -135,6 +136,7 @@ const Login = () => {
               />
             </div>
             <div className="text-right mt-5 mx-2 text-orange-500">
+              <Link href="/SignUp"> هل نسيت كلمة المرور؟ </Link>
               هل نسيت كلمة المرور؟
             </div>
             <div className="flex justify-center">
@@ -176,7 +178,6 @@ const Login = () => {
           </div>
         </div>
       </div>
-      <Footer />
     </>
   );
 };
