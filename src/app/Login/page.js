@@ -12,7 +12,7 @@ const Login = () => {
     phone: "",
     password: "",
   });
-
+x
   // const [errorMessage, setErrorMessage] = useState("");
 
   // Handling input changes
@@ -109,7 +109,7 @@ const Login = () => {
                 name="password"
                 value={formData.password}
                 onChange={handleInputChange}
-                className="text-right border bg-[#757575] opacity-5 text-gray-100 rounded-[12px] mt-3 mx-2 w-[295px] h-[48px]"
+                className="text-right border bg-[#757575] opacity-5 text-gray-100 rounded-[12px] mt-3 mx-2 w-[29px] h-[48px]"
                 required
               />
             </div>
