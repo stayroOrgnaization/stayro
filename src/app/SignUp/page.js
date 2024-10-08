@@ -86,7 +86,7 @@ const SignUp = () => {
       if (response.ok) {
         const responseData = await response.json();
         console.log("User registered successfully:", responseData);
-        // Redirect or show a success message here
+        router.push("http://localhost:3000/");
       } else {
         // Handle errors
         const errorData = await response.json();
