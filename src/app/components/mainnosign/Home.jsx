@@ -11,7 +11,7 @@ const HomePage = async ({ properties, initialCount }) => {
 
   return (
     <div>
-      <div className="flex flex-wrap justify-center pt-8 w-[1178px] gap-[42px]">
+      <div className="flex flex-wrap justify-center pt-8 gap-[32px]">
         {renderCards(initialCount)} 
       </div>
       {initialCount < properties.length && (
