@@ -71,6 +71,7 @@ export default function Navbar() {
           </a>
           <Link
             href="/"
+            rel="preload"
             onClick={() => handleLinkClick("الرئيسية")}
             className={`mr-8 py-1 no-underline tracking-wide transition text-sm duration-700 ease-in-out ${
               activeLink === "الرئيسية"

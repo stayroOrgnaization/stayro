@@ -1,5 +1,6 @@
 // app/layout.js
 import "./Styles/globals.css";
+import 'tailwindcss/tailwind.css';
 import Head from "next/head";
 import { Tajawal } from "next/font/google";
 
@@ -10,7 +11,7 @@ export const metadata = {
 
 const tajawal = Tajawal({
   weight: "400",
-  subsets: ["arabic"],
+  subsets: ["arabic","latin"],
   variable: "--font-Tajawal",
 });
 
