@@ -5,7 +5,6 @@ import "../Styles/globals.css";
 import Image from "next/image";
 import Calendar from "../../../public/CalendarPic.png";
 import Navbar from "@/app/components/Navbar";
-import Footer from "@/app/components/Footer";
 import Link from "next/link";
 
 const Login = () => {
@@ -135,8 +134,7 @@ const Login = () => {
               />
             </div>
             <div className="text-right mt-5 mx-2 text-orange-500">
-              <Link href="/SignUp"> هل نسيت كلمة المرور؟ </Link>
-              هل نسيت كلمة المرور؟
+              <Link href="/ReSetPasPhone"> هل نسيت كلمة المرور؟ </Link>
             </div>
             <div className="flex justify-center">
               <button
