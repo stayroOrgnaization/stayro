@@ -1,13 +1,15 @@
 "use client";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import "../Styles/globals.css";
 import Image from "next/image";
 import SignUpPic from "../../../public/SignUpPic.png";
-import Footer from "@/app/components/Footer";
+// import Footer from "@/app/components/Footer";
 import Navbar from "../components/Navbar";
 import Link from "next/link";
 
 const SignUp = () => {
+  const router = useRouter();
   // form field state
   const [formData, setFormData] = useState({
     phone: "",
@@ -136,9 +138,12 @@ const SignUp = () => {
                 <div className="flex justify-center align-center space-x-2">
                   <select
                     name="countryCode"
-                    className=" bg-[#757575] opacity-5  border-[#303030] rounded-[12px] h-10 mt-3 w-[88px] h-[48px] text-gray-100"
+                    className=" bg-[#FFFFFF0D]   border-[#303030] rounded-[12px] h-10 mt-3 w-[88px] h-[48px] text-gray-100"
                   >
-                    <option className="text-gray-100" value="+966">
+                    <option
+                      className="text-gray-100 text-text-gray-100"
+                      value="+966"
+                    >
                       +966 (KSA)
                     </option>
                   </select>
@@ -149,7 +154,7 @@ const SignUp = () => {
                     placeholder="ادخل رقم هاتفك"
                     required
                     type="tel"
-                    className="text-right border bg-[#757575] opacity-5 text-gray-100 rounded-[12px] mt-3 w-[375px] h-[48px]"
+                    className="text-right border-[#303030] bg-[#FFFFFF0D]  text-text-gray-100 text-gray-100 rounded-[12px] mt-3 w-[375px] h-[48px]"
                   />
                 </div>
                 {/* {phoneError && (
@@ -166,7 +171,7 @@ const SignUp = () => {
                   value={formData.email}
                   onChange={handleInputChange}
                   placeholder="أدخل البريد الالكتروني الخاص بك"
-                  className=" text-right border bg-[#757575] opacity-5 text-gray-100 rounded-[12px] mt-3 mx-6 w-[469px] h-[48px] "
+                  className=" text-right border-[#303030] bg-[#FFFFFF0D] text-gray-100 rounded-[12px] mt-3 mx-6 w-[469px] h-[48px] "
                 />
               </div>
 
@@ -179,7 +184,7 @@ const SignUp = () => {
                   onChange={handleInputChange}
                   placeholder="أدخل كلمة المرور"
                   required
-                  className=" text-right border bg-[#757575] opacity-5 text-text-gray-100 rounded-[12px] mt-3 mx-6 w-[469px] h-[48px]"
+                  className=" text-right border-[#303030] bg-[#FFFFFF0D]  text-text-gray-100 rounded-[12px] mt-3 mx-6 w-[469px] h-[48px]"
                 />
               </div>
 
@@ -192,7 +197,7 @@ const SignUp = () => {
                   onChange={handleInputChange}
                   required
                   placeholder="أعد كتابة كلمة المرور"
-                  className="text-right border bg-[#757575] opacity-5 text-gray-100 rounded-[12px] mt-3 mx-6 w-[469px] h-[48px]"
+                  className="text-right border-[#303030] bg-[#FFFFFF0D]  text-gray-100 rounded-[12px] mt-3 mx-6 w-[469px] h-[48px]"
                 />
               </div>
 

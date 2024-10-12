@@ -71,7 +71,7 @@ const ReSetPasPhone = () => {
             <div>
               <h2 className="text-2xl font-bold mb-4">استعادة كلمة المرور</h2>
               <p className="mt-2 text-[#A2A2A2]">
-                أدخل رقم الجوال المسجل لارسال رمو تحقق
+                أدخل رقم الجوال المسجل لارسال رمز تحقق
               </p>
               <label className="text-right mx-2"> رقم الجوال</label>
               <div className="flex justify-end space-x-2 mx-6">
