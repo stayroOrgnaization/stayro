@@ -62,7 +62,7 @@ const verify = () => {
                 فضلا أدخل رمز التحقق المرسل على
               </p>
               <div className="space-x-4">
-                {[...Array(4)].map((_, idx) => (
+                {[...Array(6)].map((_, idx) => (
                   <input
                     key={idx}
                     type="text"
