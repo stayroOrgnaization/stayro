@@ -1,31 +1,30 @@
-import Card from '../HousingCards'; 
+// src/components/mainnosign/Home.jsx
+import PropertyFilter from '../filters/PropertyFilter'; // Import the PropertyFilter component
+import Card from '../HousingCards';
+import PropertyList from '../filters/PropertyList';
 
-const HomePage = async ({ properties, initialCount }) => {
-  const renderCards = (count) => {
-    return properties.slice(0, count).map((property) => (
-      <div key={property.id} className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 py-2">
-        <Card property={property} />
-      </div>
-    ));
-  };
+const HomePage = ({ properties, selectedType }) => {
+  // Filter properties based on the selected type
+  const filteredProperties = selectedType
+    ? properties.filter((property) => property.type === selectedType)
+    : properties;
 
   return (
     <div>
-      <div className="flex flex-wrap justify-center pt-8 gap-[32px]">
-        {renderCards(initialCount)} 
+      {/* Filter Dropdown */}
+
+      <div className="flex flex-wrap justify-center gap-4">
+        {filteredProperties.map((property) => (
+          <Card key={property.id} property={property} />
+        ))}
       </div>
-      {initialCount < properties.length && (
-        <div className="flex mt-4">
-          <a 
-            href={`?count=${initialCount + 12}`} 
-            className="bg-blue-500 text-white font-bold py-2 rounded hover:bg-blue-600"
-          >
-            Show More
-          </a>
-        </div>
-      )}
     </div>
   );
 };
 
 export default HomePage;
+
+
+
+
+
