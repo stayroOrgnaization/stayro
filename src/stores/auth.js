@@ -1,8 +1,6 @@
-// stores/AuthStore.js
 import { makeAutoObservable, runInAction } from "mobx";
 
 class AuthStore {
-  // Updated formData structure
   formData = {
     phone: "",
     role: "customer", // Default to customer
@@ -10,6 +8,8 @@ class AuthStore {
     password: "",
     confirmPassword: "",
   };
+  //   accessToken = ""; // To store the access token
+  // refreshToken = ""; // To store the refresh token
 
   errorMessage = "";
   isLoading = false;
@@ -18,6 +18,15 @@ class AuthStore {
     makeAutoObservable(this);
   }
 
+  resetFormData() {
+    this.formData = {
+      phone: "",
+      role: "customer", // Reset to default
+      email: "",
+      password: "",
+      confirmPassword: "",
+    };
+  }
   // Method to update form data
   setFormData(field, value) {
     this.formData[field] = value;
@@ -68,11 +77,11 @@ class AuthStore {
   }
 
   // Sign-up method
+  // Sign-up method
   async signUp() {
-    this.errorMessage = "";
+    this.errorMessage = ""; // Clear previous errors
     this.isLoading = true;
 
-    // Use FormData for sign-up
     const dataToSend = new FormData();
     dataToSend.append("phone_number", this.formData.phone);
     dataToSend.append("email", this.formData.email);
@@ -101,13 +110,14 @@ class AuthStore {
             errorData.username?.[0] ||
             errorData.email?.[0] ||
             errorData.password?.[0] ||
-            "Unknown error";
+            errorData.phone_number?.[0] ||
+            "حدث خطأ"; // Capture specific errors
           this.isLoading = false;
         });
       }
     } catch (error) {
       runInAction(() => {
-        this.errorMessage = "An error occurred during sign-up.";
+        this.errorMessage = "حدث خطأ إثناء التسجيل";
         this.isLoading = false;
       });
     }
