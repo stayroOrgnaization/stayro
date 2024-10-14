@@ -1,12 +1,13 @@
-import Sign from "../components/SignUp";
+import SignUp from "../components/SignUp";
 import Navbar from "../components/Navbar";
 
-function SignUp() {
-  return;
-  <>
-    <Navbar />
-    <Sign />
-  </>;
-}
+const SignUpPage = () => {
+  return (
+    <>
+      <Navbar />
+      <SignUp />
+    </>
+  );
+};
 
-export default SignUp;
+export default SignUpPage;

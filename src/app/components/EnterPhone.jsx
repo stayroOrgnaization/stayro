@@ -50,14 +50,13 @@ const ReSetPasPhone = () => {
         const errorData = await response.json();
         console.error("Error response:", errorData);
         if (errorData.message) {
-          setErrorMessage(errorData.message); // Display specific error message
         } else {
-          setErrorMessage("An error occurred. Please try again."); // Generic error message
+          setErrorMessage("حدث خطأ، حاول لاحقا");
         }
       }
     } catch (error) {
       console.error("An error occurred during submission:", error);
-      setErrorMessage("An error occurred. Please try again.");
+      setErrorMessage("حدث خطأ حاول لاحقا.");
     }
   };
 

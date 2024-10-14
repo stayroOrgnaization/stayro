@@ -1,13 +1,11 @@
 import Navbar from "../components/Navbar";
-import SetThePassword from "../components/SetPass";
-
-import React from "react";
+import SetPass from "../components/SetPass";
 
 function Set() {
   return (
     <>
       <Navbar />
-      <SetThePassword />
+      <SetPass />
     </>
   );
 }

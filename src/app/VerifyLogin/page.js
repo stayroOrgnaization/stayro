@@ -1,9 +1,9 @@
 import Navbar from "../components/Navbar";
-import VerifyTheLogin from "../components/VerifyLog";
+import VerifyLog from "../components/VerifyLog";
 
-function VerifyLogin() {
-  return <Navbar />;
-  <VerifyTheLogin />;
-}
+const VerifyLoginPage = () => {
+  <Navbar />;
+  return <VerifyLog />;
+};
 
-export default VerifyLogin;
+export default VerifyLoginPage;

@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 import { observer } from "mobx-react-lite";
 import { authStore } from "../../stores/auth"; // Adjust the import according to your structure
 
-const VerifyLogin = observer(() => {
+const VerifyLog = observer(() => {
   const router = useRouter();
 
   // For the code verification focus and move
@@ -198,9 +198,8 @@ const VerifyLogin = observer(() => {
           </div>
         </div>
       </div>
-      <Footer />
     </>
   );
 });
 
-export default VerifyLogin;
+export default VerifyLog;

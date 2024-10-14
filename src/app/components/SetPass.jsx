@@ -7,7 +7,7 @@ import Navbar from "@/app/components/Navbar";
 import Footer from "@/app/components/Footer";
 import Link from "next/link";
 
-const ReSetPassword = () => {
+const SetPass = () => {
   return (
     <>
       <div className="flex justify-center bg-FFFFFF mt-0 ">
@@ -81,4 +81,4 @@ const ReSetPassword = () => {
   );
 };
 
-export default ReSetPassword;
+export default SetPass;

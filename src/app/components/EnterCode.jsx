@@ -96,9 +96,7 @@ const Verify = () => {
               </div>
 
               <h2 className="text-2xl font-bold mt-2">رمز التحقق</h2>
-              <p className="mt-2 text-[#A2A2A2]">
-                فضلا أدخل رمز التحقق المرسل على
-              </p>
+              <p className="mt-2 text-[#A2A2A2]">فضلا أدخل رمز التحقق</p>
               <div className="space-x-4">
                 {[...Array(6)].map((_, idx) => (
                   <input
