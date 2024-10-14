@@ -65,8 +65,18 @@ const ReSetPasPhone = () => {
     <>
       <div className="flex justify-center bg-FFFFFF mt-0 ">
         <div className="loginVerify-side w-[40%] h-full mt-20 mx-40 ">
+          <div className=" lg:hidden mt-20 flex flex-col sm:mx-8 ">
+            <h3 className="font-bold text-4xl text-gray-100 text-center">
+              {" "}
+              احجز براحة، اختر ستيرو
+            </h3>
+            <p className="font-normal text-lg text-gray-100 text-center mt-5 ">
+              {" "}
+              اكتشف تجربة مميزة للحجوزات
+            </p>
+          </div>
           <form
-            onSubmit={handleSubmit} // Add onSubmit handler
+            onSubmit={handleSubmit}
             className="border border-[#303030] rounded-[20px] w-[450px] h-[450px] mx-10 my-12 mt-8 py-2 px-8 flex justify-center items-center"
           >
             <div>
