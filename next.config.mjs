@@ -1,4 +1,6 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {};
+export default {
+    images: {
+      domains: ['api.stayro.com'], // Add the domain here
+    },
 
-export default nextConfig;
+  };

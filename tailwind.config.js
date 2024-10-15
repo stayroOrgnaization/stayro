@@ -14,8 +14,8 @@ module.exports = {
         stayro: '#FF5B2D',
         dbg: '#1A1A1A',
         fcolor:'#F5F5F5',
-        
-        
+        dcardtext:'#A2A2A2',
+        dcardbg:'#303030',
       },
       opacity: {
         '5': '0.05', // 5% opacity

@@ -14,15 +14,37 @@ export default function Footer() {
             <Logo className="right-0" />
           </div>
           <p className="text-gray-400 mt-2 max-w-[289px] mt-12">
-            تأسست منصة "ستيرو" على رؤية واضحة ومهمة سامية؛ تقديم خدمة حجز وحدات
-            ضيافة تتسم بالجودة والراحة والسهولة.
-          </p>
+  تأسست منصة &quot;ستيرو&quot; على رؤية واضحة ومهمة سامية؛ تقديم خدمة حجز وحدات
+  ضيافة تتسم بالجودة والراحة والسهولة.
+</p>
+
         </div>
 
         {/* Second section: "عن ستيرو" and related links */}
         <div>
-          <h3 className="text-white text-lg font-semibold mb-4">عن ستيرو</h3>
           <ul className="space-y-2 ">
+            <li>
+              {" "}
+              <div className="text-white text-lg font-semibold mb-4 flex flex-row items-end justify-center">
+                <svg
+                  className="mb-4"
+                  width="19"
+                  height="3"
+                  viewBox="0 0 19 3"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M1.45312 1.52344H17.4531"
+                    stroke="#F5F5F5"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+                <p>عن ستيرو</p>
+              </div>
+            </li>
             <li>
               <a
                 href="#"

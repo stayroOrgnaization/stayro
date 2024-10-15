@@ -1,18 +1,97 @@
-// src/app/page.js
-// import {Tajawal} from 'next/font/google' // Import localFont from next/font/local
-import Navbar from "./components/Navbar.jsx";
+"use client";
+import { observer } from "mobx-react";
+import { useEffect, useState } from "react";
+import Navbar from "./components/Navbar";
 import Footer from "./components/Footer.jsx";
+import HomePage from "./components/mainnosign/HomeMain";
+import PropertyFilter from "./components/filters/PropertyFilter";
+import PropertyList from "./components/filters/PropertyList";
+import SearchFilter from "./components/filters/SearchFilter";
+import Loading from "./components/Loading";
+import { propertyStore } from "../stores/PropertyStore";
+import CardViewToggle from "./components/CardViewToggle";
 
-export default function Home() {
+const Home = observer(({ searchParams }) => {
+  const { type = "", search = "" } = searchParams;
+  const [selectedType, setSelectedType] = useState("");
+  const [searchQuery, setSearchQuery] = useState(search);
+  const [loading, setLoading] = useState(true);
+  const [isTwoPerRow, setIsTwoPerRow] = useState(false); 
+  useEffect(() => {
+    const fetchProperties = async () => {
+      setLoading(true);
+      try {
+        const url = `https://api.stayro.com/ar/housing/api/housing/`;
+        const res = await fetch(url);
+        const data = await res.json();
+        propertyStore.setProperties(data.data || []);
+      } catch (error) {
+        console.error(error.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProperties();
+  }, [searchQuery, selectedType]);
+
+  useEffect(() => {
+    propertyStore.setSearch(searchQuery);
+    propertyStore.setPropertyType(selectedType);
+  }, [searchQuery, selectedType]);
+
+  const toggleGridView = () => {
+    setIsTwoPerRow(!isTwoPerRow);
+  };
+
+  if (loading) {
+    return <Loading message="Fetching properties, please wait..." />;
+  }
+
   return (
     <div>
-      <Navbar />
+      <Navbar  />
 
-      <main className="overflow-y-scroll scrollbar-hide ">
-        <p></p>
+      <main className="overflow-y-scroll scrollbar-hide">
+        <div className="flex flex-row" dir="rtl">
+
+          <div className="w-full ">
+            <div className="flex flex-row items-center justify-between my-8 ml-40">
+              <PropertyFilter
+                selectedType={selectedType}
+                types={Array.from(
+                  new Set(
+                    propertyStore.properties.map((property) => property.type)
+                  )
+                )}
+                setType={setSelectedType}
+              />
+
+              <CardViewToggle
+                isTwoPerRow={isTwoPerRow}
+                toggleGridView={toggleGridView}
+              />
+            </div>
+            <HomePage
+              properties={propertyStore.filteredProperties}
+              selectedType={selectedType}
+              isTwoPerRow={isTwoPerRow}
+            />
+          </div>
+        </div>
+        <div className="mx-32">
+          <div className="flex flex-row justify-end gap-[48px]">
+            <div className="flex flex-col justify-end items-end text-right">
+              <h2 className="text-2xl font-bold my-4">المadded حديثاً</h2>
+              <h3 className="text-xl my-2">تصفح أحدث الشقق المضافة</h3>
+            </div>
+          </div>
+          <PropertyList properties={propertyStore.properties} />
+        </div>
       </main>
-
       <Footer />
     </div>
   );
-}
+});
+
+export default Home;
