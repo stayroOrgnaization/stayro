@@ -77,7 +77,14 @@ class PropertyStore {
     filterProperties() {
         console.log("Filtering properties with search:", this.search, "type:", this.type); // Debugging line
         this.filteredProperties = this.properties.filter(property => {
-            const matchesSearch = property.name.toLowerCase().includes(this.search.toLowerCase());
+
+            const removeDiacritics = (str) => {
+                if (typeof str !== 'string') {
+                  return ''; // Return an empty string or handle it as needed
+                }
+                return str.normalize('NFD').replace(/[\u064B-\u065F]/g, '').replace(/[\u0300-\u036f]/g, '');
+              };
+            const matchesSearch = removeDiacritics(property.city).toLowerCase().includes(removeDiacritics(this.search).toLowerCase());
             const matchesType = this.type ? property.type === this.type : true;
             const matchesPrice = property.price >= this.minPrice && property.price <= this.maxPrice;
             const matchesArea = property.area <= this.maxArea;
