@@ -24,8 +24,8 @@ const Login = observer(() => {
 
   return (
     <>
-      <div className="main flex justify-center  ">
-        <div className="login flex flex-col w-[60%] h-[748px] md:items-center mt-20 md:w-full mb-10 ">
+      <div className="main flex flex-col md:flex-row  justify-center items-center">
+        <div className="login w-[65%] h-[748px] flex-col md:items-center mt-20 md:w-full">
           <div className=" lg:hidden mt-20 flex flex-col sm:mx-8 ">
             <h3 className="font-bold text-4xl text-gray-100 text-center">
               {" "}
@@ -43,7 +43,7 @@ const Login = observer(() => {
           )}
           <form
             onSubmit={handleSubmit}
-            className="flex flex-col border border-[#303030] rounded-[20px] lg:w-[517px] h-auto mt-10 mb-4 lg:mx-20 md:mx-44 md:mx-10 md:w-[517px] sm:w-[394px] mb-10"
+            className="flex flex-col border border-[#303030] rounded-[20px] lg:w-[570px] lg:h-[600px] mt-10 mb-4 lg:mx-20 md:mx-44 md:mx-10 md:w-[517px] sm:w-[394px]"
           >
             <div className="text-center text-lg font-bold text-gray-100 mx-2 mt-3">
               تسجيل الدخول
@@ -104,7 +104,7 @@ const Login = observer(() => {
                 }
                 placeholder="أدخل كلمة المرور"
                 required
-                className="text-right border-[#303030] bg-[#FFFFFF0D] text-[#A2A2A2] placeholder-[#A2A2A2] p-2 rounded-[12px] mt-3 lg:mx-6 md:mx-6  lg:w-[469px] md:w-[469px] w-[270px] h-[40px]"
+                className=" text-right border-[#303030] bg-[#FFFFFF0D] text-[#A2A2A2] placeholder-[#A2A2A2] p-2 rounded-[12px] mt-3 mx-6 lg:w-[469px] md:w-[469px] w-[270px] h-[40px]"
               />
             </div>
             <div className="text-right mt-5 mx-2 text-orange-500">
