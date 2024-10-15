@@ -24,7 +24,7 @@ const Home = observer(({ searchParams }) => {
     const fetchProperties = async () => {
       setLoading(true);
       try {
-        const url = `https://api.stayro.com/ar/housing/api/housing/`;
+        const url = 'https://api.stayro.com/ar/housing/api/housing/';
         const res = await fetch(url);
         const data = await res.json();
         propertyStore.setProperties(data.data || []);
