@@ -24,8 +24,8 @@ const Login = observer(() => {
 
   return (
     <>
-      <div className="main flex flex-col md:flex-row  justify-center items-center">
-        <div className="login w-[65%] h-[748px] flex-col md:items-center mt-20 md:w-full">
+      <div className="main flex flex-col md:flex-row  justify-center items-center lg:items-start ">
+        <div className="login  lg:w-[63%] h-[748px] flex-col md:items-center mt-20 md:w-full">
           <div className=" lg:hidden mt-20 flex flex-col sm:mx-8 ">
             <h3 className="font-bold text-4xl text-gray-100 text-center">
               {" "}
@@ -55,7 +55,7 @@ const Login = observer(() => {
                   <Image
                     src={Saudi}
                     alt="KSA"
-                    width={24} // Decrease the width for better alignment
+                    width={24}
                     height={24}
                     className="rounded"
                   />
@@ -89,7 +89,7 @@ const Login = observer(() => {
                   (e) => authStore.setFormData("username", e.target.value) // Use authStore here
                 }
                 placeholder="أدخل البريد الالكتروني الخاص بك"
-                className=" text-right border-[#303030] bg-[#FFFFFF0D] text-[#A2A2A2] placeholder-[#A2A2A2] p-2 rounded-[12px] mt-3 mx-6 lg:w-[469px] md:w-[469px] w-[270px] h-[40px]  "
+                className=" text-right border-[#303030] bg-[#FFFFFF0D] text-[#A2A2A2] placeholder-[#A2A2A2] p-2 rounded-[12px] mt-3 mx-6 lg:w-[469px] md:w-[469px] w-[270px] h-[40px] "
                 required
               />
             </div>
@@ -104,7 +104,7 @@ const Login = observer(() => {
                 }
                 placeholder="أدخل كلمة المرور"
                 required
-                className=" text-right border-[#303030] bg-[#FFFFFF0D] text-[#A2A2A2] placeholder-[#A2A2A2] p-2 rounded-[12px] mt-3 mx-6 lg:w-[469px] md:w-[469px] w-[270px] h-[40px]"
+                className="text-right border-[#303030] bg-[#FFFFFF0D] text-[#A2A2A2] placeholder-[#A2A2A2] p-2 rounded-[12px] mt-3 mx-6 lg:w-[469px] md:w-[469px] w-[270px] h-[40px]"
               />
             </div>
             <div className="text-right mt-5 mx-2 text-orange-500">
