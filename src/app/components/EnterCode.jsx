@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-
+import Navbar from "./Navbar";
 import Footer from "../components/Footer";
 import VerifyPic from "../../../public/VerifyPic.svg";
 import LockPic from "../../../public/lockPic.svg";
@@ -74,6 +74,7 @@ const Verify = () => {
 
   return (
     <>
+      <Navbar />
       <div className="flex justify-center bg-FFFFFF mt-0">
         <div className="Verify-side lg:w-[65%] h-full mt-10 lg:mx-40 md:mx-40 ">
           <div className=" lg:hidden mt-20 flex flex-col sm:mx-8 ">
