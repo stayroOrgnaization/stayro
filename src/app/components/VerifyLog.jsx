@@ -100,6 +100,7 @@ const VerifyLog = observer(() => {
       if (response.ok) {
         // Handle successful verification
         console.log("Verification successful!");
+        router.push("/");
       } else {
         const errorData = await response.json();
         // Handle errors
