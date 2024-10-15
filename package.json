@@ -6,6 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "export": "next export",
     "lint": "next lint"
   },
   "dependencies": {
@@ -14,7 +15,7 @@
     "@fortawesome/react-fontawesome": "^0.2.2",
     "mobx-react": "^9.1.1",
     "mobx-react-lite": "^4.0.7",
-    "next": "14.2.13",
+    "next": "^14.2.15",
     "next-themes": "^0.3.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
