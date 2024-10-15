@@ -14,7 +14,7 @@ class HousingStore {
   async fetchHouses() {
     this.loading = true;
     try {
-      const response = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/${process.env.NEXT_PUBLIC_LANG}/housing/api/housing/?name_en__contains=&name_ar__contains=&type=&status=&street__neighborhood__city__country=&street__neighborhood__city=&street__neighborhood=&street=&price__gte=&price__lte=&created_at__date__range=&updated_at__date__range=`);
+      const response = await axios.get(`https://api.stayro.com/${process.env.NEXT_PUBLIC_LANG}/housing/api/housing/?name_en__contains=&name_ar__contains=&type=&status=&street__neighborhood__city__country=&street__neighborhood__city=&street__neighborhood=&street=&price__gte=&price__lte=&created_at__date__range=&updated_at__date__range=`);
       this.houses = response.data.data; // assuming 'data' contains the list of houses
       this.error = null;
     } catch (error) {
