@@ -1,6 +1,5 @@
 // next.config.js
-module.exports = {
-  output: 'export',
+export default {
   images: {
     domains: ['api.stayro.com'], // Add the domain here if you're loading images from an external source
   },
