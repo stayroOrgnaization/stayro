@@ -2,28 +2,28 @@
 @tailwind components;
 @tailwind utilities;
 /* Apply Tajawal font globally */
-html{
-  font-family:var(--my-font-family), sans-serif;
+html {
+  font-family: var(--my-font-family), sans-serif;
 }
 body {
-   /* Ensure this matches the imported font */
-   font-family:var(--my-font-family), sans-serif;
+
+  font-family: var(--my-font-family), sans-serif;
   font-size: 16px;
   font-weight: 400;
   line-height: 20px;
-  text-align: center; /* Change this based on your layout needs */
+  text-align: center; 
 }
 .custom-font {
-  font-family:var(--my-font-family), sans-serif;
+  font-family: var(--my-font-family), sans-serif;
 }
 :root {
   --background: #ffffff;
-  --foreground: #1A1A1A;
+  --foreground: #1a1a1a;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #1A1A1A;
+    --background: #1a1a1a;
     --foreground: #ededed;
   }
 }
@@ -31,7 +31,7 @@ body {
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family:var(--my-font-family), sans-serif;
+  font-family: var(--my-font-family), sans-serif;
   font-size: 16px;
   font-weight: 400;
   line-height: 20px;

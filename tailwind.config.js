@@ -13,12 +13,20 @@ module.exports = {
         foreground: "var(--foreground)",
         stayro: '#FF5B2D',
         dbg: '#1A1A1A',
+        fcolor:'#F5F5F5',
         
+        
+      },
+      opacity: {
+        '5': '0.05', // 5% opacity
       },
       height: {
         'n-h': '99px', // Custom height 99px
       },
+      fontFamily: {
+        tajawal: ["Tajawal"],
+      },
     },
   },
-  plugins: [],
+  plugins: [ require('tailwind-scrollbar-hide'),],
 };
