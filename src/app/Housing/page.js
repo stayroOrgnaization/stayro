@@ -103,7 +103,7 @@ const Home = observer(({ searchParams }) => {
         <div className="mx-32">
           <div className="flex flex-row justify-end gap-[48px]">
             <div className="flex flex-col justify-end items-end text-right">
-              <h2 className="text-2xl font-bold my-4">المadded حديثاً</h2>
+              <h2 className="text-2xl font-bold my-4">المضافة حديثاً</h2>
               <h3 className="text-xl my-2">تصفح أحدث الشقق المضافة</h3>
             </div>
           </div>
