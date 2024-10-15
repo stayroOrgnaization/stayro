@@ -43,7 +43,7 @@ const Login = observer(() => {
           )}
           <form
             onSubmit={handleSubmit}
-            className="flex flex-col border border-[#303030] rounded-[20px] lg:w-[570px] lg:h-[600px] mt-10 mb-4 lg:mx-20 md:mx-44 md:mx-10 md:w-[517px] sm:w-[394px]"
+            className="flex flex-col border border-[#303030] rounded-[20px] lg:w-[540px] lg:h-[500px] mt-10 mb-4 lg:mx-20 md:mx-44 md:mx-10 md:w-[517px] sm:w-[394px]"
           >
             <div className="text-center text-lg font-bold text-gray-100 mx-2 mt-3">
               تسجيل الدخول
