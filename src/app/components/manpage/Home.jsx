@@ -35,11 +35,11 @@ export async function getServerSideProps(context) {
     const { searchParams } = context;
     const { type = "", search = "" } = searchParams;
 
-    const propertiesUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/ar/housing/api/housing/?name_en__contains=${search}&name_ar__contains=${search}&type=${type}`;
+    const propertiesUrl = `https://api.stayro.com/ar/housing/api/housing/?name_en__contains=${search}&name_ar__contains=${search}&type=${type}`;
     const propertiesRes = await fetch(propertiesUrl);
     const propertiesData = await propertiesRes.json();
 
-    const typesUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/ar/housing/api/housing/?type`; // Adjust the endpoint for property types
+    const typesUrl = `https://api.stayro.com/ar/housing/api/housing/?type`; // Adjust the endpoint for property types
     const typesRes = await fetch(typesUrl);
     const typesData = await typesRes.json();
     
