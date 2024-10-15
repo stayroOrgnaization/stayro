@@ -1,4 +1,4 @@
-"use client"; // This is a Client Component
+"use client"; 
 
 import React from "react";
 import PriceFilter from "./PriceFilter";

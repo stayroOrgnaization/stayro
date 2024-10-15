@@ -1,21 +1,20 @@
-// src/components/mainnosign/Home.jsx
-import PropertyFilter from '../filters/PropertyFilter'; // Import the PropertyFilter component
+// components/mainnosign/Home.jsx
+// Home.jsx
+import React from 'react';
 import Card from '../HousingCards';
-import PropertyList from '../filters/PropertyList';
 
-const HomePage = ({ properties, selectedType }) => {
-  // Filter properties based on the selected type
+
+const HomePage = ({ properties, selectedType, isTwoPerRow }) => {
   const filteredProperties = selectedType
     ? properties.filter((property) => property.type === selectedType)
     : properties;
 
   return (
     <div>
-      {/* Filter Dropdown */}
-
-      <div className="flex flex-wrap justify-center gap-4">
+      {/* Properties Grid */}
+      <div className={`grid gap-4 mx-4 ${isTwoPerRow ? 'grid-cols-2' : 'grid-cols-3'}`}>
         {filteredProperties.map((property) => (
-          <Card key={property.id} property={property} />
+          <Card key={property.id} property={property} isTwoPerRow={isTwoPerRow} />
         ))}
       </div>
     </div>
@@ -23,8 +22,3 @@ const HomePage = ({ properties, selectedType }) => {
 };
 
 export default HomePage;
-
-
-
-
-

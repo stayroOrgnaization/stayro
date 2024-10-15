@@ -22,12 +22,12 @@ export default function Navbar({ defaultActiveLink }) {
   return (
     <nav className="grid grid-rows-[auto_1fr_auto] items-center justify-items-center mt-[20px] mx-[75px]">
       <div className="container flex justify-between items-center pt-2 px-3 ">
-        <div className="flex row w-auto">
+
+        <div className="hidden md:flex row w-auto">
           <LoginButton />
           <SearchButton />
           <ThemeToggle />
         </div>
-
         {/* Logo */}
         <div className="text-stayro "> </div>
 
@@ -86,18 +86,24 @@ export default function Navbar({ defaultActiveLink }) {
       {isOpen && (
         <div className="md:hidden bg-gray-700">
           <a href="#" className="block px-4 py-2 text-gray-100 hover:bg-gray-600 hover:text-white">
-            Home
+          الرئيسية
           </a>
           <a href="#" className="block px-4 py-2 text-gray-100 hover:bg-gray-600 hover:text-white">
-            About
+          المساكن
           </a>
-          <a href="#" className="block px-4 py-2 text-gray-100 hover:bg-gray-600 hover:text-white">
+          {/* <a href="#" className="block px-4 py-2 text-gray-100 hover:bg-gray-600 hover:text-white">
             Services
           </a>
           <a href="#" className="block px-4 py-2 text-gray-100 hover:bg-gray-600 hover:text-white">
             Contact
-          </a>
+          </a> */}
+          <div className="flex row w-auto">
+          <LoginButton />
+          <SearchButton />
+          <ThemeToggle />
         </div>
+        </div>
+        
       )}
     </nav>
   );
