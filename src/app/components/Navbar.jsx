@@ -20,7 +20,7 @@ export default function Navbar({ defaultActiveLink }) {
   };
 
   return (
-    <nav className="grid grid-rows-[auto_1fr_auto] items-center justify-items-center mt-[20px] mx-[75px]">
+    <nav className="grid grid-rows-[auto_1fr_auto] items-center justify-items-center mt-[20px] mx-[75px] z-[9999]">
       <div className="container flex justify-between items-center pt-2 px-3 ">
 
         <div className="hidden md:flex row w-auto">
