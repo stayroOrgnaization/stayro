@@ -32,6 +32,10 @@ class AuthStore {
     this.formData[field] = value;
   }
 
+  setAccessToken(token) {
+    this.accessToken = token;
+  }
+
   // Login method
   async login() {
     this.errorMessage = "";

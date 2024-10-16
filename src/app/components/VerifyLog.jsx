@@ -98,8 +98,14 @@ const VerifyLog = observer(() => {
       );
 
       if (response.ok) {
-        // Handle successful verification
-        console.log("Verification successful!");
+        const responseData = await response.json();
+        // Log the successful response
+        console.log("Verification successful!", responseData);
+
+        // Store the access token in MobX store
+        authStore.setAccessToken(responseData.access_token);
+
+        // Navigate to another page after successful verification
         router.push("/");
       } else {
         const errorData = await response.json();
