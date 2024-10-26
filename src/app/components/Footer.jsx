@@ -3,11 +3,11 @@ import Logo from "./Logo.jsx";
 export default function Footer() {
   return (
     <footer
-      className="bg-dbg w-full py-8 transition-colors duration-300"
+      className="bg-dbg mt-12 w-full  transition-colors duration-300"
       dir="rtl"
     >
       {/* First Part: Content */}
-      <div className="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div className="container mx-auto grid grid-cols-1 md:grid-cols-3 ">
         {/* First section: Logo and Text */}
         <div>
           <div className="text-stayro text-xl font-bold flex items-center space-x-4">
@@ -19,13 +19,11 @@ export default function Footer() {
 </p>
 
         </div>
-
-        {/* Second section: "عن ستيرو" and related links */}
         <div>
           <ul className="space-y-2 ">
             <li>
               {" "}
-              <div className="text-white text-lg font-semibold mb-4 flex flex-row items-end justify-center">
+              <div className="text-white text-lg font-semibold flex flex-row items-end justify-start mx-20">
                 <svg
                   className="mb-4"
                   width="19"
@@ -45,15 +43,13 @@ export default function Footer() {
                 <p>عن ستيرو</p>
               </div>
             </li>
-            <li>
+            <li className="flex justify-arround">
               <a
                 href="#"
-                className="text-gray-400 hover:text-gray-400 transition-colors"
+                className="text-gray-400 text-base mx-20 hover:text-gray-400 transition-colors"
               >
                 سياسات الخصوصية
               </a>
-            </li>
-            <li>
               <a
                 href="#"
                 className="text-gray-400 hover:text-gray-400 transition-colors"
@@ -62,27 +58,26 @@ export default function Footer() {
               </a>
             </li>
             <li>
+             
+            </li>
+            <li className="flex justify-arround">
               <a
                 href="#"
-                className="text-gray-400 hover:text-gray-400 transition-colors"
+                className="text-gray-400 text-base mx-20 hover:text-gray-400 transition-colors"
               >
                 الشروط والأحكام
               </a>
-            </li>
-            <li>
               <a
                 href="#"
-                className="text-gray-400 hover:text-gray-400 transition-colors"
+                className="text-gray-400 mr-6 hover:text-gray-400 transition-colors"
               >
                 الأسئلة الشائعة
               </a>
             </li>
           </ul>
         </div>
-
-        {/* Third section: Email Icon and Email */}
         <div>
-          <div className="flex items-center space-x-2 mt-32 ">
+          <div className="flex items-center space-x-2 mt-32 mb-8 my-8">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="w-6 h-6 text-gray-700 ml-[4px]"

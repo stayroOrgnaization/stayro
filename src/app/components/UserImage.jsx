@@ -24,7 +24,7 @@ const UserImage = ({ apiEndpoint, token }) => {
   }, [apiEndpoint, token]);
 
   return (
-    <div className="flex items-center justify-center h-[32px] w-[32px] rounded-full bg-gray-200 overflow-hidden">
+    <div className="flex items-center justify-center h-[32px] w-[32px] rounded-full bg-gray-200 overflow-hidden mx-4">
       {user?.imageSrc ? (
         <Image src={user.imageSrc} alt={user.name} width={40} height={40} className="rounded-full" />
       ) : (

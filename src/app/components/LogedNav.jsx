@@ -5,6 +5,7 @@ import SearchButton from "./SearchButton";
 import LoginButton from "./LoginButton";
 import Logo from "./Logo";
 import Link from "next/link";
+import UserImage from "./UserImage";
 
 export default function Navbar({ defaultActiveLink }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -22,19 +23,29 @@ export default function Navbar({ defaultActiveLink }) {
   return (
     <nav className="grid grid-rows-[auto_1fr_auto] items-center justify-items-center mt-[20px] mx-[75px] z-[9999]">
       <div className="container flex justify-between items-center pt-2 px-3 ">
-
+      
         <div className="hidden md:flex row w-auto">
-          <LoginButton />
-          <SearchButton />
+          <UserImage />
           <ThemeToggle />
         </div>
         {/* Logo */}
-        <div className=" "> </div>
+        <div className="text-stayro "> </div>
 
         {/* Desktop Menu */}
         <div className="hidden md:flex custom-font pr-44">
-        {/* <a
-            href="/"
+        <a
+            href="#"
+            onClick={() => handleLinkClick("المحادثات")}
+            className={`mr-8 py-1 no-underline tracking-wide transition text-sm duration-700 ease-in-out ${
+              activeLink === "المحادثات"
+                ? "border-b-2 border-gray-100 text-gray-100 -translate-y-[4px]"
+                : "border-b-2 border-transparent opacity-50"
+            }`}
+          >
+            المحادثات
+          </a>
+        <a
+            href="#"
             onClick={() => handleLinkClick("الحجوزات")}
             className={`mr-8 py-1 no-underline tracking-wide transition text-sm duration-700 ease-in-out ${
               activeLink === "الحجوزات"
@@ -43,7 +54,7 @@ export default function Navbar({ defaultActiveLink }) {
             }`}
           >
             الحجوزات
-          </a> */}
+          </a>
           <a
             href="/Housing"
             onClick={() => handleLinkClick("المساكن")}

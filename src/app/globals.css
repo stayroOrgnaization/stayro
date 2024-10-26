@@ -3,14 +3,15 @@
 @tailwind utilities;
 /* Apply Tajawal font globally */
 html{
-  font-family:var(--my-font-family), sans-serif;
+  font-family:var(--font-Tajawal), sans-serif;
 }
 .custom-font {
-  font-family:var(--my-font-family), sans-serif;
+  font-family:var(--font-Tajawal), sans-serif;
 }
 :root {
   --background: #ffffff;
   --foreground: #1A1A1A;
+  --font-Tajawal: var(--font-Tajawal);
 }
 
 @media (prefers-color-scheme: dark) {

@@ -24,7 +24,7 @@ module.exports = {
         'n-h': '99px', // Custom height 99px
       },
       fontFamily: {
-        tajawal: ["Tajawal"],
+        tajawal: "var(--font-Tajawal), sans-serif",
       },
     },
   },

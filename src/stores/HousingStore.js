@@ -1,5 +1,4 @@
 import { makeAutoObservable } from 'mobx';
-import axios from 'axios';
 
 class HousingStore {
   houses = [];
@@ -10,13 +9,19 @@ class HousingStore {
     makeAutoObservable(this);
   }
 
-  // Fetch data from the API
+  // Fetch data from the API using the fetch API
   async fetchHouses() {
     this.loading = true;
     try {
-      const response = await axios.get(`https://api.stayro.com/${process.env.NEXT_PUBLIC_LANG}/housing/api/housing/?name_en__contains=&name_ar__contains=&type=&status=&street__neighborhood__city__country=&street__neighborhood__city=&street__neighborhood=&street=&price__gte=&price__lte=&created_at__date__range=&updated_at__date__range=`);
-      this.houses = response.data.data; // assuming 'data' contains the list of houses
-      this.error = null;
+      const response = await fetch(`https://api.stayro.com/housing/api/housing/`);
+      const data = await response.json(); // Parse the response as JSON
+
+      if (response.ok) {
+        this.houses = data.data; // assuming 'data' contains the list of houses
+        this.error = null;
+      } else {
+        this.error = "Failed to load houses";
+      }
     } catch (error) {
       this.error = "Failed to load houses";
     } finally {

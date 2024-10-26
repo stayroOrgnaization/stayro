@@ -43,7 +43,18 @@ const PropertyFilter = ({ selectedType, setType }) => {
               </button>
             ))
           ) : (
-            <p>No property types available.</p>
+            <>
+              {" "}
+              <button className="`w-[80px] sm:w-[100px] md:w-[122px] h-[46px] rounded-[33px] flex items-center justify-center">
+                <p className="mx-2">غرفة </p>
+              </button>{" "}
+              <button className="`w-[80px] sm:w-[100px] md:w-[122px] h-[46px] rounded-[33px] flex items-center justify-center">
+                <p className="mx-2"> استديو</p>
+              </button>{" "}
+              <button className="`w-[80px] sm:w-[100px] md:w-[122px] h-[46px] rounded-[33px] flex items-center justify-center">
+                <p className="mx-2">شقة</p>
+              </button>{" "}
+            </>
           )}
         </div>
       </div>
