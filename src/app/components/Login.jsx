@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Calendar from "../../../public/CalendarPic.png";
 import Saudi from "../../../public/Saudi.svg";
-import Navbar from "@/app/components/Navbar";
 import Link from "next/link";
 
 const Login = observer(() => {

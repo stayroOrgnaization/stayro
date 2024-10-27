@@ -1,13 +1,13 @@
 "use client";
 import Image from "next/image";
-import Navbar from "./Navbar";
+import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import VerifyPic from "../../../public/VerifyPic.svg";
+
 import LockPic from "../../../public/lockPic.svg";
 import { useRef, useState, useEffect } from "react";
 import { useRouter } from "next/navigation"; // Correct import for Next.js 13+ app router
 
-const Verify = () => {
+const EnterCodePopUp = () => {
   const inputRefs = useRef([]);
   const [code, setCode] = useState("");
   const [error, setError] = useState("");
@@ -48,7 +48,6 @@ const Verify = () => {
     // Gather the code from input fields
     const verificationCode = inputRefs.current.map((ref) => ref.value).join("");
 
-    // API call to verify the code
     try {
       const response = await fetch(
         "https://api.stayro.com/auth/api/password/verify/",
@@ -66,7 +65,7 @@ const Verify = () => {
       }
 
       // If successful, redirect to the home page
-      router.push("/home");
+      router.push("/");
     } catch (err) {
       setError("رمز التحقق غير صالح"); // Set error message for invalid code
     }
@@ -74,7 +73,6 @@ const Verify = () => {
 
   return (
     <>
-      <Navbar />
       <div className="flex justify-center bg-FFFFFF mt-0">
         <div className="Verify-side lg:w-[65%] h-full mt-10 lg:mx-40 md:mx-40 ">
           <div className=" lg:hidden mt-20 flex flex-col sm:mx-8 ">
@@ -130,26 +128,9 @@ const Verify = () => {
             </div>
           </form>
         </div>
-
-        <div className="h-[100vh] w-[0.5px] bg-[#303030] hidden lg:block"></div>
-
-        <div className="pic side mt-20 mx-20 hidden lg:block ">
-          <div>
-            <h3 className="font-bold text-4xl text-gray-100 text-center">
-              احجز براحة، اختر ستيرو
-            </h3>
-            <p className="font-normal text-lg text-gray-100 text-center mt-5">
-              اكتشف تجربة مميزة للحجوزات
-            </p>
-          </div>
-          <div className="mt-20 mx-10">
-            <Image src={VerifyPic} alt="VerifyPic" width={450} height={200} />
-          </div>
-        </div>
       </div>
-      <Footer />
     </>
   );
 };
 
-export default Verify;
+export default EnterCodePopUp;

@@ -97,16 +97,30 @@ const VerifyLog = observer(() => {
         }
       );
 
+      const data = await response.json();
+      console.log("API Response:", data);
+      const accessToken = data.access_token;
+
+      if (accessToken) {
+        const expiryDate = new Date(
+          Date.now() + 3 * 30 * 24 * 60 * 60 * 1000
+        ).toUTCString();
+        document.cookie = `access_token=${accessToken}; path=/; expires=${expiryDate};`;
+        console.log("Access token set in cookie:", accessToken);
+
+        // Store the access token in MobX store
+        authStore.setAccessToken(accessToken);
+
+        // Navigate to another page after successful verification
+        router.push("/");
+      } else {
+        console.error("Access token is undefined");
+      }
+
       if (response.ok) {
         const responseData = await response.json();
         // Log the successful response
         console.log("Verification successful!", responseData);
-
-        // Store the access token in MobX store
-        authStore.setAccessToken(responseData.access_token);
-
-        // Navigate to another page after successful verification
-        router.push("/");
       } else {
         const errorData = await response.json();
         // Handle errors
