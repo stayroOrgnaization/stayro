@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Calendar from "../../../public/CalendarPic.png";
 import Saudi from "../../../public/Saudi.svg";
-import Navbar from "@/app/components/Navbar";
 import Link from "next/link";
 
 const Login = observer(() => {
@@ -28,11 +27,11 @@ const Login = observer(() => {
         <div className="login flex flex-col w-[60%] h-[748px] md:items-center mt-20 md:w-full ">
           <div className=" lg:hidden mt-20 flex flex-col sm:mx-8 ">
             <h3 className="font-bold text-4xl text-gray-100 text-center">
-              {" "}
+              
               احجز براحة، اختر ستيرو
             </h3>
             <p className="font-normal text-lg text-gray-100 text-center mt-5 ">
-              {" "}
+              
               اكتشف تجربة مميزة للحجوزات
             </p>
           </div>
@@ -51,22 +50,23 @@ const Login = observer(() => {
             <div className="telephone-input flex flex-col mt-8">
               <label className="text-right mx-4">رقم الهاتف</label>
               <div className="flex justify-end align-center space-x-1 mx-6">
-                <div className="flex items-center justify-end  border-[#303030] bg-[#FFFFFF0D] h-[40px] w-[86px] rounded-[12px] mt-3">
+                <div className="flex items-center justify-center  border-[#303030] bg-[#FFFFFF0D] h-[48px] w-[86px] rounded-[12px] mt-3">
+                <div className="flex items-center justify-center h-[24px] w-[60px]]">
                   <Image
                     src={Saudi}
                     alt="KSA"
-                    width={24} // Decrease the width for better alignment
-                    height={24}
-                    className="rounded"
+                    width={24.05} // Decrease the width for better alignment
+                    height={16}
+                    className="rounded-sm"
                   />
                   <input
                     type="text"
                     value="+966"
                     readOnly
-                    className="bg-transparent text-[#A2A2A2]  w-[40px] h-[24px] text-center"
+                    className="bg-transparent text-[#A2A2A2]  w-[30px] h-[21px] text-center"
                   />
                 </div>
-
+                </div>
                 <input
                   type="tel"
                   name="phone"
