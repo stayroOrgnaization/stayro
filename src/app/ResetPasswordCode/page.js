@@ -1,5 +1,5 @@
 import Navbar from "../components/Navbar";
-import CodePage from "../components/EnterCode";
+import CodePage from "../components/EnterCodePass";
 
 function EnterTheCode() {
   return (
