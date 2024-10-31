@@ -27,11 +27,11 @@ const Login = observer(() => {
         <div className="login  lg:w-[63%] h-[748px] flex-col md:items-center mt-20 md:w-full">
           <div className=" lg:hidden mt-20 flex flex-col sm:mx-8 ">
             <h3 className="font-bold text-4xl text-gray-100 text-center">
-              
+              {" "}
               احجز براحة، اختر ستيرو
             </h3>
             <p className="font-normal text-lg text-gray-100 text-center mt-5 ">
-              
+              {" "}
               اكتشف تجربة مميزة للحجوزات
             </p>
           </div>
@@ -50,11 +50,11 @@ const Login = observer(() => {
             <div className="telephone-input flex flex-col mt-8">
               <label className="text-right mx-4">رقم الهاتف</label>
               <div className="flex justify-end align-center space-x-1 mx-6">
-                <div className="flex items-center justify-end  border-[#303030] bg-[#FFFFFF0D] h-[40px] w-[86px] rounded-[12px] mt-3">
+                <div className="flex items-center justify-center space-x-1 border-[#303030] bg-[#FFFFFF0D] h-[40px] lg:w-[86px] rounded-[12px] mt-3">
                   <Image
                     src={Saudi}
                     alt="KSA"
-                    width={24} // Decrease the width for better alignment
+                    width={24}
                     height={24}
                     className="rounded"
                   />
@@ -62,10 +62,10 @@ const Login = observer(() => {
                     type="text"
                     value="+966"
                     readOnly
-                    className="bg-transparent text-[#A2A2A2]  w-[30px] h-[21px] text-center"
+                    className="bg-transparent text-[#A2A2A2]  w-[40px] h-[24px] text-center"
                   />
                 </div>
-                </div>
+
                 <input
                   type="tel"
                   name="phone"

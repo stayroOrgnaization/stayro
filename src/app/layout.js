@@ -1,5 +1,5 @@
 import "./Styles/globals.css";
-// import 'tailwindcss/tailwind.css';
+import Head from "next/head";
 import { Tajawal } from "next/font/google";
 
 export const metadata = {
@@ -16,6 +16,13 @@ const tajawal = Tajawal({
 export default function RootLayout({ children }) {
   return (
     <html >
+          <Head>
+        {/* Add the Google Fonts link here */}
+        <link
+          href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap"
+          rel="stylesheet"
+        />
+      </Head>
       <body className={tajawal.className}>
         {children}
       </body>

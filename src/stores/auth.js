@@ -1,28 +1,20 @@
 import { makeAutoObservable, runInAction } from "mobx";
-import Cookies from "js-cookie";
 
 class AuthStore {
   formData = {
     phone: "",
-    role: "customer", // Default to customer
+    role: "customer", 
     email: "",
     password: "",
     confirmPassword: "",
-    username: "",
-    country: "",
-    city: "",
-    gender: "",
   };
-  access_token = ""; // To store the access token
-  // refreshToken = ""; // To store the refresh token
-  profileImage = null;
+
 
   errorMessage = "";
   isLoading = false;
 
   constructor() {
     makeAutoObservable(this);
-    this.loadTokenFromCookie();
   }
 
   resetFormData() {
@@ -32,46 +24,11 @@ class AuthStore {
       email: "",
       password: "",
       confirmPassword: "",
-      username: "",
     };
   }
   // Method to update form data
   setFormData(field, value) {
     this.formData[field] = value;
-  }
-
-  // Method to store access token in both MobX and a cookie
-  setAccessToken(token) {
-    runInAction(() => {
-      this.access_token = token; // Store the access token in the MobX state
-      Cookies.set("access_token", token, {
-        expires: 30, // Set cookie expiration to 7 days (adjust as necessary)
-        secure: true, // Only send cookie over HTTPS
-        sameSite: "Strict", // Prevent CSRF attacks by limiting cross-site requests
-      });
-      console.log("Access token set in both state and cookie.");
-    });
-  }
-
-  setProfileImage(image) {
-    runInAction(() => {
-      this.profileImage = image;
-    });
-  }
-
-  // clearAccessToken() {
-  //   runInAction(() => {
-  //     this.accessToken = "";
-  //     Cookies.remove("accessToken"); // Remove the token from the cookie
-  //   });
-  // }
-
-  // Example of loading token from cookie (e.g., on app load)
-  loadTokenFromCookie() {
-    const token = Cookies.get("access_token");
-    if (token) {
-      this.access_token = token;
-    }
   }
 
   // Login method
@@ -160,73 +117,6 @@ class AuthStore {
     } catch (error) {
       runInAction(() => {
         this.errorMessage = "حدث خطأ إثناء التسجيل";
-        this.isLoading = false;
-      });
-    }
-  }
-
-  // Method to check if the user is authenticated
-  isAuthenticated() {
-    console.log("access token", this.access_token);
-    return !!this.access_token; // Return true if access_token is set
-  }
-
-  // Method to log the access token and check if user is authenticated
-  logTokenAndCheckAuthentication() {
-    const tokenFromCookie = Cookies.get("access_token");
-    console.log("Access Token from Cookie:", tokenFromCookie); // Log the token
-
-    if (this.isAuthenticated()) {
-      console.log("User is authenticated.", this.access_token);
-    } else {
-      console.log("User is not authenticated.");
-    }
-  }
-
-  async updateProfile() {
-    this.errorMessage = "";
-    this.isLoading = true;
-
-    const dataToSend = new FormData();
-    dataToSend.append("phone_number", this.formData.phone);
-    dataToSend.append("name", this.formData.name);
-    dataToSend.append("email", this.formData.email);
-    dataToSend.append("country", this.formData.country);
-    dataToSend.append("city", this.formData.city);
-    dataToSend.append("gender", this.formData.gender);
-
-    // Include profile picture if it exists
-    if (this.profileImage) {
-      dataToSend.append("profile_image", this.profileImage);
-    }
-
-    try {
-      const response = await fetch(
-        "https://api.stayro.com/ar/customer/api/profile/",
-        {
-          method: "PUT",
-          headers: {
-            Authorization: `Bearer ${this.access_token}`,
-          },
-          body: dataToSend,
-        }
-      );
-
-      if (response.ok) {
-        runInAction(() => {
-          this.isLoading = false;
-          console.log("Profile updated successfully.");
-        });
-      } else {
-        const errorData = await response.json();
-        runInAction(() => {
-          this.errorMessage = errorData.message || "Unknown error";
-          this.isLoading = false;
-        });
-      }
-    } catch (error) {
-      runInAction(() => {
-        this.errorMessage = "An error occurred while updating the profile.";
         this.isLoading = false;
       });
     }

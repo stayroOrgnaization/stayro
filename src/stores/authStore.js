@@ -1,4 +1,3 @@
-// src/stores/authStore.js
 import { makeAutoObservable } from "mobx";
 
 class AuthStore {
@@ -30,7 +29,7 @@ class AuthStore {
 
       const data = await response.json();
       this.isAuthenticated = true;
-      this.user = data.user; // Assuming the API returns user info
+      this.user = data.user; 
 
     } catch (err) {
       this.error = err.message;

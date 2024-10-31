@@ -8,26 +8,22 @@ import { useRouter } from "next/navigation";
 const EnterPhonePopUp = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  const router = useRouter(); // Initialize router
+  const router = useRouter(); 
 
-  // Handle phone number change
   const handleInputChange = (e) => {
     setPhoneNumber(e.target.value);
   };
 
-  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setErrorMessage(""); // Clear previous error message
+    setErrorMessage(""); 
 
-    // Create FormData for the request
     const formData = new FormData();
     formData.append("phone_number", phoneNumber);
     formData.append("method", "sms");
     formData.append("role", "customer");
 
     try {
-      // Send POST request
       const response = await fetch(
         "https://api.stayro.com/ar/auth/api/password/reset/",
         {
@@ -74,7 +70,7 @@ const EnterPhonePopUp = () => {
                   <Image
                     src={Saudi}
                     alt="KSA"
-                    width={24} // Decrease the width for better alignment
+                    width={24} 
                     height={24}
                     className="rounded "
                   />
