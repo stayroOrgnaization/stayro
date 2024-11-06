@@ -4,7 +4,7 @@ import Cookies from "js-cookie";
 class AuthStore {
   formData = {
     phone: "",
-    role: "customer", // Default to customer
+    role: "customer",
     email: "",
     password: "",
     confirmPassword: "",
@@ -12,6 +12,7 @@ class AuthStore {
     country: "",
     city: "",
     gender: "",
+    otp_token: "",
   };
   access_token = ""; // To store the access token
   // refreshToken = ""; // To store the refresh token
@@ -33,8 +34,10 @@ class AuthStore {
       password: "",
       confirmPassword: "",
       username: "",
+      otp_token,
     };
   }
+
   // Method to update form data
   setFormData(field, value) {
     this.formData[field] = value;
