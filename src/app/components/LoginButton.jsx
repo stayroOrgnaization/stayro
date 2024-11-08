@@ -6,7 +6,7 @@ const LoginButton = () => {
   const router = useRouter(); // Initialize useRouter hook
 
   const handleLoginClick = () => {
-    router.push('/Login'); // Navigate to the login page
+    router.push('/Login'); 
   };
 
   return (

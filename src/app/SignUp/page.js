@@ -1,13 +1,13 @@
-import SignUp from "../components/SignUp";
+import SignUpComp from "../components/SignUp";
 import Navbar from "../components/Navbar";
 
-const SignUpPage = () => {
+const SignUp = () => {
   return (
     <>
       <Navbar />
-      <SignUp />
+      <SignUpComp />
     </>
   );
 };
 
-export default SignUpPage;
+export default SignUp;

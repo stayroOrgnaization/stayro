@@ -7,7 +7,7 @@ const Card = ({ property, isTwoPerRow }) => {
     <Link  href={`/Reserve/${property.id}`} key={property.id}>
       <div
         className={`border-[1px] rounded-[20px] overflow-hidden shadow-lg flex flex-col ${
-          isTwoPerRow ? "w-[513px] h-[300px]" : "w-[278.5px] h-[274.68px]"
+          isTwoPerRow ? "w-[513px] h-[300px]" : "w-[276.5px] h-[274.68px]"
         }`}
       >
         <div
