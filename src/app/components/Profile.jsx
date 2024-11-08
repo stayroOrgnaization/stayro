@@ -3,6 +3,7 @@ import { useState } from "react";
 import Image from "next/image";
 import SearchableDropdown from "./GetCity";
 import { authStore } from "../../stores/auth";
+import DeleteAccount from "./DeleteAcc";
 import Saudi from "../../../public/Saudi.svg";
 import Link from "next/link";
 
@@ -57,14 +58,24 @@ const Profile = () => {
     e.preventDefault();
 
     if (!authStore.isAuthenticated()) {
-      return; // Prevent submission if the user is not logged in
+      return;
     } else {
       console.log(document.cookie);
     }
 
-    authStore.logTokenAndCheckAuthentication(); // This can still be called for logging purposes
+    authStore.logTokenAndCheckAuthentication();
 
-    await authStore.updateProfile(); // Call the MobX updateProfile method
+    await authStore.updateProfile();
+  };
+
+  // handiling delete account popUp
+  const [showDeleteAccount, setshowDeleteAccount] = useState(false);
+  const handleDeleteAccount = (e) => {
+    e.preventDefault();
+    setshowDeleteAccount(true);
+  };
+  const closePopup = () => {
+    setshowDeleteAccount(false);
   };
 
   return (
@@ -92,8 +103,8 @@ const Profile = () => {
           </div>
           <div className="Main-pic-part w-[800px] h-[79px] mt-8 flex flex-row justify-between">
             <div className="wallet and points flex space-x-10 ">
-              <div className="border border-[#303030] w-[170px] h-[78px] rounded-xl"></div>
-              <div className="border border-[#303030] w-[170px] h-[78px] rounded-xl"></div>
+              {/* <div className="border border-[#303030] w-[170px] h-[78px] rounded-xl"></div>
+              <div className="border border-[#303030] w-[170px] h-[78px] rounded-xl"></div> */}
             </div>
             {/* Profile Picture Section */}
             <div
@@ -146,7 +157,7 @@ const Profile = () => {
                     defaultValue={authStore.formData.phone}
                     onChange={(e) =>
                       authStore.setFormData("phone", e.target.value)
-                    } // Update phone in MobX store
+                    }
                   />
                 </div>
               </div>
@@ -241,12 +252,12 @@ const Profile = () => {
           <div className="border border-[#303030] w-[240px] h-[45px] rounded-2xl text-center">
             <p className="mt-3"> الصفحة الشخصية</p>
           </div>
-          <div className="border border-[#303030] w-[240px] h-[45px] mt-4 rounded-2xl">
+          <div className="flex justify-center border border-[#303030] w-[240px] h-[45px] mt-4 rounded-2xl">
             <Link className="mt-3" href="/PassSetting">
               تعيين كلمة المرور
             </Link>
           </div>
-          <div className="border border-[#303030] w-[240px] h-[45px] mt-4 rounded-2xl">
+          <div className="flex justify-center border border-[#303030] w-[240px] h-[45px] mt-4 rounded-2xl">
             {" "}
             <Link className="mt-3" href="/ِAbout">
               {" "}
@@ -256,7 +267,7 @@ const Profile = () => {
           <div className="border border-[#303030] w-[240px] h-[45px] mt-4 rounded-2xl">
             <p className="mt-3"> الشروط والأحكام </p>
           </div>
-          <div className="border border-[#303030] w-[240px] h-[45px] mt-4 rounded-2xl">
+          <div className="flex justify-center border border-[#303030] w-[240px] h-[45px] mt-4 rounded-2xl">
             <Link className="mt-3" href="/Policy">
               {" "}
               سياسات الخصوصية
@@ -265,11 +276,32 @@ const Profile = () => {
           <div className="border border-[#303030] w-[240px] h-[45px] mt-4 rounded-2xl">
             <p className="mt-3"> الأسئلة الشائعة </p>
           </div>
-          <div className="border border-[#303030] w-[240px] h-[45px] mt-4 rounded-2xl">
-            <p className="mt-3"> حذف الحساب </p>
+          <div className=" flex justify-center border border-[#303030] w-[240px] h-[45px] mt-4 rounded-2xl">
+            <Link
+              href="#"
+              className="forgot text-[#FF5B2D] mt-3"
+              onClick={handleDeleteAccount}
+            >
+              حذف الحساب
+            </Link>
           </div>
         </div>
       </div>
+      {/* popUp */}
+      {showDeleteAccount && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+          <div className="bg-[#1A1A1A] w-[700px] h-[274px] rounded-lg shadow-lg relative">
+            <button
+              onClick={closePopup}
+              className="absolute top-2 right-4 text-gray-500 hover:text-black"
+            >
+              ✕
+            </button>
+
+            <DeleteAccount />
+          </div>
+        </div>
+      )}
     </div>
   );
 };

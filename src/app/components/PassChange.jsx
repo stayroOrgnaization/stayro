@@ -1,21 +1,58 @@
 "use client";
 import { useState } from "react";
 import Link from "next/link";
+import { authStore } from "@/stores/auth";
 import EnterPhonePopUp from "./EnterPhonePopUp"; // Your popup component
 
 const PssSet = () => {
-  // State to control the visibility of the popup
   const [isPopupVisible, setIsPopupVisible] = useState(false);
+  const [oldPassword, setOldPassword] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
-  // Function to toggle popup visibility
   const handleForgotPasswordClick = (e) => {
-    e.preventDefault(); // Prevent the default link behavior
-    setIsPopupVisible(true); // Show the popup
+    e.preventDefault();
+    setIsPopupVisible(true);
   };
 
-  // Function to close the popup
   const closePopup = () => {
     setIsPopupVisible(false);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (password !== confirmPassword) {
+      alert("Passwords do not match!");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("old_password", oldPassword);
+    formData.append("password", password);
+    formData.append("confirm_password", confirmPassword);
+
+    try {
+      const response = await fetch(
+        "https://api.stayro.com/ar/auth/api/password/change/",
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${authStore.access_token}`,
+          },
+          body: formData,
+        }
+      );
+
+      if (response.ok) {
+        alert("Password changed successfully!");
+      } else {
+        const errorData = await response.json();
+        console.error("Failed to change password:", errorData);
+        alert(`Failed to change password: ${JSON.stringify(errorData)}`);
+      }
+    } catch (error) {
+      console.error("Error changing password:", error);
+    }
   };
 
   return (
@@ -29,10 +66,9 @@ const PssSet = () => {
           إعداد معلومات وبياناتك الشخصية
         </p>
       </div>
-
       {/* Form and options */}
       <div className="second-container w-[1100px] h-[1156px] flex flex-row mt-10">
-        <form className="profile w-[852px] h-[671px]">
+        <form onSubmit={handleSubmit} className="profile w-[852px] h-[671px]">
           <div className="profile-paragaph w-[800px] h-[47px] flex flex-col items-end">
             <h1 className="text-[#F5F5F5] text-[20px] font-bold text-right">
               تعيين كلمة المرور
@@ -49,7 +85,10 @@ const PssSet = () => {
                 <label>كلمة المرور الحالية</label>
                 <input
                   type="password"
-                  name="password"
+                  name="current_password"
+                  placeholder="كلمة المرور الحالية"
+                  value={oldPassword}
+                  onChange={(e) => setOldPassword(e.target.value)}
                   className="border text-right border-[#303030] bg-[#FFFFFF0D] text-[#A2A2A2] placeholder-[#A2A2A2] p-2 rounded-xl w-[386px] h-[48px]"
                 />
                 <Link
@@ -63,22 +102,28 @@ const PssSet = () => {
             </div>
 
             {/* New password fields */}
-            <div className="Email-Country flex space-x-6 mt-6">
+            <div className=" flex space-x-6 mt-6">
               <div className="flex flex-col items-end space-y-4">
                 <label> كلمة المرور الجديدة</label>
                 <input
-                  className="Email border text-right border-[#303030] bg-[#FFFFFF0D] text-[#A2A2A2] placeholder-[#A2A2A2] p-2 rounded-xl w-[386px] h-[48px]"
+                  className=" border text-right border-[#303030] bg-[#FFFFFF0D] text-[#A2A2A2] placeholder-[#A2A2A2] p-2 rounded-xl w-[386px] h-[48px]"
                   type="password"
-                  name="password"
+                  name="new_password"
+                  placeholder="كلمة المرور الجديدة"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
 
               <div className="flex flex-col items-end space-y-4">
                 <label> تكرار كلمة المرور الجديدة</label>
                 <input
-                  className="country border text-right border-[#303030] bg-[#FFFFFF0D] text-[#A2A2A2] placeholder-[#A2A2A2] p-2 rounded-xl w-[386px] h-[48px]"
+                  className=" border text-right border-[#303030] bg-[#FFFFFF0D] text-[#A2A2A2] placeholder-[#A2A2A2] p-2 rounded-xl w-[386px] h-[48px]"
                   type="password"
-                  name="password"
+                  name="confirm_password"
+                  placeholder="تكرار كلمة المرور الجديدة"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
                 />
               </div>
             </div>
@@ -120,7 +165,7 @@ const PssSet = () => {
           </div>
         </div>
       </div>
-
+      nothing happen when I submit the form
       {/* Render the EnterPhonePopUp as a popup */}
       {isPopupVisible && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">

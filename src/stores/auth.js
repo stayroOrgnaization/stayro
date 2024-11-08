@@ -217,7 +217,7 @@ class AuthStore {
       if (response.ok) {
         runInAction(() => {
           this.isLoading = false;
-          console.log("Profile updated successfully.");
+          console.log("Profile updated successfully.", response);
         });
       } else {
         const errorData = await response.json();
@@ -238,5 +238,35 @@ class AuthStore {
     return !!this.access_token;
   }
 }
+
+const handleDelete = async () => {
+  setIsDeleting(true);
+
+  try {
+    const response = await fetch(
+      "https://api.stayro.com/ar/user/api/users/delete-request/",
+      {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${this.access_token}`,
+        },
+      }
+    );
+
+    if (response.ok) {
+      console.log("deleted");
+    } else {
+      const errorData = await response.json();
+      setErrorMessage(
+        errorData.message || "Failed to delete account. Please try again."
+      );
+    }
+  } catch (error) {
+    console.error("Error during deletion:", error);
+    setErrorMessage("An error occurred. Please try again later.");
+  } finally {
+    setIsDeleting(false);
+  }
+};
 
 export const authStore = new AuthStore();
