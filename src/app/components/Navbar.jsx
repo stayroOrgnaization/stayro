@@ -1,32 +1,38 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ThemeToggle from "./ThemeToggle";
 import SearchButton from "./SearchButton";
 import LoginButton from "./LoginButton";
+import LogoutButton from "./LogoutButton";
 import Logo from "./Logo";
-import UserImage from "./UserImage";
 import Link from "next/link";
+import { authStore } from "../../stores/auth.js";
 
 export default function Navbar() {
-  const apiEndpoint = "/api/user"; // Adjust to your actual API endpoint
-  const token = "your-auth-token"; // Replace with the actual token retrieval logic
+  const [isClient, setIsClient] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-
-  const toggleMenu = () => {
-    setIsOpen(!isOpen);
-  };
   const [activeLink, setActiveLink] = useState("الرئيسية");
 
-  // Function to handle click event and set the active link
-  const handleLinkClick = (linkName) => {
-    setActiveLink(linkName);
-  };
+  const toggleMenu = () => setIsOpen(!isOpen);
+
+  const handleLinkClick = (linkName) => setActiveLink(linkName);
+
+  useEffect(() => {
+    // Mark component as mounted on client
+    setIsClient(true);
+
+    // Check authentication status on client only
+    if (authStore.isAuthenticated()) {
+      setIsAuthenticated(true);
+    }
+  }, []);
 
   return (
     <nav className="grid grid-rows-[auto_1fr_auto] items-center justify-items-center mt-[20px] mx-[75px]">
       <div className="container flex justify-between items-center pt-2 px-3 ">
         <div className="flex row w-auto">
-          <LoginButton />
+          {isClient && (isAuthenticated ? <LogoutButton /> : <LoginButton />)}
           <SearchButton />
           <ThemeToggle />
         </div>
@@ -35,35 +41,13 @@ export default function Navbar() {
         <div className="text-stayro "> </div>
 
         {/* Desktop Menu */}
-        <div className="hidden md:flex  custom-font pr-44">
-          {/* <a
-            href="#"
-            onClick={() => handleLinkClick("المحادثات")}
-            className={`mr-8 py-1 no-underline tracking-wide transition text-sm duration-700 ease-in-out ${
-              activeLink === "المحادثات"
-                ? "border-b-2 border-gray-100 text-gray-100 -translate-y-[4px]"
-                : "border-b-2 border-transparent opacity-50"
-            }`}
-          >
-            المحادثات
-          </a>
-          <a
-            href="#"
-            onClick={() => handleLinkClick("الحجوزات")}
-            className={`mr-8 py-1 no-underline tracking-wide transition text-sm duration-700 ease-in-out ${
-              activeLink === "الحجوزات"
-                ? "border-b-2 border-gray-100  text-gray-100 -translate-y-[4px]"
-                : "border-b-2 border-transparent opacity-50"
-            }`}
-          >
-            الحجوزات
-          </a> */}
+        <div className="hidden md:flex custom-font pr-44">
           <a
             href="#"
             onClick={() => handleLinkClick("المساكن")}
             className={`mr-8 py-1 no-underline tracking-wide transition text-sm duration-700 ease-in-out ${
               activeLink === "المساكن"
-                ? "border-b-2 border-gray-100  text-gray-100 -translate-y-[4px]"
+                ? "border-b-2 border-gray-100 text-gray-100 -translate-y-[4px]"
                 : "border-b-2 border-transparent opacity-50"
             }`}
           >
@@ -74,21 +58,23 @@ export default function Navbar() {
             onClick={() => handleLinkClick("الرئيسية")}
             className={`mr-8 py-1 no-underline tracking-wide transition text-sm duration-700 ease-in-out ${
               activeLink === "الرئيسية"
-                ? "border-b-2 border-gray-100  text-gray-100 -translate-y-[4px]"
+                ? "border-b-2 border-gray-100 text-gray-100 -translate-y-[4px]"
                 : "border-b-2 border-transparent opacity-50"
             }`}
           >
             الرئيسية
           </Link>
         </div>
+
         <div className="text-stayro text-xl font-bold ">
           <Logo dir="ltr" />
         </div>
+
         {/* Hamburger Icon */}
         <div className="md:hidden">
           <button
             onClick={toggleMenu}
-            className=" text-gray-100 focus:outline-none"
+            className="text-gray-100 focus:outline-none"
           >
             <svg
               className="w-6 h-6"

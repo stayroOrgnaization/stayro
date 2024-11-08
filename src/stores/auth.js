@@ -85,7 +85,7 @@ class AuthStore {
     const dataToSend = new FormData();
     dataToSend.append("phone_number", this.formData.phone);
     dataToSend.append("password", this.formData.password);
-    dataToSend.append("username", this.formData.username); // You may want to adjust how username is handled
+    dataToSend.append("username", this.formData.username);
     dataToSend.append("role", this.formData.role);
     dataToSend.append("method", "sms");
 
@@ -121,7 +121,6 @@ class AuthStore {
     }
   }
 
-  // Sign-up method
   // Sign-up method
   async signUp() {
     this.errorMessage = ""; // Clear previous errors
@@ -233,6 +232,10 @@ class AuthStore {
         this.isLoading = false;
       });
     }
+  }
+  isAuthenticated() {
+    console.log("access token from isAuthenticated", this.access_token);
+    return !!this.access_token;
   }
 }
 

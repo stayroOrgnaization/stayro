@@ -1,3 +1,4 @@
+"use client";
 import { useState } from "react";
 import "../Styles/globals.css";
 import Image from "next/image";
@@ -20,10 +21,17 @@ const SetPass = () => {
       return;
     }
 
+    // Log phone number and otp_token to verify their values
+    console.log("Phone Number:", authStore.formData.phone);
+    console.log("OTP Token:", authStore.formData.otp_token);
+    console.log("email:", authStore.formData.email);
+    console.log("authStore formData:", { ...authStore.formData });
+
     // Create FormData to send to the API
     const dataToSend = new FormData();
-    dataToSend.append("phone_number", authStore.formData.phone); // Get phone number from authStore
-    dataToSend.append("otp_token", authStore.otp_token); // Get OTP token from previous form
+    dataToSend.append("phone_number", authStore.formData.phone);
+    dataToSend.append("otp_token", authStore.formData.otp_token);
+    dataToSend.append("role", authStore.formData.role);
     dataToSend.append("password", password);
     dataToSend.append("confirm_password", confirmPassword);
 
@@ -41,6 +49,7 @@ const SetPass = () => {
         router.push("/");
       } else {
         const errorData = await response.json();
+        console.error("API Error Response:", errorData); // Log the full error response
         setErrorMessage(errorData.message || "خطأ في تعيين كلمة المرور");
       }
     } catch (error) {
