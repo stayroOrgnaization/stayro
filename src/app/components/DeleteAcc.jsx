@@ -15,7 +15,7 @@ const DeleteAccount = () => {
       const success = await authStore.handleDelete();
 
       if (success) {
-        router.push("/account-deleted-successfully");
+        router.push("/");
       } else {
         setErrorMessage("Failed to delete account. Please try again.");
       }

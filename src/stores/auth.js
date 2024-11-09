@@ -21,6 +21,8 @@ class AuthStore {
   errorMessage = "";
   isLoading = false;
 
+  isDeleting = false;
+
   constructor() {
     makeAutoObservable(this);
     this.loadTokenFromCookie();
@@ -237,36 +239,76 @@ class AuthStore {
     console.log("access token from isAuthenticated", this.access_token);
     return !!this.access_token;
   }
-}
 
-const handleDelete = async () => {
-  setIsDeleting(true);
+  // delete account
 
-  try {
-    const response = await fetch(
-      "https://api.stayro.com/ar/user/api/users/delete-request/",
-      {
-        method: "PUT",
-        headers: {
-          Authorization: `Bearer ${this.access_token}`,
-        },
-      }
-    );
+  async handleDelete() {
+    this.isDeleting = true;
+    this.errorMessage = "";
 
-    if (response.ok) {
-      console.log("deleted");
-    } else {
-      const errorData = await response.json();
-      setErrorMessage(
-        errorData.message || "Failed to delete account. Please try again."
+    try {
+      const response = await fetch(
+        "https://api.stayro.com/ar/user/api/users/delete-request/",
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${this.access_token}`,
+          },
+        }
       );
+
+      if (response.ok) {
+        console.log("Account deleted successfully.");
+        return true;
+      } else {
+        const errorData = await response.json();
+        runInAction(() => {
+          this.errorMessage =
+            errorData.message || "Failed to delete account. Please try again.";
+        });
+        return false;
+      }
+    } catch (error) {
+      runInAction(() => {
+        this.errorMessage = "An error occurred. Please try again later.";
+        console.error("Error during deletion:", error);
+      });
+      return false;
+    } finally {
+      runInAction(() => {
+        this.isDeleting = false;
+      });
     }
-  } catch (error) {
-    console.error("Error during deletion:", error);
-    setErrorMessage("An error occurred. Please try again later.");
-  } finally {
-    setIsDeleting(false);
   }
-};
+
+  // handle logout
+  async handleLogout() {
+    try {
+      const response = await fetch(
+        "https://api.stayro.com/ar/auth/api/logout",
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${this.access_token}`,
+          },
+        }
+      );
+
+      if (response.ok) {
+        // Clear access token in both MobX store and cookies
+        authStore.setAccessToken("");
+        Cookies.remove("access_token");
+
+        // Redirect to the home page
+        router.push("/");
+        console.log("Logged out successfully.");
+      } else {
+        console.log("Logout failed.");
+      }
+    } catch (error) {
+      console.error("An error occurred during logout:", error);
+    }
+  }
+}
 
 export const authStore = new AuthStore();

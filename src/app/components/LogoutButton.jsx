@@ -2,43 +2,15 @@
 
 import { useRouter } from "next/navigation";
 import { authStore } from "../../stores/auth.js";
-import Cookies from "js-cookie";
 
 const LogoutButton = () => {
   const router = useRouter();
 
-  const dataToSend = new FormData();
-
+  // Function to handle logout and redirect
   const handleLogout = async () => {
-    const token = authStore.access_token;
-    const formData = new FormData();
-    formData.append("jwt", token);
-
-    try {
-      const response = await fetch(
-        "https://api.stayro.com/ar/auth/api/logout",
-        {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-          body: formData,
-        }
-      );
-
-      if (response.ok) {
-        // Clear access token in both MobX store and cookies
-        authStore.setAccessToken("");
-        Cookies.remove("access_token");
-
-        // Redirect to the home page
-        router.push("/");
-        console.log("Logged out successfully.");
-      } else {
-        console.log("Logout failed.");
-      }
-    } catch (error) {
-      console.error("An error occurred during logout:", error);
+    const success = await authStore.handleLogout();
+    if (success) {
+      router.push("/");
     }
   };
 
