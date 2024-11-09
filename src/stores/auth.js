@@ -284,8 +284,10 @@ class AuthStore {
   // handle logout
   async handleLogout() {
     try {
+      console.log("Attempting to log out. Access Token:", this.access_token);
+
       const response = await fetch(
-        "https://api.stayro.com/ar/auth/api/logout",
+        "https://api.stayro.com/ar/auth/api/logout/",
         {
           method: "POST",
           headers: {
@@ -295,18 +297,18 @@ class AuthStore {
       );
 
       if (response.ok) {
-        // Clear access token in both MobX store and cookies
-        authStore.setAccessToken("");
-        Cookies.remove("access_token");
-
-        // Redirect to the home page
-        router.push("/");
+        this.setAccessToken(""); // Clear access token in the store
+        Cookies.remove("access_token"); // Clear token in cookies
         console.log("Logged out successfully.");
+        return true;
       } else {
-        console.log("Logout failed.");
+        const errorData = await response.json();
+        console.error("Logout failed:", errorData.message || "Unknown error");
+        return false;
       }
     } catch (error) {
       console.error("An error occurred during logout:", error);
+      return false;
     }
   }
 }
