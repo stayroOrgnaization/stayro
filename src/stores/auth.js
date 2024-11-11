@@ -8,7 +8,7 @@ class AuthStore {
     email: "",
     password: "",
     confirmPassword: "",
-    username: "",
+    name: "",
     country: "",
     city: "",
     gender: "",
@@ -35,7 +35,7 @@ class AuthStore {
       email: "",
       password: "",
       confirmPassword: "",
-      username: "",
+      name: "",
       otp_token,
     };
   }
@@ -87,7 +87,7 @@ class AuthStore {
     const dataToSend = new FormData();
     dataToSend.append("phone_number", this.formData.phone);
     dataToSend.append("password", this.formData.password);
-    dataToSend.append("username", this.formData.username);
+    dataToSend.append("username", this.formData.name);
     dataToSend.append("role", this.formData.role);
     dataToSend.append("method", "sms");
 
@@ -188,23 +188,24 @@ class AuthStore {
   }
 
   async updateProfile() {
-    this.errorMessage = "";
-    this.isLoading = true;
-
+    // Create FormData object
     const dataToSend = new FormData();
-    dataToSend.append("phone_number", this.formData.phone);
-    dataToSend.append("name", this.formData.name);
-    dataToSend.append("email", this.formData.email);
-    dataToSend.append("country", this.formData.country);
-    dataToSend.append("city", this.formData.city);
-    dataToSend.append("gender", this.formData.gender);
 
-    // Include profile picture if it exists
-    if (this.profileImage) {
-      dataToSend.append("profile_image", this.profileImage);
-    }
+    // Append necessary fields to FormData
+    dataToSend.append("phone", this.formData.phone || "");
+    dataToSend.append("email", this.formData.email || "");
+    dataToSend.append("name", this.formData.name || "");
+    dataToSend.append("profile[gender]", this.formData.gender || "");
+    dataToSend.append(
+      "profile[city]",
+      this.formData.city.name ? this.formData.city.name : ""
+    );
+    dataToSend.append("profile[image]", this.formData.image || "");
+
+    dataToSend.forEach((value, key) => console.log(`${key}: ${value}`));
 
     try {
+      // Send the update request
       const response = await fetch(
         "https://api.stayro.com/ar/customer/api/profile/",
         {
@@ -216,25 +217,18 @@ class AuthStore {
         }
       );
 
+      const result = await response.json();
+
       if (response.ok) {
-        runInAction(() => {
-          this.isLoading = false;
-          console.log("Profile updated successfully.", response);
-        });
+        console.log("Profile updated successfully.", result);
       } else {
-        const errorData = await response.json();
-        runInAction(() => {
-          this.errorMessage = errorData.message || "Unknown error";
-          this.isLoading = false;
-        });
+        console.error("Error updating profile:", result);
       }
     } catch (error) {
-      runInAction(() => {
-        this.errorMessage = "An error occurred while updating the profile.";
-        this.isLoading = false;
-      });
+      console.error("An error occurred:", error);
     }
   }
+
   isAuthenticated() {
     console.log("access token from isAuthenticated", this.access_token);
     return !!this.access_token;
@@ -297,8 +291,8 @@ class AuthStore {
       );
 
       if (response.ok) {
-        this.setAccessToken(""); // Clear access token in the store
-        Cookies.remove("access_token"); // Clear token in cookies
+        this.setAccessToken("");
+        Cookies.remove("access_token");
         console.log("Logged out successfully.");
         return true;
       } else {
@@ -309,6 +303,44 @@ class AuthStore {
     } catch (error) {
       console.error("An error occurred during logout:", error);
       return false;
+    }
+  }
+
+  async logFetchedProfileData() {
+    try {
+      const response = await fetch(
+        "https://api.stayro.com/ar/customer/api/profile/",
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${this.access_token}`,
+          },
+        }
+      );
+
+      if (response.ok) {
+        const profileData = await response.json();
+
+        // Log details and update MobX state
+        runInAction(() => {
+          this.formData = {
+            ...this.formData,
+            email: profileData.email,
+            phone: profileData.phone_number,
+            name: profileData.username,
+            city: profileData.profile.city || "Not set",
+            gender: profileData.profile.gender_display || "Not set",
+          };
+          this.profileImage = profileData.image_url;
+        });
+
+        // Log to confirm
+        console.log("User profile data updated in state:", this.formData);
+      } else {
+        console.error("Failed to fetch profile data:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Error fetching profile data:", error);
     }
   }
 }

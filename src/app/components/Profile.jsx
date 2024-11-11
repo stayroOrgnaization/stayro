@@ -2,12 +2,13 @@
 import { useState } from "react";
 import Image from "next/image";
 import SearchableDropdown from "./GetCity";
+import { observer } from "mobx-react-lite";
 import { authStore } from "../../stores/auth";
 import DeleteAccount from "./DeleteAcc";
 import Saudi from "../../../public/Saudi.svg";
 import Link from "next/link";
 
-const Profile = () => {
+const Profile = observer(() => {
   // handing choosing the sex
   const [selectedSex, setSelectedSex] = useState(null);
   const handleSelect = (sex) => {
@@ -26,19 +27,11 @@ const Profile = () => {
 
     // Load profile data on component mount
     useEffect(() => {
-      // Set initial values from MobX store
       const { gender, phone, name, country, email, city } = authStore.formData;
-
       setSelectedSex(gender);
       setImagePreview(authStore.profileImage);
-
-      // Populate input fields if values exist
-      if (phone) authStore.setFormData("phone", phone);
-      if (name) authStore.setFormData("name", name);
-      if (country) authStore.setFormData("country", country);
-      if (email) authStore.setFormData("email", email);
-      if (city) authStore.setFormData("city", city);
-    }, []);
+      setSelectedCity(city.name);
+    }, [authStore.formData]);
   };
   // Handle image selection
   const handleImageChange = (e) => {
@@ -60,7 +53,7 @@ const Profile = () => {
     if (!authStore.isAuthenticated()) {
       return;
     } else {
-      console.log(document.cookie);
+      // console.log(document.cookie);
     }
 
     authStore.logTokenAndCheckAuthentication();
@@ -153,8 +146,8 @@ const Profile = () => {
                   </div>
                   <input
                     className="Code border text-right border-[#303030] bg-[#FFFFFF0D] text-[#A2A2A2] placeholder-[#A2A2A2] p-2 rounded-xl w-[292px] h-[48px]"
-                    placeholder="055555555"
-                    defaultValue={authStore.formData.phone}
+                    // placeholder="055555555"
+                    value={authStore.formData.phone}
                     onChange={(e) =>
                       authStore.setFormData("phone", e.target.value)
                     }
@@ -166,10 +159,10 @@ const Profile = () => {
                 <input
                   className="border text-right border-[#303030] bg-[#FFFFFF0D] text-[#A2A2A2] placeholder-[#A2A2A2] p-2 rounded-xl w-[386px] h-[48px]"
                   placeholder=" بدر ابراهيم "
-                  defaultValue={authStore.formData.username}
+                  value={authStore.formData.name || ""}
                   onChange={(e) =>
                     authStore.setFormData("name", e.target.value)
-                  } // Update name in MobX store
+                  }
                 />
               </div>
             </div>
@@ -183,7 +176,7 @@ const Profile = () => {
                   placeholder=" السعودية"
                   onChange={(e) =>
                     authStore.setFormData("country", e.target.value)
-                  } // Update country in MobX store
+                  }
                 />
               </div>
 
@@ -192,10 +185,10 @@ const Profile = () => {
                 <input
                   className="country border text-right border-[#303030] bg-[#FFFFFF0D] text-[#A2A2A2] placeholder-[#A2A2A2] p-2 rounded-xl w-[386px] h-[48px]"
                   placeholder=" badr@gmail.com"
-                  defaultValue={authStore.formData.email}
+                  value={authStore.formData.email}
                   onChange={(e) =>
                     authStore.setFormData("email", e.target.value)
-                  } // Update email in MobX store
+                  }
                 />
               </div>
             </div>
@@ -304,6 +297,6 @@ const Profile = () => {
       )}
     </div>
   );
-};
+});
 
 export default Profile;
