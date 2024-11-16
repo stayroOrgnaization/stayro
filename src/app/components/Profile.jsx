@@ -1,87 +1,154 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import SearchableDropdown from "./GetCity";
-import { authStore } from "../../stores/auth";
+import Cookies from "js-cookie"; // Import js-cookie
 import Saudi from "../../../public/Saudi.svg";
 import Link from "next/link";
 
 const Profile = () => {
-  // handing choosing the sex
   const [selectedSex, setSelectedSex] = useState(null);
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [imagePreview, setImagePreview] = useState(null);
+  const [profileData, setProfileData] = useState({
+    phone_number: '',
+    name: '',
+    country: '',
+    email: '',
+    city: '',
+    gender: '',
+  });
+  const [loading, setLoading] = useState(true); // To handle the loading state
+  const [error, setError] = useState(null); // To handle errors
+
+  // Handle choosing gender
   const handleSelect = (sex) => {
     setSelectedSex(sex);
-    authStore.setFormData("gender", sex); // Update gender in MobX store
+    setProfileData((prev) => ({ ...prev, gender: sex }));
   };
 
-  const [selectedImage, setSelectedImage] = useState(null); // To store the selected image
-  const [imagePreview, setImagePreview] = useState(null); // To preview the image
-
-  const Profile = () => {
-    // State for selected sex and profile image
-    const [selectedSex, setSelectedSex] = useState(null);
-    const [selectedImage, setSelectedImage] = useState(null);
-    const [imagePreview, setImagePreview] = useState(null);
-
-    // Load profile data on component mount
-    useEffect(() => {
-      // Set initial values from MobX store
-      const { gender, phone, name, country, email, city } = authStore.formData;
-
-      setSelectedSex(gender);
-      setImagePreview(authStore.profileImage);
-
-      // Populate input fields if values exist
-      if (phone) authStore.setFormData("phone", phone);
-      if (name) authStore.setFormData("name", name);
-      if (country) authStore.setFormData("country", country);
-      if (email) authStore.setFormData("email", email);
-      if (city) authStore.setFormData("city", city);
-    }, []);
-  };
-  // Handle image selection
+  // Handle image change
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
       setSelectedImage(file);
       setImagePreview(URL.createObjectURL(file));
-      authStore.setProfileImage(file);
     }
   };
 
-  const triggerFileInput = () => {
-    document.getElementById("profileImageInput").click();
-  };
+  // Fetch profile data using the token from cookies
+  useEffect(() => {
+    const token = Cookies.get("access_token"); // Get the token from cookies
 
+    if (token) {
+      // If the token exists, proceed with the API calls
+      const fetchProfileData = async () => {
+        try {
+          const response = await fetch("https://api.stayro.com/ar/customer/api/profile/", {
+            method: "GET",
+            headers: {
+              "Authorization": `Bearer ${token}`,
+            },
+          });
+
+          if (!response.ok) {
+            throw new Error("Failed to fetch profile data");
+          }
+
+          const data = await response.json();
+          setProfileData(data); // Set the fetched profile data
+
+          // Set initial gender and image
+          setSelectedSex(data.gender);
+          setImagePreview(data.profileImage || null); // Assuming the API response has a `profileImage` field
+        } catch (error) {
+          console.error("Error fetching profile data:", error);
+          setError("Failed to load profile data.");
+        } finally {
+          setLoading(false);
+        }
+      };
+
+      fetchProfileData();
+    } else {
+      setError("No authentication token found. Please log in.");
+      setLoading(false);
+    }
+  }, []);
+
+  // Handle form submission for updating profile
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!authStore.isAuthenticated()) {
-      return; // Prevent submission if the user is not logged in
-    } else {
-      console.log(document.cookie);
+    const token = Cookies.get("access_token");
+
+    if (!token) {
+      alert("You need to be logged in to update your profile.");
+      return;
     }
 
-    authStore.logTokenAndCheckAuthentication(); // This can still be called for logging purposes
+    const updatedProfile = {
+      ...profileData,
+      profileImage: selectedImage, // Assuming you want to send the image as well
+    };
 
-    await authStore.updateProfile(); // Call the MobX updateProfile method
+    try {
+      const response = await fetch("https://api.stayro.com/ar/customer/api/profile/", {
+        method: "POST", // POST or PUT depending on your API design
+        headers: {
+          "Authorization": `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(updatedProfile),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to update profile");
+      }
+
+      const data = await response.json();
+      console.log("Profile updated successfully:", data);
+    } catch (error) {
+      console.error("Error updating profile:", error);
+    }
   };
 
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>{error}</div>;
+  }
+  const updateCity = (selectedCity) => {
+    setProfileData((prev) => ({
+      ...prev,
+      city: selectedCity, // Update city
+    }));
+  };
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>{error}</div>;
+  }
+
+
   return (
-    <div className="main-dev h-[892px] w-[1440px] flex flex-col items-end ">
-      {/* sparate the upper from the down  */}
-      <div className="h-[61px] w-[1150px]  mt-10 flex flex-col items-end">
+    <div className="main-dev h-[892px] w-[1440px] flex flex-col items-end">
+      <div className="h-[61px] w-[1150px] mt-10 flex flex-col items-end">
         <h3 className="text-[#F5F5F5] text-[20px] font-bold text-right ">
           إعدادات عامة
         </h3>
         <p className="text-[#A2A2A2] text-[17px] font-normal text-right mt-2 ">
-          إعداد معلومات وبياناتك الشخصية{" "}
+          إعداد معلومات وبياناتك الشخصية
         </p>
       </div>
-      {/* contain the options and profile part */}
       <div className="second-container w-[1100px] h-[1156px] flex flex-row mt-10 ">
-        <form onSubmit={handleSubmit} className="profile  w-[852px] h-[671px] ">
-          <div className="profile-paragaph  w-[800px] h-[47px] flex flex-col items-end">
+        <form onSubmit={handleSubmit} className="profile w-[852px] h-[671px] ">
+          <div className="profile-paragaph w-[800px] h-[47px] flex flex-col items-end">
             <Link
               className="text-[#F5F5F5] text-[20px] font-bold text-right"
               href="/Profile"
@@ -91,17 +158,12 @@ const Profile = () => {
             </p>
           </div>
           <div className="Main-pic-part w-[800px] h-[79px] mt-8 flex flex-row justify-between">
-            <div className="wallet and points flex space-x-10 ">
-              <div className="border border-[#303030] w-[170px] h-[78px] rounded-xl"></div>
-              <div className="border border-[#303030] w-[170px] h-[78px] rounded-xl"></div>
-            </div>
-            {/* Profile Picture Section */}
-            <div
+            {/* <div
               className="PictureProfile-- cursor-pointer w-[78px] h-[78px] rounded-full border border-gray-300 flex items-center justify-center overflow-hidden"
               onClick={triggerFileInput}
             >
               {imagePreview ? (
-                <img
+                <Image
                   src={imagePreview}
                   alt="Profile"
                   className="w-full h-full object-cover"
@@ -109,7 +171,7 @@ const Profile = () => {
               ) : (
                 <span className="text-gray-500">Upload Photo</span>
               )}
-            </div>
+            </div> */}
             <input
               type="file"
               id="profileImageInput"
@@ -121,58 +183,39 @@ const Profile = () => {
           <div className="line-part border-[1px] border-[#303030] w-[606px] h-[1px] mt-6 mx-16"></div>
           <div className="form part w-[804px] h-[395px] mt-10 flex flex-col items-center">
             <div className="F.name-Num flex flex-row space-x-6">
-              {/* name, number and code */}
               <div className="Num flex flex-col items-end space-y-2">
                 <label> رقم الجوال</label>
-                <div className="flex flex-row space-x-2">
-                  <div className="flex justify-center space-x-1 border text-right border-[#303030] bg-[#FFFFFF0D] text-[#A2A2A2] placeholder-[#A2A2A2] p-2 rounded-xl w-[86px] h-[48px]">
-                    <Image
-                      src={Saudi}
-                      alt="KSA"
-                      width={24}
-                      height={24}
-                      className="rounded-2xl"
-                    />
-                    <input
-                      type="text"
-                      value="+966"
-                      readOnly
-                      className="bg-transparent text-[#A2A2A2]  w-[40px] h-[23px] mt-1 text-center"
-                    />
-                  </div>
-                  <input
-                    className="Code border text-right border-[#303030] bg-[#FFFFFF0D] text-[#A2A2A2] placeholder-[#A2A2A2] p-2 rounded-xl w-[292px] h-[48px]"
-                    placeholder="055555555"
-                    defaultValue={authStore.formData.phone}
-                    onChange={(e) =>
-                      authStore.setFormData("phone", e.target.value)
-                    } // Update phone in MobX store
-                  />
-                </div>
+                <input
+                  className="Code border text-right border-[#303030] bg-[#FFFFFF0D] text-[#A2A2A2] placeholder-[#A2A2A2] p-2 rounded-xl w-[292px] h-[48px]"
+                  placeholder={profileData.phone_number}
+                  value={profileData.phone_number} // Set the value here
+                  onChange={(e) =>
+                    setProfileData((prev) => ({ ...prev, phone: e.target.value }))
+                  }
+                />
               </div>
               <div className="flex flex-col items-end space-y-2 ">
                 <label>الاسم </label>
                 <input
                   className="border text-right border-[#303030] bg-[#FFFFFF0D] text-[#A2A2A2] placeholder-[#A2A2A2] p-2 rounded-xl w-[386px] h-[48px]"
-                  placeholder=" بدر ابراهيم "
-                  defaultValue={authStore.formData.username}
+                  placeholder={profileData.name}
+                  value={profileData.name} // Set the value here
                   onChange={(e) =>
-                    authStore.setFormData("name", e.target.value)
-                  } // Update name in MobX store
+                    setProfileData((prev) => ({ ...prev, name: e.target.value }))
+                  }
                 />
               </div>
             </div>
-
-            {/* email & country */}
             <div className="Email-Country flex space-x-6 mt-6 ">
               <div className=" flex flex-col items-end space-y-4">
                 <label> اختر الدولة</label>
                 <input
                   className="Email border text-right border-[#303030] bg-[#FFFFFF0D] text-[#A2A2A2] placeholder-[#A2A2A2] p-2 rounded-xl w-[386px] h-[48px]"
                   placeholder=" السعودية"
+                  value={profileData.country} // Set the value here
                   onChange={(e) =>
-                    authStore.setFormData("country", e.target.value)
-                  } // Update country in MobX store
+                    setProfileData((prev) => ({ ...prev, country: e.target.value }))
+                  }
                 />
               </div>
 
@@ -180,26 +223,23 @@ const Profile = () => {
                 <label> البريد الالكتروني</label>
                 <input
                   className="country border text-right border-[#303030] bg-[#FFFFFF0D] text-[#A2A2A2] placeholder-[#A2A2A2] p-2 rounded-xl w-[386px] h-[48px]"
-                  placeholder=" badr@gmail.com"
-                  defaultValue={authStore.formData.email}
+                  placeholder={profileData.email} 
+                  value={profileData.email} // Set the value here
                   onChange={(e) =>
-                    authStore.setFormData("email", e.target.value)
-                  } // Update email in MobX store
+                    setProfileData((prev) => ({ ...prev, email: e.target.value }))
+                  }
                 />
               </div>
             </div>
-            {/* city and sex */}
             <div className="Email-Country flex space-x-6 mt-6 ">
               <div className="w-[386px] flex flex-col items-end space-y-4">
                 <label>اختر الجنس </label>
                 <div className="flex space-x-16 ">
-                  {/* Male Option */}
                   <div className=" flex space-x-4 space-y-2">
                     <p className="text-xl ">ذكر</p>
                     <div
                       onClick={() => handleSelect("male")}
                       className={`w-[15px] h-[15px] rounded-full flex items-center justify-center cursor-pointer
-                        
                        ${
                          selectedSex === "male"
                            ? "bg-[#FF5B2D] "
@@ -207,7 +247,6 @@ const Profile = () => {
                        }`}
                     ></div>
                   </div>
-                  {/* Female Option */}
                   <div className=" flex space-x-4 space-y-2">
                     <p className="text-xl">انثى</p>
                     <div
@@ -225,7 +264,7 @@ const Profile = () => {
 
               <div className="flex flex-col items-end space-y-4">
                 <label>اختر المدينة</label>
-                <SearchableDropdown /> {/* Updated city selection */}
+                <SearchableDropdown cityplaceholder={profileData.profile.city} />
               </div>
             </div>
             <button
@@ -236,39 +275,6 @@ const Profile = () => {
             </button>
           </div>
         </form>
-        {/*  */}
-        <div className="options  w-[240px] h-[435px]">
-          <div className="border border-[#303030] w-[240px] h-[45px] rounded-2xl text-center">
-            <p className="mt-3"> الصفحة الشخصية</p>
-          </div>
-          <div className="border border-[#303030] w-[240px] h-[45px] mt-4 rounded-2xl">
-            <Link className="mt-3" href="/PassSetting">
-              تعيين كلمة المرور
-            </Link>
-          </div>
-          <div className="border border-[#303030] w-[240px] h-[45px] mt-4 rounded-2xl">
-            {" "}
-            <Link className="mt-3" href="/ِAbout">
-              {" "}
-              عن ستيرو
-            </Link>
-          </div>
-          <div className="border border-[#303030] w-[240px] h-[45px] mt-4 rounded-2xl">
-            <p className="mt-3"> الشروط والأحكام </p>
-          </div>
-          <div className="border border-[#303030] w-[240px] h-[45px] mt-4 rounded-2xl">
-            <Link className="mt-3" href="/Policy">
-              {" "}
-              سياسات الخصوصية
-            </Link>
-          </div>
-          <div className="border border-[#303030] w-[240px] h-[45px] mt-4 rounded-2xl">
-            <p className="mt-3"> الأسئلة الشائعة </p>
-          </div>
-          <div className="border border-[#303030] w-[240px] h-[45px] mt-4 rounded-2xl">
-            <p className="mt-3"> حذف الحساب </p>
-          </div>
-        </div>
       </div>
     </div>
   );

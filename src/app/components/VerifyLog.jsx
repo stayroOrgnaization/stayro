@@ -6,7 +6,7 @@ import LockPic from "../../../public/lockPic.svg";
 import { useRef, useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { observer } from "mobx-react-lite";
-import { authStore } from "../../stores/auth"; // Adjust the import according to your structure
+import { authStore } from "../../stores/auth"; 
 
 const VerifyLog = observer(() => {
   const router = useRouter();
@@ -112,7 +112,7 @@ const VerifyLog = observer(() => {
         authStore.setAccessToken(accessToken);
 
         // Navigate to another page after successful verification
-        router.push("/");
+        router.push("/Profile");
       } else {
         console.error("Access token is undefined");
       }

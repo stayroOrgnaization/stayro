@@ -6,7 +6,7 @@ import Image from "next/image";
         <div className="gap-[Space/1600]">
           <div>
             <div>
-          <img src={imgurl}  />
+          <Image src={imgurl}  />
             </div>
           </div>
           <div>

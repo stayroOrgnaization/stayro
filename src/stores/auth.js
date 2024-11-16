@@ -1,20 +1,31 @@
 import { makeAutoObservable, runInAction } from "mobx";
+import Cookies from "js-cookie";
 
 class AuthStore {
   formData = {
     phone: "",
-    role: "customer", 
+    role: "customer",
     email: "",
     password: "",
     confirmPassword: "",
+    username: "",
+    country: "",
+    city: "",
+    gender: "",
+    otp_token: "",
   };
-
+  access_token = ""; // To store the access token
+  // refreshToken = ""; // To store the refresh token
+  profileImage = null;
 
   errorMessage = "";
   isLoading = false;
 
+  isDeleting = false;
+
   constructor() {
     makeAutoObservable(this);
+    this.loadTokenFromCookie();
   }
 
   resetFormData() {
@@ -24,11 +35,48 @@ class AuthStore {
       email: "",
       password: "",
       confirmPassword: "",
+      username: "",
+      otp_token,
     };
   }
+
   // Method to update form data
   setFormData(field, value) {
     this.formData[field] = value;
+  }
+
+  // Method to store access token in both MobX and a cookie
+  setAccessToken(token) {
+    runInAction(() => {
+      this.access_token = token; // Store the access token in the MobX state
+      Cookies.set("access_token", token, {
+        expires: 30, // Set cookie expiration to 7 days (adjust as necessary)
+        secure: true, // Only send cookie over HTTPS
+        sameSite: "Strict", // Prevent CSRF attacks by limiting cross-site requests
+      });
+      console.log("Access token set in both state and cookie.");
+    });
+  }
+
+  setProfileImage(image) {
+    runInAction(() => {
+      this.profileImage = image;
+    });
+  }
+
+  // clearAccessToken() {
+  //   runInAction(() => {
+  //     this.accessToken = "";
+  //     Cookies.remove("accessToken"); // Remove the token from the cookie
+  //   });
+  // }
+
+  // Example of loading token from cookie (e.g., on app load)
+  loadTokenFromCookie() {
+    const token = Cookies.get("access_token");
+    if (token) {
+      this.access_token = token;
+    }
   }
 
   // Login method
@@ -39,7 +87,7 @@ class AuthStore {
     const dataToSend = new FormData();
     dataToSend.append("phone_number", this.formData.phone);
     dataToSend.append("password", this.formData.password);
-    dataToSend.append("username", this.formData.username); // You may want to adjust how username is handled
+    dataToSend.append("username", this.formData.username);
     dataToSend.append("role", this.formData.role);
     dataToSend.append("method", "sms");
 
@@ -75,7 +123,6 @@ class AuthStore {
     }
   }
 
-  // Sign-up method
   // Sign-up method
   async signUp() {
     this.errorMessage = ""; // Clear previous errors
@@ -119,6 +166,139 @@ class AuthStore {
         this.errorMessage = "حدث خطأ إثناء التسجيل";
         this.isLoading = false;
       });
+    }
+  }
+
+  // Method to check if the user is authenticated
+  isAuthenticated() {
+    console.log("access token", this.access_token);
+    return !!this.access_token; // Return true if access_token is set
+  }
+
+  // Method to log the access token and check if user is authenticated
+  logTokenAndCheckAuthentication() {
+    const tokenFromCookie = Cookies.get("access_token");
+    console.log("Access Token from Cookie:", tokenFromCookie); // Log the token
+
+    if (this.isAuthenticated()) {
+      console.log("User is authenticated.", this.access_token);
+    } else {
+      console.log("User is not authenticated.");
+    }
+  }
+
+  async updateProfile() {
+    const { phone_number, name, email, country, city, gender } = this.formData;
+    const token = this.access_token;
+    
+    if (!token) {
+      this.errorMessage = "No authentication token found.";
+      return;
+    }
+  
+    const dataToSend = new FormData();
+    dataToSend.append("phone_number", phone_number);
+    dataToSend.append("name", name);
+    dataToSend.append("email", email);
+    dataToSend.append("country", country);
+    dataToSend.append("city", city);
+    dataToSend.append("gender", gender);
+  
+    // Include profile picture if it exists
+    if (this.profileImage) {
+      dataToSend.append("profile_image", this.profileImage);
+    }
+  
+    try {
+      const response = await fetch("https://api.stayro.com/ar/customer/api/profile/", {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body: dataToSend,
+      });
+  
+      if (response.ok) {
+        console.log("Profile updated successfully.");
+      } else {
+        const errorData = await response.json();
+        this.errorMessage = errorData.message || "Unknown error";
+      }
+    } catch (error) {
+      this.errorMessage = "An error occurred while updating the profile.";
+      console.error(error);
+    }
+  }
+
+  // delete account
+
+  async handleDelete() {
+    this.isDeleting = true;
+    this.errorMessage = "";
+
+    try {
+      const response = await fetch(
+        "https://api.stayro.com/ar/user/api/users/delete-request/",
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${this.access_token}`,
+          },
+        }
+      );
+
+      if (response.ok) {
+        console.log("Account deleted successfully.");
+        return true;
+      } else {
+        const errorData = await response.json();
+        runInAction(() => {
+          this.errorMessage =
+            errorData.message || "Failed to delete account. Please try again.";
+        });
+        return false;
+      }
+    } catch (error) {
+      runInAction(() => {
+        this.errorMessage = "An error occurred. Please try again later.";
+        console.error("Error during deletion:", error);
+      });
+      return false;
+    } finally {
+      runInAction(() => {
+        this.isDeleting = false;
+      });
+    }
+  }
+
+  // handle logout
+  async handleLogout() {
+    try {
+      console.log("Attempting to log out. Access Token:", this.access_token);
+
+      const response = await fetch(
+        "https://api.stayro.com/ar/auth/api/logout/",
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${this.access_token}`,
+          },
+        }
+      );
+
+      if (response.ok) {
+        this.setAccessToken(""); 
+        Cookies.remove("access_token");
+        console.log("Logged out successfully.");
+        return true;
+      } else {
+        const errorData = await response.json();
+        console.error("Logout failed:", errorData.message || "Unknown error");
+        return false;
+      }
+    } catch (error) {
+      console.error("An error occurred during logout:", error);
+      return false;
     }
   }
 }

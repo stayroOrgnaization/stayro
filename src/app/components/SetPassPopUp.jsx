@@ -1,8 +1,6 @@
 "use client";
 import { useState } from "react";
 import "../Styles/globals.css";
-import Image from "next/image";
-import ResetImg from "../../../public/resetPas.svg";
 import { authStore } from "../../stores/auth"; // Make sure to import your auth store
 import { useRouter } from "next/navigation";
 
@@ -61,14 +59,6 @@ const SetPass = () => {
   return (
     <div className="flex justify-center bg-FFFFFF mt-0 ">
       <div className="loginVerify-side lg:w-[65%] mt-20  ">
-        <div className=" lg:hidden mt-20 flex flex-col sm:mx-8 ">
-          <h3 className="font-bold text-4xl text-gray-100 text-center">
-            احجز براحة، اختر ستيرو
-          </h3>
-          <p className="font-normal text-lg text-gray-100 text-center mt-5 ">
-            اكتشف تجربة مميزة للحجوزات
-          </p>
-        </div>
         <form
           onSubmit={handleSubmit}
           className="flex flex-col items-center justify-center border border-[#303030] rounded-[20px] lg:w-[517px] md:w-[517px] h-[390px] mt-10 mb-4 lg:mx-20 md:mx-20 w-[390px]"
@@ -109,22 +99,6 @@ const SetPass = () => {
             </div>
           </div>
         </form>
-      </div>
-
-      <div className="h-[100vh] w-[0.5px] bg-[#303030] hidden lg:block"></div>
-
-      <div className="pic side mt-20 mx-20 hidden lg:block">
-        <div>
-          <h3 className="font-bold text-4xl text-gray-100 text-center ">
-            احجز براحة، اختر ستيرو
-          </h3>
-          <p className="font-normal text-lg text-gray-100 text-center mt-5 ">
-            اكتشف تجربة مميزة للحجوزات
-          </p>
-        </div>
-        <div className="mt-20 mx-10">
-          <Image src={ResetImg} alt="Calendar" width={450} height={200} />
-        </div>
       </div>
     </div>
   );

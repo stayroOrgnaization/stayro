@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 
-export default function SearchableDropdown() {
+export default function SearchableDropdown(cityplaceholder) {
   const [cities, setCities] = useState([]); // Stores the list of cities
   const [filteredCities, setFilteredCities] = useState([]); // Stores filtered cities based on search input
   const [selectedCity, setSelectedCity] = useState(""); // Stores the selected city
@@ -81,7 +81,7 @@ export default function SearchableDropdown() {
           value={searchTerm || selectedCity} // Show search term when typing, otherwise show the selected city
           onChange={handleSearchChange}
           onFocus={() => setIsOpen(true)} // Open dropdown on focus
-          placeholder="..اختر مدينة"
+          placeholder={cityplaceholder?'اختر المدينه':cityplaceholder}
           className="border text-right border-[#303030] bg-[#FFFFFF0D] text-[#A2A2A2] placeholder-[#A2A2A2] p-2 rounded-xl w-[386px] h-[48px]"
         />
         {isOpen && (

@@ -10,7 +10,7 @@ import Navbar from "../components/Navbar";
 import Link from "next/link";
 import Saudi from "../../../public/Saudi.svg";
 
-const SignUpComp = observer(() => {
+const SignUp = observer(() => {
   const router = useRouter();
   const [isMounted, setIsMounted] = useState(false);
 
@@ -193,4 +193,4 @@ const SignUpComp = observer(() => {
   );
 });
 
-export default SignUpComp;
+export default SignUp;

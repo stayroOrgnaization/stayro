@@ -97,9 +97,9 @@ export default function Footer() {
       </div>
 
       {/* Second Part: Bottom (Copyright) */}
-      <div className="container mx-auto flex justify-between items-center border-t border-gray-600 pt-4 mt-8">
+      <div className="container mx-auto flex justify-between items-center border-t border-gray-600 pt-4 my-8">
         <div>
-          <p>&copy; 2024 Styro. All rights reserved.</p>
+          <p>&copy; 2024 Stayro. All rights reserved.</p>
         </div>
       </div>
     </footer>

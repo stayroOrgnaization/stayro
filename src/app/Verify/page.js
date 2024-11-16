@@ -7,7 +7,7 @@ import LockPic from "../../../public/lockPic.svg";
 import { useRef } from "react";
 import { useState, useEffect } from "react";
 
-const verify = () => {
+const Verify = () => {
   // for the code verification focus and move
   const inputRefs = useRef([]);
 
@@ -121,4 +121,4 @@ const verify = () => {
   );
 };
 
-export default verify;
+export default Verify;
