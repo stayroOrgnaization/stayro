@@ -50,7 +50,7 @@ class AuthStore {
     runInAction(() => {
       this.access_token = token; // Store the access token in the MobX state
       Cookies.set("access_token", token, {
-        expires: 30, // Set cookie expiration to 7 days (adjust as necessary)
+        expires: 30, // Set cookie expiration
         secure: true, // Only send cookie over HTTPS
         sameSite: "Strict", // Prevent CSRF attacks by limiting cross-site requests
       });
@@ -87,7 +87,7 @@ class AuthStore {
     const dataToSend = new FormData();
     dataToSend.append("phone_number", this.formData.phone);
     dataToSend.append("password", this.formData.password);
-    dataToSend.append("username", this.formData.name);
+    dataToSend.append("username", this.formData.phone);
     dataToSend.append("role", this.formData.role);
     dataToSend.append("method", "sms");
 
@@ -187,53 +187,6 @@ class AuthStore {
     }
   }
 
-  async updateProfile() {
-    // Create FormData object
-    const dataToSend = new FormData();
-
-    // Append necessary fields to FormData
-    dataToSend.append("phone", this.formData.phone || "");
-    dataToSend.append("email", this.formData.email || "");
-    dataToSend.append("name", this.formData.name || "");
-    dataToSend.append("profile[gender]", this.formData.gender || "");
-    dataToSend.append(
-      "profile[city]",
-      this.formData.city.name ? this.formData.city.name : ""
-    );
-    dataToSend.append("profile[image]", this.formData.image || "");
-
-    dataToSend.forEach((value, key) => console.log(`${key}: ${value}`));
-
-    try {
-      // Send the update request
-      const response = await fetch(
-        "https://api.stayro.com/ar/customer/api/profile/",
-        {
-          method: "PUT",
-          headers: {
-            Authorization: `Bearer ${this.access_token}`,
-          },
-          body: dataToSend,
-        }
-      );
-
-      const result = await response.json();
-
-      if (response.ok) {
-        console.log("Profile updated successfully.", result);
-      } else {
-        console.error("Error updating profile:", result);
-      }
-    } catch (error) {
-      console.error("An error occurred:", error);
-    }
-  }
-
-  isAuthenticated() {
-    console.log("access token from isAuthenticated", this.access_token);
-    return !!this.access_token;
-  }
-
   // delete account
 
   async handleDelete() {
@@ -306,41 +259,57 @@ class AuthStore {
     }
   }
 
-  async logFetchedProfileData() {
+  async updateProfile() {
+    this.errorMessage = "";
+    this.isLoading = true;
+
+    const dataToSend = new FormData();
+    dataToSend.append("phone_number", this.formData.phone);
+    dataToSend.append("name", this.formData.name);
+    dataToSend.append("email", this.formData.email);
+    dataToSend.append("city", this.formData.city);
+    dataToSend.append("gender", this.formData.gender);
+
     try {
       const response = await fetch(
         "https://api.stayro.com/ar/customer/api/profile/",
         {
-          method: "GET",
+          method: "PUT",
           headers: {
             Authorization: `Bearer ${this.access_token}`,
           },
+          body: dataToSend,
         }
       );
 
       if (response.ok) {
-        const profileData = await response.json();
-
-        // Log details and update MobX state
+        const updatedData = await response.json();
         runInAction(() => {
-          this.formData = {
-            ...this.formData,
-            email: profileData.email,
-            phone: profileData.phone_number,
-            name: profileData.username,
-            city: profileData.profile.city || "Not set",
-            gender: profileData.profile.gender_display || "Not set",
-          };
-          this.profileImage = profileData.image_url;
+          this.formData.name = updatedData.name || this.formData.name;
+          this.formData.phone = updatedData.phone_number || this.formData.phone;
+          this.formData.email = updatedData.email || this.formData.email;
+          this.formData.city =
+            updatedData.profile?.city?.name || this.formData.city; // Safe access
+          this.formData.gender =
+            updatedData.profile?.gender || this.formData.gender;
+          this.isLoading = false;
+          console.log("Profile updated successfully.", updatedData);
         });
-
-        // Log to confirm
-        console.log("User profile data updated in state:", this.formData);
       } else {
-        console.error("Failed to fetch profile data:", response.statusText);
+        const errorData = await response.json();
+        runInAction(() => {
+          this.errorMessage = errorData.message || "Failed to update profile.";
+          console.log("Error response data:", errorData);
+          console.log("Error message:", this.errorMessage);
+          this.isLoading = false;
+        });
       }
     } catch (error) {
-      console.error("Error fetching profile data:", error);
+      runInAction(() => {
+        this.errorMessage = "An error occurred during profile update.";
+        this.isLoading = false;
+        console.error("Fetch error:", error);
+      });
     }
   }
 }

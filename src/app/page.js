@@ -1,8 +1,8 @@
 // src/app/page.js
 // import {Tajawal} from 'next/font/google' // Import localFont from next/font/local
-import Navbar from "./components/Navbar.jsx";
-import Footer from "./components/Footer.jsx";
-import Profile from "./components/Profile.jsx";
+import Navbar from "./Customer/components/Navbar.jsx";
+import Footer from "./Customer/components/Footer.jsx";
+import Profile from "./Customer/components/Profile.jsx";
 
 export default function Home() {
   return (
@@ -10,8 +10,7 @@ export default function Home() {
       <Navbar />
 
       <main className="overflow-y-scroll scrollbar-hide ">
-        <Profile />
-        <p></p>
+        <p>home</p>
       </main>
 
       <Footer />
