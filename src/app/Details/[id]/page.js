@@ -25,6 +25,7 @@ const Details = observer(({ params }) => {
 
   return (
     <div>
+      {propertId.property ? (
         <>
           <Navbar />
           <div className="flex flex-col justify-between items-start py-20" dir="rtl">
@@ -70,7 +71,9 @@ const Details = observer(({ params }) => {
             <Footer />
           </div>
         </>
-
+      ) : (
+        <p></p>
+      )}
     </div>
   );
 });
