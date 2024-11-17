@@ -21,10 +21,6 @@ const HomePage = ({ properties, selectedType, isTwoPerRow }) => {
     </div>
   );
 };
-
-// Wrap the component in React.lazy for code-splitting
-
-
 export default function HomePageWrapper(props) {
   return (
     <Suspense fallback={<Loading />}>

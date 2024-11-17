@@ -38,7 +38,7 @@ const Details = observer(({ params }) => {
             <h3 className="text-xl font-bold">المرافق</h3>
             <ul>
               {propertId.property.amenities?.map((amenity, index) => (
-                <li key={index}>{amenity}</li>
+                <li key={index}>{propertId.property.amenity}</li>
               ))}
             </ul>
           </div>

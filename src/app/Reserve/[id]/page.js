@@ -15,9 +15,9 @@ const Reserve = observer(({ params }) => {
     propertId.fetchProperty(id); // Fetch property when the component mounts
   }, [id]);
 
-  if (propertId.loading) return <></>;
+  if (propertId.loading) return <p></p>;
 
-  if (propertId.error) return <></>;
+  if (propertId.error) return <p></p>;
 
   return (
     <div>
