@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import React, { useEffect, useState } from "react";
 import { observer } from "mobx-react-lite";
 import propertId from "@/stores/Properties/propertyId";
@@ -10,18 +10,61 @@ import housingStore from "@/stores/HousingStore";
 
 const Details = observer(({ params }) => {
   const { id } = params;
-  const [selectedDetails, setSelectedDetails] = useState(""); // State for selected details type
+  const [selectedDetails, setSelectedDetails] = useState(""); 
 
   useEffect(() => {
     propertId.fetchProperty(id);
   }, [id]);
 
   useEffect(() => {
-    setSelectedDetails(selectedDetails); // Update state when it changes
+    setSelectedDetails(selectedDetails); 
   }, [selectedDetails]);
 
-  if (propertId.loading) return <p>Loading...</p>;
-  if (propertId.error) return <p>Error loading property data.</p>;
+  if (propertId.loading) return <p></p>;
+  if (propertId.error) return <p></p>;
+
+  const renderDetailsContent = () => {
+    switch (selectedDetails) {
+      case 'الوصف':
+        return (
+          <div className="mt-4 p-4">
+            <h3 className="text-xl font-bold">الوصف</h3>
+            <p>{propertId.property.description}</p>
+          </div>
+        );
+      case 'المرافق':
+        return (
+          <div className="mt-4 p-4">
+            <h3 className="text-xl font-bold">المرافق</h3>
+            <ul>
+              {propertId.property.amenities?.map((amenity, index) => (
+                <li key={index}>{amenity}</li>
+              ))}
+            </ul>
+          </div>
+        );
+      case 'الشروط':
+        return (
+          <div className="mt-4 p-4">
+            <h3 className="text-xl font-bold">الشروط</h3>
+            <p>{propertId.property.terms}</p>
+          </div>
+        );
+      case 'التقييمات':
+        return (
+          <div className="mt-4 p-4">
+            <h3 className="text-xl font-bold">التقييمات</h3>
+            <ul>
+              {propertId.property.reviews?.map((review, index) => (
+                <li key={index}>{review.comment}</li>
+              ))}
+            </ul>
+          </div>
+        );
+      default:
+        return <p></p>;
+    }
+  };
 
   return (
     <div>
@@ -57,16 +100,16 @@ const Details = observer(({ params }) => {
                 </div>
               </div>
             </div>
-
-            {/* Add the DetailsFilter component */}
             <DetailsFilter
               className="flex flex-row justify-start"
               selectedType={selectedDetails}
-              types={['الوصف', 'المرافق', 'الشروط', 'التقييمات']} // Hardcoded types
-              setType={setSelectedDetails} // Pass the setSelectedDetails function
+              types={['الوصف', 'المرافق', 'الشروط', 'التقييمات']}
+              setType={setSelectedDetails}
             />
-
-      
+            {/* Display the selected content */}
+            <div className="mt-10">
+              {renderDetailsContent()}
+            </div>
             <PropertyList properties={housingStore.houses} />
             <Footer />
           </div>

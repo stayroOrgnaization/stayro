@@ -2,7 +2,6 @@ import React from "react";
 import { propertyStore } from "../../../stores/PropertyStore"; // Adjust path as needed
 
 const DetailsFilter = ({ selectedType, setType, types }) => {
-  // Handle button click to set the selected type
   const handleTypeClick = (type) => {
     setType(type); // Update selected type in the parent state
     propertyStore.setPropertyType(type); // Optionally update the store
@@ -15,12 +14,12 @@ const DetailsFilter = ({ selectedType, setType, types }) => {
           {types.map((type) => (
             <button
               key={type}
-              onClick={() => handleTypeClick(type)} // Update selected type when clicked
+              onClick={() => handleTypeClick(type)} 
               className={`w-[80px] sm:w-[100px] md:w-[122px] h-[46px] rounded-[33px] flex items-center justify-center ${
                 selectedType === type ? "bg-white text-gray-500" : "bg-dbg"
               }`}
             >
-              <p className="mx-2">{type}</p> {/* Display type */}
+              <p className="mx-2">{type}</p> 
             </button>
           ))}
         </div>
