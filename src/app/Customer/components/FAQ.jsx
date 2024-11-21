@@ -3,36 +3,35 @@
 import { useState, useEffect } from "react";
 
 export default function FaqList() {
-  const [faq, setFaq] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [faqData, setFaqData] = useState([]);
 
   useEffect(() => {
-    async function fetchFaqs() {
+    const fetchFAQ = async () => {
       try {
-        const res = await fetch(
-          "https://api.stayro.com/ar/faq/api/faq/f49b8f57-148c-4510-8e71-4f305eee300d/"
-        );
-        const data = await res.json();
-        console.log("data", data);
-        console.log("data answer", data.answer);
-        // console.log("data", data.answer_ar);
-        setFaq(data); // Store the data object directly if it's a single FAQ
+        const response = await fetch("https://api.stayro.com/faq/api/faq/");
+        if (!response.ok) {
+          throw new Error("Failed to fetch data");
+        }
+        const data = await response.json();
+        setFaqData(data.data); // Assuming "data" contains the array of FAQs
       } catch (error) {
-        console.error("Error fetching FAQ:", error);
-      } finally {
-        setLoading(false);
+        console.error("Error fetching FAQ data:", error);
       }
-    }
-    fetchFaqs();
+    };
+
+    fetchFAQ();
   }, []);
 
-  if (loading) return <p>Loading...</p>;
-
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">FAQ</h1>
-      <div className="faq-item mb-4 p-4 border-b border-gray-200">
-        {faq && faq.answer ? <p>{faq.answer}</p> : <p>No answer available</p>}
+    <div>
+      <h1>الأسئلة الشائعة</h1>
+      <div>
+        {faqData.map((item) => (
+          <div key={item.id} style={{ marginBottom: "20px" }}>
+            <h2>السؤال: {item.question_ar}</h2>
+            <p>الإجابة: {item.answer_ar}</p>
+          </div>
+        ))}
       </div>
     </div>
   );

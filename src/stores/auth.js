@@ -107,17 +107,22 @@ class AuthStore {
         });
       } else {
         const errorData = await response.json();
+        console.error("Backend error response:", errorData);
+
+        // Extract the first error message from any field
+        const firstErrorKey = Object.keys(errorData)[0]; // Get the first error key (e.g., username, password)
+        const firstErrorMessage = errorData[firstErrorKey]?.[0]; // Get the first error message from that key
+
         runInAction(() => {
-          this.errorMessage =
-            errorData.username?.[0] ||
-            errorData.password?.[0] ||
-            "Unknown error";
+          this.errorMessage = firstErrorMessage || "حدث خطأ غير معروف.";
           this.isLoading = false;
         });
       }
     } catch (error) {
+      console.error("Network or parsing error:", error);
+
       runInAction(() => {
-        this.errorMessage = "An error occurred during login.";
+        this.errorMessage = "حدث خطأ في الشبكة. يرجى المحاولة مرة أخرى.";
         this.isLoading = false;
       });
     }
