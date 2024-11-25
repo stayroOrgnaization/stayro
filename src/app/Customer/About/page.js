@@ -1,41 +1,40 @@
 "use client";
-import Logo from "../../../public/logo.png";
+import Logo from "../../../../public/logo.png";
 import Image from "next/image";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import Img from "../../../public/image.png";
-// import { useEffect, useState } from "react";
+import Img from "../../../../public/image.png";
+import { useEffect, useState } from "react";
+import Link from "next/link";
 
 const About = () => {
-  //   const [data, setData] = useState(null);
-  //   const [loading, setLoading] = useState(true);
-  //   const [error, setError] = useState(null);
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  // useEffect(() => {
-  //   // Fetch data when component mounts
-  //   const fetchData = async () => {
-  //     try {
-  //       const response = await fetch(
-  //         "https://api.stayro.com/ar/application/api/about-items/"
-  //       );
-  //       if (!response.ok) {
-  //         throw new Error("Network response was not ok");
-  //       }
-  //       const jsonData = await response.json();
+  useEffect(() => {
+    // Fetch data when component mounts
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          "https://api.stayro.com/ar/application/api/about-items/"
+        );
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        const jsonData = await response.json();
+        console.log("API Response:", jsonData); // Log the response
+        setData(jsonData);
+      } catch (err) {
+        console.error("Error fetching data:", err);
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  //       // Log the response data to the console
-  //       console.log("API Response:", jsonData);
-
-  //       setData(jsonData);
-  //     } catch (err) {
-  //       setError(err.message);
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   };
-
-  //   fetchData();
-  // }, []);
+    fetchData();
+  }, []);
 
   return (
     <>
@@ -63,35 +62,45 @@ const About = () => {
                 className="rounded"
               />
             </div>
-            <p className="mt-4 text-right">
-              في عالمنا المتسارع والمليء بالانشغالات، باتت الحاجة إلى مكان
-              يمكننا فيه الاسترخاء والابتعاد عن ضغوط الحياة اليومية أمرًا ملحًا.
-              منصة "ستيرو" لحجز وحدات الضيافة تقدم لكم الحل المثالي لذلك، حيث
-              تتيح للمستخدمين حجز أماكن إقامة مميزة وراحة لا تضاهى، سواء كان ذلك
-              لعطلة نهاية الأسبوع أو رحلة عمل أو إجازة طويلة. في هذا المقال
-              المفصل، سنستعرض جميع جوانب منصة "ستيرو" ونلقي الضوء على كيفية
-              تأثيرها الإيجابي على حياة المستخدمين من خلال توفير تجارب ضيافة لا
-              تُنسى.
-            </p>
           </div>
         </div>
 
         <div className="options  w-[240px] h-[240px]">
-          <div className="border border-[#303030] w-[240px] h-[45px] mt-4 rounded-2xl">
+          <div className="flex justify-center border border-[#303030] w-[240px] h-[45px] mt-4 rounded-2xl">
+            <Link className="mt-3" href="/Customer/Profile">
+              {" "}
+              الصفحة الشخصية
+            </Link>
+          </div>
+          <div className="flex justify-center border border-[#303030] w-[240px] h-[45px] mt-4 rounded-2xl">
+            <Link className="mt-3" href="/Customer/PassSetting">
+              تعيين كلمة المرور
+            </Link>
+          </div>
+          <div className="flex justify-center border border-[#303030] w-[240px] h-[45px] mt-4 rounded-2xl">
             {" "}
-            <p className="mt-3">عن ستيرو</p>
+            <Link className="mt-3" href="/Customer/About">
+              {" "}
+              عن ستيرو
+            </Link>
           </div>
-          <div className="border border-[#303030] w-[240px] h-[45px] mt-4 rounded-2xl">
-            <p className="mt-3"> الشروط والأحكام </p>
+          <div className="flex justify-center border border-[#303030] w-[240px] h-[45px] mt-4 rounded-2xl">
+            <Link className="mt-3" href="/Customer/Terms">
+              {" "}
+              الشروط والأحكام
+            </Link>
           </div>
-          <div className="border border-[#303030] w-[240px] h-[45px] mt-4 rounded-2xl">
-            <p className="mt-3"> سياسات الخصوصية </p>
+          <div className="flex justify-center border border-[#303030] w-[240px] h-[45px] mt-4 rounded-2xl">
+            <Link className="mt-3" href="/Customer/Privacy">
+              {" "}
+              سياسات الخصوصية
+            </Link>
           </div>
-          <div className="border border-[#303030] w-[240px] h-[45px] mt-4 rounded-2xl">
-            <p className="mt-3"> الأسئلة الشائعة </p>
-          </div>
-          <div className="border border-[#303030] w-[240px] h-[45px] mt-4 rounded-2xl">
-            <p className="mt-3"> حذف الحساب </p>
+          <div className="flex justify-center border border-[#303030] w-[240px] h-[45px] mt-4 rounded-2xl">
+            <Link className="mt-3" href="/Customer/FAQ">
+              {" "}
+              الأسئلة الشائعة
+            </Link>
           </div>
         </div>
       </div>

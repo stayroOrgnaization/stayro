@@ -252,32 +252,41 @@ const Profile = observer(() => {
         </form>
         {/*  */}
         <div className="options  w-[240px] h-[435px]">
-          <div className="border border-[#303030] w-[240px] h-[45px] rounded-2xl text-center">
-            <p className="mt-3"> الصفحة الشخصية</p>
+          <div className="flex justify-center border border-[#303030] w-[240px] h-[45px] mt-4 rounded-2xl">
+            <Link className="mt-3" href="/Customer/Profile">
+              {" "}
+              الصفحة الشخصية
+            </Link>
           </div>
           <div className="flex justify-center border border-[#303030] w-[240px] h-[45px] mt-4 rounded-2xl">
-            <Link className="mt-3" href="/PassSetting">
+            <Link className="mt-3" href="/Customer/PassSetting">
               تعيين كلمة المرور
             </Link>
           </div>
           <div className="flex justify-center border border-[#303030] w-[240px] h-[45px] mt-4 rounded-2xl">
             {" "}
-            <Link className="mt-3" href="/ِAbout">
+            <Link className="mt-3" href="/Customer/About">
               {" "}
               عن ستيرو
             </Link>
           </div>
-          <div className="border border-[#303030] w-[240px] h-[45px] mt-4 rounded-2xl">
-            <p className="mt-3"> الشروط والأحكام </p>
+          <div className="flex justify-center border border-[#303030] w-[240px] h-[45px] mt-4 rounded-2xl">
+            <Link className="mt-3" href="/Customer/Terms">
+              {" "}
+              الشروط والأحكام
+            </Link>
           </div>
           <div className="flex justify-center border border-[#303030] w-[240px] h-[45px] mt-4 rounded-2xl">
-            <Link className="mt-3" href="/Policy">
+            <Link className="mt-3" href="/Customer/Privacy">
               {" "}
               سياسات الخصوصية
             </Link>
           </div>
-          <div className="border border-[#303030] w-[240px] h-[45px] mt-4 rounded-2xl">
-            <p className="mt-3"> الأسئلة الشائعة </p>
+          <div className="flex justify-center border border-[#303030] w-[240px] h-[45px] mt-4 rounded-2xl">
+            <Link className="mt-3" href="/Customer/FAQ">
+              {" "}
+              الأسئلة الشائعة
+            </Link>
           </div>
           <div className=" flex justify-center border border-[#303030] w-[240px] h-[45px] mt-4 rounded-2xl">
             <Link

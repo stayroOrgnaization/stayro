@@ -2,7 +2,7 @@
 import { useState } from "react";
 import "../../globals.css";
 import Image from "next/image";
-import Saudi from "../../../public/Saudi.svg";
+import Saudi from "../../../../public/Saudi.svg";
 import EnterCodePopUp from "./EnterCodPopUp";
 
 const EnterPhonePopUp = () => {

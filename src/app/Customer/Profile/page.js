@@ -1,6 +1,6 @@
-import Navbar from "../Customer/components/Navbar";
-import Footer from "../Customer/components/Footer";
-import Profile from "../Customer/components/Profile";
+import Navbar from "../components/Navbar";
+import Footer from "../components//Footer";
+import Profile from "../components//Profile";
 
 const UserProfile = () => {
   return (

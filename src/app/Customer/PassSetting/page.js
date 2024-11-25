@@ -1,5 +1,5 @@
-import PassSet from "../Customer/components/PassChange";
-import Navbar from "../Customer/components/Navbar";
+import PassSet from "../components/PassChange";
+import Navbar from "../components/Navbar";
 const SetPassword = () => {
   return (
     <>
