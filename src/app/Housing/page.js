@@ -1,7 +1,6 @@
 "use client";
 import { observer } from "mobx-react";
 import { useEffect, useState } from "react";
-import CardViewStore from "../../stores/cardViewStore";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer.jsx";
 import HomePage from "../components/mainnosign/Home.jsx";
@@ -11,7 +10,6 @@ import PriceFilter from "../components/filters/PriceFilter";
 import SearchFilter from "../components/filters/SearchFilter";
 import Loading from "../components/LoadingHousing";
 import { propertyStore } from "../../stores/PropertyStore";
-import Head from "../components/HousingHead";
 import CardViewToggle from "../components/CardViewToggle";
 
 const Home = observer(({ searchParams }) => {
@@ -46,10 +44,15 @@ const Home = observer(({ searchParams }) => {
   const toggleGridView = () => {
     setIsTwoPerRow(!isTwoPerRow);
   };
+  const [activeLink] = useState("المساكن");
+
+
 
   if (loading) {
     return <div>
-    <Navbar defaultActiveLink={"المساكن"} />
+          <Navbar
+        initialActiveLink={activeLink}           // Pass the initial active link to Navbar
+      />
     <div
       className="bg-cover bg-center h-96 w-full mt-4 flex flex-col justify-center items-center"
       style={{ backgroundImage: "url(/head.png)" }}
@@ -124,7 +127,7 @@ const Home = observer(({ searchParams }) => {
 
       <main className="overflow-y-scroll scrollbar-hide">
         <div className="flex flex-row" dir="rtl">
-          <div className="w-1/4 py-20">
+          <div className="w-1/4 py-20 ">
             <PriceFilter
               maxPrice={propertyStore.initialMaxPrice}
               setMaxPrice={propertyStore.setMaxPrice.bind(propertyStore)}

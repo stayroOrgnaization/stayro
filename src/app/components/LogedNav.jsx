@@ -33,7 +33,7 @@ export default function Navbar({ defaultActiveLink }) {
 
         {/* Desktop Menu */}
         <div className="hidden md:flex custom-font pr-44">
-        <a
+        <Link
             href="#"
             onClick={() => handleLinkClick("المحادثات")}
             className={`mr-8 py-1 no-underline tracking-wide transition text-sm duration-700 ease-in-out ${
@@ -43,8 +43,8 @@ export default function Navbar({ defaultActiveLink }) {
             }`}
           >
             المحادثات
-          </a>
-        <a
+          </Link>
+        <Link
             href="#"
             onClick={() => handleLinkClick("الحجوزات")}
             className={`mr-8 py-1 no-underline tracking-wide transition text-sm duration-700 ease-in-out ${
@@ -54,8 +54,8 @@ export default function Navbar({ defaultActiveLink }) {
             }`}
           >
             الحجوزات
-          </a>
-          <a
+          </Link>
+          <Link
             href="/Housing"
             onClick={() => handleLinkClick("المساكن")}
             className={`mr-8 py-1 no-underline tracking-wide transition text-sm duration-700 ease-in-out ${
@@ -65,7 +65,7 @@ export default function Navbar({ defaultActiveLink }) {
             }`}
           >
             المساكن
-          </a>
+          </Link>
           <Link
             href="/"
             onClick={() => handleLinkClick("الرئيسية")}
@@ -107,18 +107,18 @@ export default function Navbar({ defaultActiveLink }) {
       {/* Mobile Menu */}
       {isOpen && (
         <div className="md:hidden bg-gray-700">
-          <a href="#" className="block px-4 py-2 text-gray-100 hover:bg-gray-600 hover:text-white">
+          <Link href="#" className="block px-4 py-2 text-gray-100 hover:bg-gray-600 hover:text-white">
           الرئيسية
-          </a>
-          <a href="#" className="block px-4 py-2 text-gray-100 hover:bg-gray-600 hover:text-white">
+          </Link>
+          <Link href="#" className="block px-4 py-2 text-gray-100 hover:bg-gray-600 hover:text-white">
           المساكن
-          </a>
-          {/* <a href="#" className="block px-4 py-2 text-gray-100 hover:bg-gray-600 hover:text-white">
+          </Link>
+          {/* <Link href="#" className="block px-4 py-2 text-gray-100 hover:bg-gray-600 hover:text-white">
             Services
-          </a>
-          <a href="#" className="block px-4 py-2 text-gray-100 hover:bg-gray-600 hover:text-white">
+          </Link>
+          <Link href="#" className="block px-4 py-2 text-gray-100 hover:bg-gray-600 hover:text-white">
             Contact
-          </a> */}
+          </Link> */}
           <div className="flex row w-auto">
           <LoginButton />
           <SearchButton />

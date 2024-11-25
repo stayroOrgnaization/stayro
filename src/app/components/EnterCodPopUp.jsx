@@ -169,7 +169,7 @@ const EnterCodePopUp = () => {
                 <div className="text-2xl text-white-600 mt-6">
                   {formatTime(timeLeft)}
                 </div>
-                <a
+                <Link
                   href="#"
                   onClick={handleResendCode}
                   className={`text-[#FF5B2D] cursor-pointer ${
@@ -177,7 +177,7 @@ const EnterCodePopUp = () => {
                   }`}
                 >
                   إعادة إرسال رمز التحقق
-                </a>
+                </Link>
                 <button
                   type="submit"
                   className="border bg-orange-600 rounded-[12px] mt-8 mx-6 w-[310px] h-[59px]"

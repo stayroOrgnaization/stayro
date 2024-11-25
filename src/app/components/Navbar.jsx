@@ -1,115 +1,32 @@
 "use client";
 
 import { useState } from "react";
-import { observer } from "mobx-react-lite";  // Import observer to make it reactive
-import { authStore } from "../../stores/auth";  // Import your auth store
+import { observer } from "mobx-react-lite"; 
+import { authStore } from "../../stores/auth";  
 import ThemeToggle from "./ThemeToggle";
 import SearchButton from "./SearchButton";
 import LoginButton from "./LoginButton";
 import Logo from "./Logo";
-import UserImage from "./UserImage";  // Assuming you'll display user image when logged in
+import UserImage from "./UserImage";
 import Link from "next/link";
 
-const Navbar = observer(() => {
+const Navbar = observer(({ initialActiveLink } ) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
 
-  const [activeLink, setActiveLink] = useState("الرئيسية");
-
-  // Function to handle click event and set the active link
+  const [activeLink, setActiveLink] = useState(initialActiveLink);
   const handleLinkClick = (linkName) => {
     setActiveLink(linkName);
   };
 
   return (
     <nav className="grid grid-rows-[auto_1fr_auto] items-center justify-items-center mt-[20px] mx-[75px]">
+
       <div className="container flex justify-between items-center pt-2 px-3 ">
-        <div className="flex row w-auto">
-           <LoginButton />
-          <Link
-                href="/Profile"
-                onClick={() => handleLinkClick("الملف الشخصي")}
-                className={`mr-8 py-1 no-underline tracking-wide transition text-sm duration-700 ease-in-out ${
-                  activeLink === "الملف الشخصي"
-                    ? "border-b-2 border-gray-100 text-gray-100 -translate-y-[4px]"
-                    : "border-b-2 border-transparent opacity-50"
-                }`}
-              ><UserImage src={authStore.profileImage} />
-              </Link>
-          <SearchButton />
-          <ThemeToggle />
-        </div>
-
-        {/* Logo */}
-        <div className="text-stayro "> </div>
-
-        {/* Desktop Menu */}
-        <div className="hidden md:flex custom-font pr-44">
-          {/* Conditional Rendering based on authentication */}
-          {authStore.isAuthenticated() ? (
-            <>
-              
-              
-              <a
-                href="/Housing"
-                onClick={() => handleLinkClick("المساكن")}
-                className={`mr-8 py-1 no-underline tracking-wide transition text-sm duration-700 ease-in-out ${
-                  activeLink === "المساكن"
-                    ? "border-b-2 border-gray-100  text-gray-100 -translate-y-[4px]"
-                    : "border-b-2 border-transparent opacity-50"
-                }`}
-              >
-                المساكن
-              </a>
-              <Link
-                href="/"
-                onClick={() => handleLinkClick("الرئيسية")}
-                className={`mr-8 py-1 no-underline tracking-wide transition text-sm duration-700 ease-in-out ${
-                  activeLink === "الرئيسية"
-                    ? "border-b-2 border-gray-100  text-gray-100 -translate-y-[4px]"
-                    : "border-b-2 border-transparent opacity-50"
-                }`}
-              >
-                الرئيسية
-              </Link>
-              
-            </>
-          ) : (
-            <>
-              <Link
-                href="#"
-                onClick={() => handleLinkClick("المساكن")}
-                className={`mr-8 py-1 no-underline tracking-wide transition text-sm duration-700 ease-in-out ${
-                  activeLink === "المساكن"
-                    ? "border-b-2 border-gray-100  text-gray-100 -translate-y-[4px]"
-                    : "border-b-2 border-transparent opacity-50"
-                }`}
-              >
-                المساكن
-              </Link>
-              <Link
-                href="/"
-                onClick={() => handleLinkClick("الرئيسية")}
-                className={`mr-8 py-1 no-underline tracking-wide transition text-sm duration-700 ease-in-out ${
-                  activeLink === "الرئيسية"
-                    ? "border-b-2 border-gray-100  text-gray-100 -translate-y-[4px]"
-                    : "border-b-2 border-transparent opacity-50"
-                }`}
-              >
-                الرئيسية
-              </Link>
-            </>
-          )}
-        </div>
-
-        <div className="text-stayro text-xl font-bold ">
-          <Logo dir="ltr" />
-        </div>
-
-        <div className="md:hidden">
+      <div className="md:hidden">
           <button
             onClick={toggleMenu}
             className=" text-gray-100 focus:outline-none"
@@ -130,52 +47,159 @@ const Navbar = observer(() => {
             </svg>
           </button>
         </div>
-      </div>
+        <div className="flex row w-auto">
 
-      {isOpen && (
-        <div className="md:hidden bg-gray-700">
-          {/* Conditional rendering for mobile menu */}
+        {authStore.isAuthenticated() ? (<UserImage
+  className=" hidden"
+  src={authStore.profileImage}
+/> ):(<LoginButton />)}
+          <Link
+                href="/Profile"
+                onClick={() => handleLinkClick("الملف الشخصي")}
+                className={`mr-8 py-1 no-underline tracking-wide transition text-sm duration-700 ease-in-out ${
+                  activeLink === "الملف الشخصي"
+                    ? "border-b-2 border-gray-100 text-gray-100 -translate-y-[4px]"
+                    : "border-b-2 border-transparent opacity-50"
+                }`}
+              >
+              </Link>
+              <div className="hidden md:flex row w-auto">
+          <SearchButton />
+          <ThemeToggle />
+          </div>
+        </div>
+
+
+        <div className="text-stayro "> </div>
+        <div className="hidden md:flex custom-font pr-44">
           {authStore.isAuthenticated() ? (
             <>
-              <a
+               <Link
                 href="#"
-                className="block px-4 py-2 text-gray-100 hover:bg-gray-600 hover:text-white"
+                onClick={() => setActiveLink("المحادثات")}
+                className={`mr-8 py-1 no-underline tracking-wide transition text-sm duration-700 ease-in-out ${
+                  activeLink === "المحادثات"
+                    ? "border-b-2 border-gray-100  text-gray-100 -translate-y-[4px]"
+                    : "border-b-2 border-transparent opacity-50"
+                }`}
               >
-                Profile
-              </a>
-              <a
+                المحادثات
+              </Link>
+              <Link
                 href="#"
-                className="block px-4 py-2 text-gray-100 hover:bg-gray-600 hover:text-white"
+                onClick={() => setActiveLink("الحجوزات")}
+                className={`mr-8 py-1 no-underline tracking-wide transition text-sm duration-700 ease-in-out ${
+                  activeLink === "الحجوزات"
+                    ? "border-b-2 border-gray-100  text-gray-100 -translate-y-[4px]"
+                    : "border-b-2 border-transparent opacity-50"
+                }`}
               >
-                Logout
-              </a>
+                الحجوزات
+              </Link>
+              
+              <Link
+                href="/Housing"
+                onClick={() => setActiveLink("المساكن")}
+                className={`mr-8 py-1 no-underline tracking-wide transition text-sm duration-700 ease-in-out ${
+                  activeLink === "المساكن"
+                    ? "border-b-2 border-gray-100  text-gray-100 -translate-y-[4px]"
+                    : "border-b-2 border-transparent opacity-50"
+                }`}
+              >
+                المساكن
+              </Link>
+              <Link
+                href="/"
+                onClick={() => setActiveLink("الرئيسية")}
+                className={`mr-8 py-1 no-underline tracking-wide transition text-sm duration-700 ease-in-out ${
+                  activeLink === "الرئيسية"
+                    ? "border-b-2 border-gray-100  text-gray-100 -translate-y-[4px]"
+                    : "border-b-2 border-transparent opacity-50"
+                }`}
+              >
+                الرئيسية
+              </Link>
+              
             </>
           ) : (
             <>
-              <a
+              <Link
+                href="/Housing"
+                onClick={() => setActiveLink("المساكن")}
+                className={`mr-8 py-1 no-underline tracking-wide transition text-sm duration-700 ease-in-out ${
+                  activeLink === "المساكن"
+                    ? "border-b-2 border-gray-100  text-gray-100 -translate-y-[4px]"
+                    : "border-b-2 border-transparent opacity-50"
+                }`}
+              >
+                المساكن
+              </Link>
+              <Link
+                href="/"
+                onClick={() => handleLinkClick("الرئيسية")}
+                className={`mr-8 py-1 no-underline tracking-wide transition text-sm duration-700 ease-in-out ${
+                  activeLink === "الرئيسية"
+                    ? "border-b-2 border-gray-100  text-gray-100 -translate-y-[4px]"
+                    : "border-b-2 border-transparent opacity-50"
+                }`}
+              >
+                الرئيسية
+              </Link> 
+            </>
+          )}
+        </div>
+
+        <div className="text-stayro text-xl font-bold ">
+          <Logo dir="ltr" />
+        </div>
+
+       
+      </div>
+
+           
+      {isOpen && (
+        <div className="md:hidden bg-[#1A1A1A] fixed w-full h-auto">
+          {authStore.isAuthenticated() ? (
+            <>
+            <button onClick={toggleMenu}>X</button>
+              <Link
                 href="#"
                 className="block px-4 py-2 text-gray-100 hover:bg-gray-600 hover:text-white"
               >
-                Home
-              </a>
-              <a
+                المساكن
+              </Link>
+              <Link
                 href="#"
                 className="block px-4 py-2 text-gray-100 hover:bg-gray-600 hover:text-white"
               >
-                About
-              </a>
-              <a
+                الرئيسية
+              </Link>
+            </>
+          ) : (
+            <>
+              <Link
                 href="#"
                 className="block px-4 py-2 text-gray-100 hover:bg-gray-600 hover:text-white"
               >
-                Services
-              </a>
-              <a
+                المساكن
+              </Link>
+              <Link
                 href="#"
                 className="block px-4 py-2 text-gray-100 hover:bg-gray-600 hover:text-white"
               >
-                Contact
-              </a>
+                الرئيسية
+              </Link>
+              <Link
+                href="/Profile"
+                onClick={() => handleLinkClick("الملف الشخصي")}
+              className="block px-4 py-2 text-gray-100 hover:bg-gray-600 hover:text-white"
+              > <UserImage
+              className=" md:hidden"
+              src={authStore.profileImage}
+            />
+              </Link>
+          <SearchButton />
+          <ThemeToggle />
             </>
           )}
         </div>

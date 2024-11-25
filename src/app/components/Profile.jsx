@@ -18,16 +18,13 @@ const Profile = () => {
     city: '',
     gender: '',
   });
-  const [loading, setLoading] = useState(true); // To handle the loading state
-  const [error, setError] = useState(null); // To handle errors
-
-  // Handle choosing gender
+  const [loading, setLoading] = useState(true); 
+  const [error, setError] = useState(null);
   const handleSelect = (sex) => {
     setSelectedSex(sex);
     setProfileData((prev) => ({ ...prev, gender: sex }));
   };
 
-  // Handle image change
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -114,11 +111,11 @@ const Profile = () => {
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div></div>;
   }
 
   if (error) {
-    return <div>{error}</div>;
+    return <div></div>;
   }
   const updateCity = (selectedCity) => {
     setProfileData((prev) => ({
@@ -128,11 +125,11 @@ const Profile = () => {
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div></div>;
   }
 
   if (error) {
-    return <div>{error}</div>;
+    return <div></div>;
   }
 
 

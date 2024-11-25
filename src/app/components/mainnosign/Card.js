@@ -4,7 +4,7 @@ import ReserveButton from "../ReserveButton";
 
 const Card = ({ property }) => {
   return (
-    <Link href={`Reserve/${property.id}`}> {/* Updated this line */}
+    <Link href={`Reserve/${property.id}`}> 
       <div className="w-[500px] h-[137px] border-[1.5px] bg-[#303030] rounded-[12px] overflow-hidden flex row">
         <div className="flex row p-[20px]">
           <div

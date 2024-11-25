@@ -42,16 +42,21 @@ const Home = observer(({ searchParams }) => {
   const toggleGridView = () => {
     setIsTwoPerRow(!isTwoPerRow);
   };
+  const [activeLink] = useState("الرئيسية");
+
 
   return (
     <div>
-      <Navbar defaultActiveLink={"الرئيسية"} />
+       <Navbar
+        initialActiveLink={activeLink}           // Pass the initial active link to Navbar
+
+      />
 
       <main className="overflow-y-scroll scrollbar-hide">
         <div className="flex flex-row" dir="rtl">
 
           <div className="w-full ">
-            <div className="flex flex-row items-center justify-between my-8 ml-40">
+            <div className="flex flex-row items-center justify-between my-8 ml-40 md:ml-8">
               <PropertyFilter
                 selectedType={selectedType}
                 types={Array.from(
@@ -67,8 +72,6 @@ const Home = observer(({ searchParams }) => {
                 toggleGridView={toggleGridView}
               />
             </div>
-
-            {/* Use Suspense for the HomePage component */}
             <Suspense fallback={<Loading />}>
               <HomePage
                 properties={propertyStore.filteredProperties}
@@ -78,9 +81,9 @@ const Home = observer(({ searchParams }) => {
             </Suspense>
           </div>
         </div>
-        <div className="mx-32">
-          <div className="flex flex-row justify-end gap-[48px]">
-            <div className="flex flex-col justify-end items-end text-right">
+        <div className="">
+          <div className="flex flex-row justify-end gap-[48px] mx-32 md:mx-8">
+            <div className="flex flex-col justify-end items-end text-right mx-32 md:mx-8">
               <h2 className="text-2xl font-bold my-4">المضافة حديثاً</h2>
               <h3 className="text-xl my-2">تصفح أحدث الشقق المضافة</h3>
             </div>
