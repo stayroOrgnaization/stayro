@@ -8,7 +8,7 @@ class AuthStore {
     email: "",
     password: "",
     confirmPassword: "",
-    username: "",
+    name: "",
     country: "",
     city: "",
     gender: "",
@@ -35,7 +35,7 @@ class AuthStore {
       email: "",
       password: "",
       confirmPassword: "",
-      username: "",
+      name: "",
       otp_token,
     };
   }
@@ -50,7 +50,7 @@ class AuthStore {
     runInAction(() => {
       this.access_token = token; // Store the access token in the MobX state
       Cookies.set("access_token", token, {
-        expires: 30, // Set cookie expiration to 7 days (adjust as necessary)
+        expires: 30, // Set cookie expiration
         secure: true, // Only send cookie over HTTPS
         sameSite: "Strict", // Prevent CSRF attacks by limiting cross-site requests
       });
@@ -87,7 +87,7 @@ class AuthStore {
     const dataToSend = new FormData();
     dataToSend.append("phone_number", this.formData.phone);
     dataToSend.append("password", this.formData.password);
-    dataToSend.append("username", this.formData.username);
+    dataToSend.append("username", this.formData.phone);
     dataToSend.append("role", this.formData.role);
     dataToSend.append("method", "sms");
 
@@ -107,17 +107,22 @@ class AuthStore {
         });
       } else {
         const errorData = await response.json();
+        console.error("Backend error response:", errorData);
+
+        // Extract the first error message from any field
+        const firstErrorKey = Object.keys(errorData)[0]; // Get the first error key (e.g., username, password)
+        const firstErrorMessage = errorData[firstErrorKey]?.[0]; // Get the first error message from that key
+
         runInAction(() => {
-          this.errorMessage =
-            errorData.username?.[0] ||
-            errorData.password?.[0] ||
-            "Unknown error";
+          this.errorMessage = firstErrorMessage || "حدث خطأ غير معروف.";
           this.isLoading = false;
         });
       }
     } catch (error) {
+      console.error("Network or parsing error:", error);
+
       runInAction(() => {
-        this.errorMessage = "An error occurred during login.";
+        this.errorMessage = "حدث خطأ في الشبكة. يرجى المحاولة مرة أخرى.";
         this.isLoading = false;
       });
     }
@@ -187,49 +192,6 @@ class AuthStore {
     }
   }
 
-  async updateProfile() {
-    const { phone_number, name, email, country, city, gender } = this.formData;
-    const token = this.access_token;
-    
-    if (!token) {
-      this.errorMessage = "No authentication token found.";
-      return;
-    }
-  
-    const dataToSend = new FormData();
-    dataToSend.append("phone_number", phone_number);
-    dataToSend.append("name", name);
-    dataToSend.append("email", email);
-    dataToSend.append("country", country);
-    dataToSend.append("city", city);
-    dataToSend.append("gender", gender);
-  
-    // Include profile picture if it exists
-    if (this.profileImage) {
-      dataToSend.append("profile_image", this.profileImage);
-    }
-  
-    try {
-      const response = await fetch("https://api.stayro.com/ar/customer/api/profile/", {
-        method: "PUT",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        body: dataToSend,
-      });
-  
-      if (response.ok) {
-        console.log("Profile updated successfully.");
-      } else {
-        const errorData = await response.json();
-        this.errorMessage = errorData.message || "Unknown error";
-      }
-    } catch (error) {
-      this.errorMessage = "An error occurred while updating the profile.";
-      console.error(error);
-    }
-  }
-
   // delete account
 
   async handleDelete() {
@@ -287,7 +249,7 @@ class AuthStore {
       );
 
       if (response.ok) {
-        this.setAccessToken(""); 
+        this.setAccessToken("");
         Cookies.remove("access_token");
         console.log("Logged out successfully.");
         return true;
@@ -299,6 +261,60 @@ class AuthStore {
     } catch (error) {
       console.error("An error occurred during logout:", error);
       return false;
+    }
+  }
+
+  async updateProfile() {
+    this.errorMessage = "";
+    this.isLoading = true;
+
+    const dataToSend = new FormData();
+    dataToSend.append("phone_number", this.formData.phone);
+    dataToSend.append("name", this.formData.name);
+    dataToSend.append("email", this.formData.email);
+    dataToSend.append("city", this.formData.city);
+    dataToSend.append("gender", this.formData.gender);
+
+    try {
+      const response = await fetch(
+        "https://api.stayro.com/ar/customer/api/profile/",
+        {
+          method: "PUT",
+          headers: {
+            Authorization: `Bearer ${this.access_token}`,
+          },
+          body: dataToSend,
+        }
+      );
+
+      if (response.ok) {
+        const updatedData = await response.json();
+        runInAction(() => {
+          this.formData.name = updatedData.name || this.formData.name;
+          this.formData.phone = updatedData.phone_number || this.formData.phone;
+          this.formData.email = updatedData.email || this.formData.email;
+          this.formData.city =
+            updatedData.profile?.city?.name || this.formData.city; // Safe access
+          this.formData.gender =
+            updatedData.profile?.gender || this.formData.gender;
+          this.isLoading = false;
+          console.log("Profile updated successfully.", updatedData);
+        });
+      } else {
+        const errorData = await response.json();
+        runInAction(() => {
+          this.errorMessage = errorData.message || "Failed to update profile.";
+          console.log("Error response data:", errorData);
+          console.log("Error message:", this.errorMessage);
+          this.isLoading = false;
+        });
+      }
+    } catch (error) {
+      runInAction(() => {
+        this.errorMessage = "An error occurred during profile update.";
+        this.isLoading = false;
+        console.error("Fetch error:", error);
+      });
     }
   }
 }
