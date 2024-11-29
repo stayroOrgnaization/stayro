@@ -49,10 +49,10 @@ const Navbar = observer(({ initialActiveLink } ) => {
         </div>
         <div className="flex row w-auto">
 
-        {authStore.isAuthenticated() ? (<UserImage
-  className=" hidden"
-  src={authStore.profileImage}
-/> ):(<LoginButton />)}
+        {authStore.isAuthenticated() ? (<div className="hidden md:block"><UserImage
+              
+              src={authStore.profileImage}
+            /></div>):(<LoginButton />)}
           <Link
                 href="/Profile"
                 onClick={() => handleLinkClick("الملف الشخصي")}
@@ -193,10 +193,10 @@ const Navbar = observer(({ initialActiveLink } ) => {
                 href="/Profile"
                 onClick={() => handleLinkClick("الملف الشخصي")}
               className="block px-4 py-2 text-gray-100 hover:bg-gray-600 hover:text-white"
-              > <UserImage
-              className=" md:hidden"
+              > <div className="hidden md:block"><UserImage
+              
               src={authStore.profileImage}
-            />
+            /></div>
               </Link>
           <SearchButton />
           <ThemeToggle />
