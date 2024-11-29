@@ -6,7 +6,6 @@ import Image from "next/image";
 import Calendar from "../../../public/CalendarPic.png";
 import Saudi from "../../../public/Saudi.svg";
 import Link from "next/link";
-
 const Login = observer(() => {
   const router = useRouter();
   console.log(authStore);
@@ -17,7 +16,7 @@ const Login = observer(() => {
     await authStore.login();
 
     if (!authStore.errorMessage) {
-      router.push("/VerifyLogin");
+      router.push("/Customer/VerifyLogin");
     }
   };
 

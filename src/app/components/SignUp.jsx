@@ -9,7 +9,6 @@ import SignUpPic from "../../../public/SignUpPic.png";
 import Navbar from "../components/Navbar";
 import Link from "next/link";
 import Saudi from "../../../public/Saudi.svg";
-
 const SignUp = observer(() => {
   const router = useRouter();
   const [isMounted, setIsMounted] = useState(false);
@@ -34,7 +33,7 @@ const SignUp = observer(() => {
 
     if (!authStore.errorMessage) {
       authStore.resetFormData(); // Reset form data in the MobX store
-      router.push("/");
+      router.push("/Customer/Login");
     }
   };
 
@@ -154,7 +153,7 @@ const SignUp = observer(() => {
             </div>
 
             <div className="mt-4 mx-2 mb-4 flex justify-end space-x-2 ">
-              <Link href="/Login" className="text-[#FF5B2D]">
+              <Link href="/Customer/Login" className="text-[#FF5B2D]">
                 تسجيل الدخول{" "}
               </Link>
               <p className="">هل لديك حساب ؟ </p>
