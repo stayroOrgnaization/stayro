@@ -1,12 +1,12 @@
 "use client";
 import Image from "next/image";
-
 import VerifyPic from "../../../public/VerifyPic.svg";
 import LockPic from "../../../public/lockPic.svg";
 import { useRef, useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { observer } from "mobx-react-lite";
 import { authStore } from "../../stores/auth"; 
+import Link from "next/link";
 
 const VerifyLog = observer(() => {
   const router = useRouter();

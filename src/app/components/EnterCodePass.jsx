@@ -5,7 +5,7 @@ import LockPic from "../../../public/lockPic.svg";
 import { useRef, useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { authStore } from "../../stores/auth";
-
+import Link from "next/link";
 const Verify = () => {
   const router = useRouter();
   const inputRefs = useRef([]);

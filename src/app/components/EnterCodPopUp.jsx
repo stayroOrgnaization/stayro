@@ -5,7 +5,7 @@ import { useRef, useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import SetPassPopUP from "./SetPassPopUp";
 import { authStore } from "@/stores/auth";
-
+import Link from "next/link";
 const EnterCodePopUp = () => {
   const router = useRouter();
   const inputRefs = useRef([]);
