@@ -4,8 +4,8 @@ import { useState, useEffect } from "react";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import Image from "next/image";
-import Logo from "../../../../public/logo.png";
-import Img from "../../../../public/image.png";
+import Logo from "../../../public/logo.svg";
+import Img from "../../../public/image.png";
 import Link from "next/link";
 
 export default function FaqList() {
