@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
-import Navbar from "../../Customer/components/Navbar";
-import Footer from "../../Customer/components/Footer";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 import Image from "next/image";
 import Img from "../../../public/image.png";
 import Link from "next/link";
@@ -76,37 +76,37 @@ export default function Terms() {
 
         <div className="options w-[240px] h-[240px]">
           <div className="flex justify-center border border-[#303030] w-[240px] h-[45px] mt-4 rounded-2xl">
-            <Link className="mt-3" href="/Customer/Profile">
+            <Link className="mt-3" href="/Profile">
               {" "}
               الصفحة الشخصية
             </Link>
           </div>
           <div className="flex justify-center border border-[#303030] w-[240px] h-[45px] mt-4 rounded-2xl">
-            <Link className="mt-3" href="/Customer/PassSetting">
+            <Link className="mt-3" href="/PassSetting">
               تعيين كلمة المرور
             </Link>
           </div>
           <div className="flex justify-center border border-[#303030] w-[240px] h-[45px] mt-4 rounded-2xl">
             {" "}
-            <Link className="mt-3" href="/Customer/About">
+            <Link className="mt-3" href="/About">
               {" "}
               عن ستيرو
             </Link>
           </div>
           <div className="flex justify-center border border-[#303030] w-[240px] h-[45px] mt-4 rounded-2xl">
-            <Link className="mt-3" href="/Customer/Terms">
+            <Link className="mt-3" href="/Terms">
               {" "}
               الشروط والأحكام
             </Link>
           </div>
           <div className="flex justify-center border border-[#303030] w-[240px] h-[45px] mt-4 rounded-2xl">
-            <Link className="mt-3" href="/Customer/Privacy">
+            <Link className="mt-3" href="/Privacy">
               {" "}
               سياسات الخصوصية
             </Link>
           </div>
           <div className="flex justify-center border border-[#303030] w-[240px] h-[45px] mt-4 rounded-2xl">
-            <Link className="mt-3" href="/Customer/FAQ">
+            <Link className="mt-3" href="/FAQ">
               {" "}
               الأسئلة الشائعة
             </Link>
