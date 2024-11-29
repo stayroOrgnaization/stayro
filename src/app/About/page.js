@@ -1,9 +1,9 @@
 "use client";
-import Logo from "../../../../public/logo.png";
+import Logo from "../../../public/logo.png";
 import Image from "next/image";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import Img from "../../../../public/image.png";
+import Img from "../../../public/image.png";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 

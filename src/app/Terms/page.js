@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import Navbar from "../../Customer/components/Navbar";
 import Footer from "../../Customer/components/Footer";
 import Image from "next/image";
-import Img from "../../../../public/image.png";
+import Img from "../../../public/image.png";
 import Link from "next/link";
 
 export default function Terms() {
