@@ -2,7 +2,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { authStore } from "@/stores/auth";
-import EnterPhonePopUp from "./EnterPhonePopUp"; // Your popup component
+import EnterPhonePopUp from "./EnterPhonePopUp";
 
 const PssSet = () => {
   const [isPopupVisible, setIsPopupVisible] = useState(false);
@@ -94,7 +94,7 @@ const PssSet = () => {
                 <Link
                   href="#"
                   className="forgot text-[#FF5B2D]"
-                  onClick={handleForgotPasswordClick} // Trigger popup on click
+                  onClick={handleForgotPasswordClick}
                 >
                   هل نسيت كلمة المرور؟
                 </Link>
@@ -139,45 +139,55 @@ const PssSet = () => {
 
         {/* Sidebar Options */}
         <div className="options w-[240px] h-[435px]">
-          <div className="border border-[#303030] w-[240px] h-[45px] rounded-2xl text-center">
-            <Link className="text-[#F5F5F5] text-center " href="/Profile">
+          <div className="flex justify-center border border-[#303030] w-[240px] h-[45px] mt-4 rounded-2xl">
+            <Link className="mt-3" href="/Customer/Profile">
+              {" "}
               الصفحة الشخصية
             </Link>
           </div>
-          <div className="border border-[#303030] w-[240px] h-[45px] mt-4 rounded-2xl">
-            <p className="mt-3"> تعيين كلمة المرور</p>
+          <div className="flex justify-center border border-[#303030] w-[240px] h-[45px] mt-4 rounded-2xl">
+            <Link className="mt-3" href="/Customer/PassSetting">
+              تعيين كلمة المرور
+            </Link>
           </div>
-          <div className="border border-[#303030] w-[240px] h-[45px] mt-4 rounded-2xl">
+          <div className="flex justify-center border border-[#303030] w-[240px] h-[45px] mt-4 rounded-2xl">
             {" "}
-            <p className="mt-3">عن ستيرو</p>
+            <Link className="mt-3" href="/Customer/About">
+              {" "}
+              عن ستيرو
+            </Link>
           </div>
-          <div className="border border-[#303030] w-[240px] h-[45px] mt-4 rounded-2xl">
-            <p className="mt-3"> الشروط والأحكام </p>
+          <div className="flex justify-center border border-[#303030] w-[240px] h-[45px] mt-4 rounded-2xl">
+            <Link className="mt-3" href="/Customer/Terms">
+              {" "}
+              الشروط والأحكام
+            </Link>
           </div>
-          <div className="border border-[#303030] w-[240px] h-[45px] mt-4 rounded-2xl">
-            <p className="mt-3"> سياسات الخصوصية </p>
+          <div className="flex justify-center border border-[#303030] w-[240px] h-[45px] mt-4 rounded-2xl">
+            <Link className="mt-3" href="/Customer/Privacy">
+              {" "}
+              سياسات الخصوصية
+            </Link>
           </div>
-          <div className="border border-[#303030] w-[240px] h-[45px] mt-4 rounded-2xl">
-            <p className="mt-3"> الأسئلة الشائعة </p>
-          </div>
-          <div className="border border-[#303030] w-[240px] h-[45px] mt-4 rounded-2xl">
-            <p className="mt-3"> حذف الحساب </p>
+          <div className="flex justify-center border border-[#303030] w-[240px] h-[45px] mt-4 rounded-2xl">
+            <Link className="mt-3" href="/Customer/FAQ">
+              {" "}
+              الأسئلة الشائعة
+            </Link>
           </div>
         </div>
       </div>
-      nothing happen when I submit the form
-      {/* Render the EnterPhonePopUp as a popup */}
+
       {isPopupVisible && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
           <div className="bg-[#1A1A1A] w-[700px] h-[600px] rounded-lg shadow-lg relative">
-            {/* Close button */}
             <button
               onClick={closePopup}
               className="absolute top-2 right-4 text-gray-500 hover:text-black"
             >
               ✕
             </button>
-            {/* Render the EnterPhonePopUp component */}
+
             <EnterPhonePopUp />
           </div>
         </div>
