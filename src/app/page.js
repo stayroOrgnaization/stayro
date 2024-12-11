@@ -66,11 +66,11 @@ const Home = observer(({ searchParams }) => {
                 )}
                 setType={setSelectedType}
               />
-
+              <div className="hidden md:block">
               <CardViewToggle
                 isTwoPerRow={isTwoPerRow}
                 toggleGridView={toggleGridView}
-              />
+              /></div>
             </div>
             <Suspense fallback={<Loading />}>
               <HomePage

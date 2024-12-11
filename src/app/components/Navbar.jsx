@@ -23,7 +23,7 @@ const Navbar = observer(({ initialActiveLink } ) => {
   };
 
   return (
-    <nav className="grid grid-rows-[auto_1fr_auto] items-center justify-items-center mt-[20px] mx-[75px]">
+    <nav className="grid grid-rows-[auto_1fr_auto] items-center justify-items-center mt-[20px]">
 
       <div className="container flex justify-between items-center pt-2 px-3 ">
       <div className="md:hidden">
@@ -52,7 +52,7 @@ const Navbar = observer(({ initialActiveLink } ) => {
         {authStore.isAuthenticated() ? (<div className="hidden md:block"><UserImage
               
               src={authStore.profileImage}
-            /></div>):(<LoginButton />)}
+            /> </div>):(<div className='hidden md:block'><LoginButton /></div>)}
           <Link
                 href="/Profile"
                 onClick={() => handleLinkClick("الملف الشخصي")}
@@ -63,7 +63,7 @@ const Navbar = observer(({ initialActiveLink } ) => {
                 }`}
               >
               </Link>
-              <div className="hidden md:flex row w-auto">
+              <div className="hidden md:fixed row w-auto">
           <SearchButton />
           <ThemeToggle />
           </div>
@@ -71,9 +71,9 @@ const Navbar = observer(({ initialActiveLink } ) => {
 
 
         <div className="text-stayro "> </div>
-        <div className="hidden md:flex custom-font pr-44">
+        <div className="hidden md:fixed custom-font pr-44">
           {authStore.isAuthenticated() ? (
-            <>
+            <div className="mt-20">
                <Link
                 href="#"
                 onClick={() => setActiveLink("المحادثات")}
@@ -120,9 +120,9 @@ const Navbar = observer(({ initialActiveLink } ) => {
                 الرئيسية
               </Link>
               
-            </>
+              </div>
           ) : (
-            <>
+            <div className="mt-20">
               <Link
                 href="/Housing"
                 onClick={() => setActiveLink("المساكن")}
@@ -145,7 +145,7 @@ const Navbar = observer(({ initialActiveLink } ) => {
               >
                 الرئيسية
               </Link> 
-            </>
+              </div>
           )}
         </div>
 
@@ -169,7 +169,7 @@ const Navbar = observer(({ initialActiveLink } ) => {
                 المساكن
               </Link>
               <Link
-                href="#"
+                href="/"
                 className="block px-4 py-2 text-gray-100 hover:bg-gray-600 hover:text-white"
               >
                 الرئيسية
@@ -178,17 +178,18 @@ const Navbar = observer(({ initialActiveLink } ) => {
           ) : (
             <>
               <Link
-                href="#"
-                className="block px-4 py-2 text-gray-100 hover:bg-gray-600 hover:text-white"
-              >
-                المساكن
-              </Link>
-              <Link
-                href="#"
+                href="/"
                 className="block px-4 py-2 text-gray-100 hover:bg-gray-600 hover:text-white"
               >
                 الرئيسية
               </Link>
+              <Link
+                href="/Housing"
+                className="block px-4 py-2 text-gray-100 hover:bg-gray-600 hover:text-white"
+              >
+                المساكن
+              </Link>
+            
               <Link
                 href="/Profile"
                 onClick={() => handleLinkClick("الملف الشخصي")}

@@ -11,7 +11,7 @@ const HomePage = ({ properties, selectedType, isTwoPerRow }) => {
 
   return (
     <div>
-      {/* Properties Grid */}
+
       <div className={`grid gap-4 ${isTwoPerRow ? 'grid-cols-1 md:grid-cols-1 lg:grid-cols-2' : 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 '}`}>
         {filteredProperties.map((property) => (
           <Card key={property.id} property={property} isTwoPerRow={isTwoPerRow} />
