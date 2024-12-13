@@ -33,36 +33,36 @@ const SignUp = observer(() => {
 
     if (!authStore.errorMessage) {
       authStore.resetFormData(); // Reset form data in the MobX store
-      router.push("/Customer/Login");
+      router.push("/Login");
     }
   };
 
   return (
     <>
-      <div className="main flex flex-col md:flex-row  justify-center items-center ">
-        <div className="signUp side w-[65%] h-[748px] flex-col md:items-center mt-20 md:w-full">
+      <div className="main flex flex-col md:flex-row   h-[600px] md:h-auto justify-center items-center ">
+        <div className="signUp side w-[90%] h-[748px] flex-col md:items-center mt-20 md:w-full">
           <div className=" lg:hidden mt-20 flex flex-col sm:mx-8 ">
             <h3 className="font-bold text-4xl text-gray-100 text-center">
-              {" "}
+              
               احجز براحة، اختر ستيرو
             </h3>
             <p className="font-normal text-lg text-gray-100 text-center mt-5 ">
-              {" "}
+              
               اكتشف تجربة مميزة للحجوزات
             </p>
           </div>
 
           {authStore.errorMessage && (
-            <div className="flex justify-center border-2 border-red-600 bg-[#FFFFFF0D] text-red-600 text-center mt-2 p-2 rounded w-[350px] mx-44 my-10">
+            <div className="flex justify-center border-2 border-red-600 bg-[#FFFFFF0D] text-red-600 text-center mt-2 p-2 rounded w-[350px]  mx-44 my-10">
               <p>{authStore.errorMessage}</p>
             </div>
           )}
           <form
             onSubmit={handleSubmit}
-            className="flex flex-col border border-[#303030] rounded-[20px] lg:w-[570px] lg:h-[600px] mt-10 mb-4 lg:mx-20 md:mx-44 md:mx-10 md:w-[517px] sm:w-[394px] "
+            className="flex flex-col md:px-12  border border-[#303030] rounded-[20px] lg:w-[570px] lg:h-[600px] mt-10 mb-12 lg:mx-20 md:mx-44 sm:m-12  md:w-[517px] sm:w-[394px] "
           >
             <div className=" text-center text-lg font-bold text-gray-100 mx-2 mt-3">
-              تسجيل الدخول{" "}
+              تسجيل الدخول
             </div>
             <div className="flex flex-col items-center">
               {authStore.passwordError && (
@@ -80,7 +80,7 @@ const SignUp = observer(() => {
                     <Image
                       src={Saudi}
                       alt="KSA"
-                      width={24} // Decrease the width for better alignment
+                      width={24} 
                       height={24}
                       className="rounded"
                     />
@@ -117,7 +117,7 @@ const SignUp = observer(() => {
 
               <div className="password input flex flex-col mt-5">
                 <label className=" text-right lg-mx-4 md:mx-4">
-                  {" "}
+                  
                   كلمة المرور
                 </label>
                 <input
@@ -153,8 +153,8 @@ const SignUp = observer(() => {
             </div>
 
             <div className="mt-4 mx-2 mb-4 flex justify-end space-x-2 ">
-              <Link href="/Customer/Login" className="text-[#FF5B2D]">
-                تسجيل الدخول{" "}
+              <Link href="/Login" className="text-[#FF5B2D]">
+                تسجيل الدخول
               </Link>
               <p className="">هل لديك حساب ؟ </p>
             </div>
@@ -164,11 +164,11 @@ const SignUp = observer(() => {
         <div className="pic-side mt-20 mx-20 hidden lg:block">
           <div>
             <h3 className="font-bold text-4xl text-gray-100 text-center ">
-              {" "}
+              
               احجز براحة، اختر ستيرو
             </h3>
             <p className="font-normal text-lg text-gray-100 text-center mt-5 ">
-              {" "}
+              
               اكتشف تجربة مميزة للحجوزات
             </p>
           </div>
@@ -181,12 +181,7 @@ const SignUp = observer(() => {
             ></Image>
           </div>
         </div>
-        {/* <div
-          className="relative w-[509px] h-[538px] bg-no-repeat bg-cover bg-right-bottom lg:hidden sm:hidden md:block"
-          style={{
-            backgroundImage: `url(${SignUpPic.src})`,
-          }}
-        ></div> */}
+
       </div>
     </>
   );

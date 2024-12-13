@@ -5,7 +5,7 @@ const SignUp = () => {
   return (
     <>
       <Navbar />
-      <SignUpComp />
+      <SignUpComp className="mb-12"/>
     </>
   );
 };

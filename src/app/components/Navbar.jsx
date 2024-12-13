@@ -158,7 +158,7 @@ const Navbar = observer(({ initialActiveLink } ) => {
 
            
       {isOpen && (
-        <div className="md:hidden bg-[#1A1A1A] fixed w-full h-auto">
+        <div className="md:hidden bg-[#1A1A1A] block w-full h-auto">
           {authStore.isAuthenticated() ? (
             <>
             <button onClick={toggleMenu}>X</button>
@@ -199,6 +199,9 @@ const Navbar = observer(({ initialActiveLink } ) => {
               src={authStore.profileImage}
             /></div>
               </Link>
+              <div className="block px-4 py-4 flex justify-center items-center">
+              <LoginButton />
+              </div>
           <SearchButton />
           <ThemeToggle />
             </>
