@@ -52,7 +52,7 @@ const Navbar = observer(({ initialActiveLink } ) => {
         {authStore.isAuthenticated() ? (<div className="hidden md:block"><UserImage
               
               src={authStore.profileImage}
-            /> </div>):(<div className='hidden md:block'><LoginButton /></div>)}
+            /> </div>):(<div className='hidden md:block mt-4 pb-4' ><LoginButton /></div>)}
           <Link
                 href="/Profile"
                 onClick={() => handleLinkClick("الملف الشخصي")}
@@ -73,7 +73,7 @@ const Navbar = observer(({ initialActiveLink } ) => {
         <div className="text-stayro "> </div>
         <div className="hidden md:flex custom-font pr-44 kustify-center items-center">
           {authStore.isAuthenticated() ? (
-            <div className="mt-12">
+            <div className="mt-8 ">
                <Link
                 href="#"
                 onClick={() => setActiveLink("المحادثات")}
@@ -122,7 +122,7 @@ const Navbar = observer(({ initialActiveLink } ) => {
               
               </div>
           ) : (
-            <div className="mt-12">
+            <div className="mt-4 pb-4">
               <Link
                 href="/"
                 onClick={() => handleLinkClick("الرئيسية")}
