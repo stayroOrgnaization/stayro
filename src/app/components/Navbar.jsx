@@ -71,9 +71,9 @@ const Navbar = observer(({ initialActiveLink } ) => {
 
 
         <div className="text-stayro "> </div>
-        <div className="hidden md:fixed custom-font pr-44">
+        <div className="hidden md:flex custom-font pr-44 kustify-center items-center">
           {authStore.isAuthenticated() ? (
-            <div className="mt-20">
+            <div className="mt-12">
                <Link
                 href="#"
                 onClick={() => setActiveLink("المحادثات")}
@@ -122,18 +122,7 @@ const Navbar = observer(({ initialActiveLink } ) => {
               
               </div>
           ) : (
-            <div className="mt-20">
-              <Link
-                href="/Housing"
-                onClick={() => setActiveLink("المساكن")}
-                className={`mr-8 py-1 no-underline tracking-wide transition text-sm duration-700 ease-in-out ${
-                  activeLink === "المساكن"
-                    ? "border-b-2 border-gray-100  text-gray-100 -translate-y-[4px]"
-                    : "border-b-2 border-transparent opacity-50"
-                }`}
-              >
-                المساكن
-              </Link>
+            <div className="mt-12">
               <Link
                 href="/"
                 onClick={() => handleLinkClick("الرئيسية")}
@@ -145,6 +134,18 @@ const Navbar = observer(({ initialActiveLink } ) => {
               >
                 الرئيسية
               </Link> 
+              <Link
+                href="/Housing"
+                onClick={() => setActiveLink("المساكن")}
+                className={`mr-8 py-1 no-underline tracking-wide transition text-sm duration-700 ease-in-out ${
+                  activeLink === "المساكن"
+                    ? "border-b-2 border-gray-100  text-gray-100 -translate-y-[4px]"
+                    : "border-b-2 border-transparent opacity-50"
+                }`}
+              >
+                المساكن
+              </Link>
+              
               </div>
           )}
         </div>
