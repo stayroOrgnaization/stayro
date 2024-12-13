@@ -74,16 +74,27 @@ const Navbar = observer(({ initialActiveLink } ) => {
         <div className="hidden md:flex custom-font pr-44 kustify-center items-center">
           {authStore.isAuthenticated() ? (
             <div className="mt-8 ">
-               <Link
-                href="#"
-                onClick={() => setActiveLink("المحادثات")}
+                            <Link
+                href="/"
+                onClick={() => setActiveLink("الرئيسية")}
                 className={`mr-8 py-1 no-underline tracking-wide transition text-sm duration-700 ease-in-out ${
-                  activeLink === "المحادثات"
+                  activeLink === "الرئيسية"
                     ? "border-b-2 border-gray-100  text-gray-100 -translate-y-[4px]"
                     : "border-b-2 border-transparent opacity-50"
                 }`}
               >
-                المحادثات
+                الرئيسية
+              </Link>
+              <Link
+                href="/Housing"
+                onClick={() => setActiveLink("المساكن")}
+                className={`mr-8 py-1 no-underline tracking-wide transition text-sm duration-700 ease-in-out ${
+                  activeLink === "المساكن"
+                    ? "border-b-2 border-gray-100  text-gray-100 -translate-y-[4px]"
+                    : "border-b-2 border-transparent opacity-50"
+                }`}
+              >
+                المساكن
               </Link>
               <Link
                 href="#"
@@ -97,28 +108,20 @@ const Navbar = observer(({ initialActiveLink } ) => {
                 الحجوزات
               </Link>
               
-              <Link
-                href="/Housing"
-                onClick={() => setActiveLink("المساكن")}
+               <Link
+                href="#"
+                onClick={() => setActiveLink("المحادثات")}
                 className={`mr-8 py-1 no-underline tracking-wide transition text-sm duration-700 ease-in-out ${
-                  activeLink === "المساكن"
+                  activeLink === "المحادثات"
                     ? "border-b-2 border-gray-100  text-gray-100 -translate-y-[4px]"
                     : "border-b-2 border-transparent opacity-50"
                 }`}
               >
-                المساكن
+                المحادثات
               </Link>
-              <Link
-                href="/"
-                onClick={() => setActiveLink("الرئيسية")}
-                className={`mr-8 py-1 no-underline tracking-wide transition text-sm duration-700 ease-in-out ${
-                  activeLink === "الرئيسية"
-                    ? "border-b-2 border-gray-100  text-gray-100 -translate-y-[4px]"
-                    : "border-b-2 border-transparent opacity-50"
-                }`}
-              >
-                الرئيسية
-              </Link>
+              
+            
+
               
               </div>
           ) : (
